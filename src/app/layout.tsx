@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -12,8 +12,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: '#061026',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://nyayapath.in"),
+  applicationName: "NyayaPath",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "NyayaPath",
+  },
   title: {
     default: "NyayaPath — Citizen Grievance Intelligence & Legal Complaint Router",
     template: "%s | NyayaPath"
@@ -148,7 +162,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[#061026] text-slate-100 font-sans selection:bg-amber-500/30">
+      <body className="min-h-full w-full max-w-[100vw] overflow-x-hidden flex flex-col bg-[#061026] text-slate-100 font-sans selection:bg-amber-500/30 antialiased">
         {children}
       </body>
     </html>
