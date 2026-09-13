@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenAI, Type, Schema } from '@google/genai';
 import { checkRateLimit, getClientIp } from '@/lib/rateLimiter';
-import { GEMINI_MODEL, MAX_GRIEVANCE_LENGTH } from '@/lib/gemini';
+import { GEMINI_MODEL, MAX_GRIEVANCE_LENGTH, generateContentWithRetry } from '@/lib/gemini';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
@@ -128,7 +128,7 @@ ROUTING INSTRUCTIONS:
 
 ${langDirective}`;
 
-    const response = await ai.models.generateContent({
+    const response = await generateContentWithRetry(ai, {
       model: GEMINI_MODEL,
       contents: grievance,
       config: {

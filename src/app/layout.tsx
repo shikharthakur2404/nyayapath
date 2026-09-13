@@ -151,14 +151,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('nyayapath-theme');if(t==='dark'){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}}catch(e){}})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full w-full max-w-[100vw] overflow-x-hidden flex flex-col bg-[#061026] text-slate-100 font-sans selection:bg-amber-500/30 antialiased">
+      <body className="min-h-full w-full max-w-[100vw] overflow-x-hidden flex flex-col bg-[#f8fafc] text-slate-900 dark:bg-[#061026] dark:text-slate-100 font-sans selection:bg-amber-500/30 selection:text-amber-900 dark:selection:text-amber-200 antialiased transition-colors duration-150">
         {children}
       </body>
     </html>

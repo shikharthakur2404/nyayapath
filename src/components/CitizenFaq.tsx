@@ -99,27 +99,27 @@ export default function CitizenFaq({ lang = 'hi' }: { lang?: string }) {
 
   return (
     <section className="max-w-4xl mx-auto mt-10 mb-8 px-2 sm:px-4 no-print">
-      <div className="p-4 sm:p-6 rounded-2xl bg-[#081738]/90 border border-blue-800/60 shadow-xl shadow-blue-950/40">
+      <div className="p-4 sm:p-6 rounded-2xl bg-white dark:bg-[#081738]/90 border border-slate-200 dark:border-blue-800/60 shadow-md shadow-slate-200/50 dark:shadow-xl dark:shadow-blue-950/40 transition-colors">
         
         {/* HEADER */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 border-b border-blue-900/60 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 border-b border-slate-200 dark:border-blue-900/60 pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/40 flex items-center justify-center shrink-0">
-              <LionCapitalEmblem className="w-6 h-7 text-amber-400" fill="#f59e0b" />
+            <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-500/15 border border-amber-300 dark:border-amber-500/40 flex items-center justify-center shrink-0">
+              <LionCapitalEmblem className="w-6 h-7 text-amber-500 dark:text-amber-400" fill="#f59e0b" />
             </div>
             <div>
-              <h3 className="text-base sm:text-xl font-bold font-indic text-white flex items-center gap-2">
+              <h3 className="text-base sm:text-xl font-bold font-indic text-slate-900 dark:text-white flex items-center gap-2">
                 <span>{isHindi ? 'नागरिकों के मन में उठने वाले आम सवाल व विधिक अधिकार' : 'Citizen Doubts & Statutory Legal Rights'}</span>
               </h3>
-              <p className="text-xs sm:text-sm text-slate-300 font-sans">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-sans">
                 {isHindi
                   ? 'सरकारी दफ्तरों के नियम, नि:शुल्क अधिकार और सुरक्षा की पूरी जानकारी (CPGRAMS व NALSA मानक)'
                   : 'Official statutory safeguards, resolution timelines, and filing procedures under Indian law'}
               </p>
             </div>
           </div>
-          <span className="text-[11px] sm:text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-950/70 border border-emerald-700/60 text-emerald-300 self-start sm:self-center flex items-center gap-1">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+          <span className="text-[11px] sm:text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-200 dark:border-emerald-700/60 text-emerald-800 dark:text-emerald-300 self-start sm:self-center flex items-center gap-1 shadow-2xs">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             <span>{isHindi ? 'सत्यमेव जयते • विधिक रूप से मान्य' : 'Statutorily Valid'}</span>
           </span>
         </div>
@@ -138,8 +138,8 @@ export default function CitizenFaq({ lang = 'hi' }: { lang?: string }) {
                 key={faq.id}
                 className={`rounded-xl border transition-all duration-200 overflow-hidden ${
                   isOpen
-                    ? 'bg-[#06102a] border-amber-500/60 shadow-md shadow-blue-950/50'
-                    : 'bg-[#061230]/60 border-blue-900/60 hover:border-blue-700/80'
+                    ? 'bg-amber-50/40 dark:bg-[#06102a] border-amber-300 dark:border-amber-500/60 shadow-xs dark:shadow-md dark:shadow-blue-950/50'
+                    : 'bg-slate-50/80 dark:bg-[#061230]/60 border-slate-200 dark:border-blue-900/60 hover:border-slate-300 dark:hover:border-blue-700/80'
                 }`}
               >
                 <button
@@ -150,31 +150,33 @@ export default function CitizenFaq({ lang = 'hi' }: { lang?: string }) {
                 >
                   <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
                     <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                      isOpen ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-blue-950 text-blue-300 border border-blue-800'
+                      isOpen 
+                        ? 'bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-500/40' 
+                        : 'bg-slate-200 dark:bg-blue-950 text-slate-700 dark:text-blue-300 border border-slate-300 dark:border-blue-800'
                     }`}>
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
-                      <span className="text-xs sm:text-sm font-bold text-white font-indic block truncate sm:whitespace-normal">
+                      <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white font-indic block truncate sm:whitespace-normal">
                         {q}
                       </span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
-                    <span className="hidden sm:inline-block text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-950/80 border border-blue-800/80 text-blue-300 font-sans">
+                    <span className="hidden sm:inline-block text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-200 dark:bg-blue-950/80 border border-slate-300 dark:border-blue-800/80 text-slate-700 dark:text-blue-300 font-sans">
                       {tag}
                     </span>
                     <ChevronDown
-                      className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180 text-amber-400' : ''
+                      className={`w-4 h-4 text-slate-400 dark:text-slate-400 transition-transform duration-200 ${
+                        isOpen ? 'rotate-180 text-amber-600 dark:text-amber-400' : ''
                       }`}
                     />
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div className="px-3.5 sm:px-4 pb-4 pt-1 text-xs sm:text-sm text-slate-200 font-indic leading-relaxed border-t border-blue-900/40">
-                    <p className="bg-[#040b1e]/70 p-3 sm:p-3.5 rounded-lg border border-blue-950 text-slate-300">
+                  <div className="px-3.5 sm:px-4 pb-4 pt-1 text-xs sm:text-sm text-slate-700 dark:text-slate-200 font-indic leading-relaxed border-t border-slate-200 dark:border-blue-900/40">
+                    <p className="bg-white dark:bg-[#040b1e]/70 p-3 sm:p-3.5 rounded-lg border border-slate-200 dark:border-blue-950 text-slate-700 dark:text-slate-300">
                       {a}
                     </p>
                   </div>

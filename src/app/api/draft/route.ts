@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenAI, Type, Schema } from '@google/genai';
 import { checkRateLimit, getClientIp } from '@/lib/rateLimiter';
-import { GEMINI_MODEL, MAX_GRIEVANCE_LENGTH, MAX_ANSWER_LENGTH } from '@/lib/gemini';
+import { GEMINI_MODEL, MAX_GRIEVANCE_LENGTH, MAX_ANSWER_LENGTH, generateContentWithRetry } from '@/lib/gemini';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
@@ -114,7 +114,7 @@ INSTRUCTIONS:
    - How many copies to print, where to sign, portal upload procedure, keeping an acknowledged copy.
 `;
 
-    const response = await ai.models.generateContent({
+    const response = await generateContentWithRetry(ai, {
       model: GEMINI_MODEL,
       contents: prompt,
       config: {
