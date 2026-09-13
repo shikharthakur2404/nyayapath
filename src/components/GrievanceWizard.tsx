@@ -726,7 +726,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
     <div className="max-w-4xl mx-auto font-indic">
       {/* LANGUAGE SELECTOR & BURN BAG BAR */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4 px-2 no-print">
-        <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+        <div className="flex items-center gap-2 text-xs sm:text-sm font-mono text-slate-300">
           <Languages className="w-4 h-4 text-emerald-500" />
           <span>Language / ਭਾਸ਼ਾ / भाषा:</span>
         </div>
@@ -734,10 +734,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
           <button
             type="button"
             onClick={() => setShowGuide(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-800/50 text-emerald-300 text-xs font-mono rounded-lg transition-colors cursor-pointer shadow-sm"
+            className="flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-800/50 text-emerald-300 text-xs sm:text-sm font-mono rounded-lg transition-colors cursor-pointer shadow-sm font-medium"
             title="How NyayaPath Works"
           >
-            <Compass className="w-3.5 h-3.5 text-emerald-400" />
+            <Compass className="w-4 h-4 text-emerald-400" />
             <span className="hidden sm:inline">
               {lang === 'hi' ? 'नागरिक मार्गदर्शिका' : lang === 'pa' ? 'ਗਾਈਡ' : lang === 'mr' ? 'मार्गदर्शक' : 'How It Works'}
             </span>
@@ -760,10 +760,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                   setLang(l.id);
                   if (draftLang === 'en' && l.id !== 'en') setDraftLang(l.id);
                 }}
-                className={`px-2.5 py-1 rounded text-xs font-mono whitespace-nowrap transition-colors cursor-pointer ${
+                className={`px-3 py-1.5 rounded text-xs sm:text-sm font-mono whitespace-nowrap transition-colors cursor-pointer font-medium ${
                   lang === l.id 
                     ? 'bg-emerald-500 text-slate-950 font-bold shadow-sm' 
-                    : 'text-slate-400 hover:text-white'
+                    : 'text-slate-300 hover:text-white'
                 }`}
               >
                 {l.native}
@@ -774,10 +774,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
           {(step > 1 || grievance.length > 0) && (
             <button
               onClick={handleDestroyCase}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-red-950/40 hover:bg-red-900/60 border border-red-900/40 text-red-300 text-xs font-mono rounded-lg transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 bg-red-950/40 hover:bg-red-900/60 border border-red-900/40 text-red-300 text-xs sm:text-sm font-mono rounded-lg transition-colors cursor-pointer font-medium"
               title="Irreversibly purge all case state from this browser"
             >
-              <Flame className="w-3.5 h-3.5 text-red-400" />
+              <Flame className="w-4 h-4 text-red-400" />
               <span className="hidden sm:inline">{t.btnDestroy}</span>
             </button>
           )}
@@ -786,7 +786,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
 
       {/* INLINE ERROR BANNER */}
       {errorMessage && (
-        <div className="mb-4 p-4 rounded-xl bg-red-950/60 border border-red-800/80 text-red-200 text-xs font-mono flex items-start justify-between gap-3 animate-in fade-in duration-200 no-print">
+        <div className="mb-4 p-4 rounded-xl bg-red-950/60 border border-red-800/80 text-red-200 text-xs sm:text-sm font-mono flex items-start justify-between gap-3 animate-in fade-in duration-200 no-print">
           <div className="flex items-start gap-2.5">
             <XCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
             <span>{errorMessage}</span>
@@ -806,7 +806,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
           type="button"
           onClick={() => step > 1 && setStep(1)}
           disabled={step === 1}
-          className={`p-3 rounded-xl border text-left transition-all ${
+          className={`p-3 sm:p-3.5 rounded-xl border text-left transition-all ${
             step === 1
               ? 'bg-emerald-950/50 border-emerald-500/60 shadow-lg shadow-emerald-950/30 ring-1 ring-emerald-500/30'
               : step > 1
@@ -814,10 +814,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               : 'bg-slate-950/40 border-slate-900 opacity-60 cursor-not-allowed'
           }`}
         >
-          <div className="flex items-center gap-2">
-            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 ${
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-mono font-bold shrink-0 ${
               step === 1 
-                ? 'bg-emerald-500 text-slate-950' 
+                ? 'bg-emerald-500 text-slate-950 shadow-sm' 
                 : step > 1 
                 ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' 
                 : 'bg-slate-800 text-slate-500'
@@ -825,10 +825,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               {step > 1 ? '✓' : '1'}
             </div>
             <div className="min-w-0">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+              <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
                 {lang === 'hi' ? 'पहला कदम' : 'Step 1'}
               </p>
-              <p className={`text-xs sm:text-sm font-semibold truncate ${step === 1 ? 'text-white' : 'text-slate-300'}`}>
+              <p className={`text-xs sm:text-base font-bold truncate ${step === 1 ? 'text-white' : 'text-slate-300'}`}>
                 {lang === 'hi' ? '1. क्या हुआ?' : '1. What Happened?'}
               </p>
             </div>
@@ -839,7 +839,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
           type="button"
           onClick={() => step > 2 && setStep(2)}
           disabled={step < 2}
-          className={`p-3 rounded-xl border text-left transition-all ${
+          className={`p-3 sm:p-3.5 rounded-xl border text-left transition-all ${
             step === 2
               ? 'bg-emerald-950/50 border-emerald-500/60 shadow-lg shadow-emerald-950/30 ring-1 ring-emerald-500/30'
               : step > 2
@@ -847,10 +847,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               : 'bg-slate-950/40 border-slate-900 opacity-60 cursor-not-allowed'
           }`}
         >
-          <div className="flex items-center gap-2">
-            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 ${
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-mono font-bold shrink-0 ${
               step === 2 
-                ? 'bg-emerald-500 text-slate-950' 
+                ? 'bg-emerald-500 text-slate-950 shadow-sm' 
                 : step > 2 
                 ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' 
                 : 'bg-slate-800 text-slate-500'
@@ -858,10 +858,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               {step > 2 ? '✓' : '2'}
             </div>
             <div className="min-w-0">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+              <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
                 {lang === 'hi' ? 'दूसरा कदम' : 'Step 2'}
               </p>
-              <p className={`text-xs sm:text-sm font-semibold truncate ${step === 2 ? 'text-white' : 'text-slate-300'}`}>
+              <p className={`text-xs sm:text-base font-bold truncate ${step === 2 ? 'text-white' : 'text-slate-300'}`}>
                 {lang === 'hi' ? '2. सरकारी दफ्तर' : '2. Which Department?'}
               </p>
             </div>
@@ -869,25 +869,25 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
         </button>
 
         <div
-          className={`p-3 rounded-xl border text-left transition-all ${
+          className={`p-3 sm:p-3.5 rounded-xl border text-left transition-all ${
             step === 3
               ? 'bg-emerald-950/50 border-emerald-500/60 shadow-lg shadow-emerald-950/30 ring-1 ring-emerald-500/30'
               : 'bg-slate-950/40 border-slate-900 opacity-60'
           }`}
         >
-          <div className="flex items-center gap-2">
-            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 ${
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-mono font-bold shrink-0 ${
               step === 3 
-                ? 'bg-emerald-500 text-slate-950' 
+                ? 'bg-emerald-500 text-slate-950 shadow-sm' 
                 : 'bg-slate-800 text-slate-500'
             }`}>
               3
             </div>
             <div className="min-w-0">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+              <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
                 {lang === 'hi' ? 'तीसरा कदम' : 'Step 3'}
               </p>
-              <p className={`text-xs sm:text-sm font-semibold truncate ${step === 3 ? 'text-white' : 'text-slate-400'}`}>
+              <p className={`text-xs sm:text-base font-bold truncate ${step === 3 ? 'text-white' : 'text-slate-400'}`}>
                 {lang === 'hi' ? '3. अर्जी तैयार!' : '3. Letter Ready!'}
               </p>
             </div>
@@ -901,10 +901,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
           <div className="space-y-5">
             <div className="flex items-center justify-between border-b border-slate-800 pb-4">
               <div className="flex items-center gap-3">
-                <ShieldAlert className="w-6 h-6 text-emerald-500 shrink-0" />
+                <ShieldAlert className="w-7 h-7 text-emerald-500 shrink-0" />
                 <div>
-                  <h2 className="text-xl font-mono text-white font-bold">{t.intakeTitle}</h2>
-                  <p className="text-xs text-slate-400 font-mono">
+                  <h2 className="text-xl sm:text-2xl font-mono text-white font-bold">{t.intakeTitle}</h2>
+                  <p className="text-xs sm:text-sm text-slate-300 font-mono mt-0.5">
                     {t.intakeDesc}
                   </p>
                 </div>
@@ -912,8 +912,8 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             </div>
 
             {/* COMPACT FIRST-TIME CITIZEN GUIDE STRIP */}
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 flex flex-wrap items-center justify-between gap-2.5 text-xs font-mono">
-              <div className="flex items-center gap-2 text-slate-300">
+            <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80 flex flex-wrap items-center justify-between gap-2.5 text-xs sm:text-sm font-mono">
+              <div className="flex items-center gap-2.5 text-slate-200">
                 <Compass className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>
                   {lang === 'hi'
@@ -924,24 +924,24 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               <button
                 type="button"
                 onClick={() => setShowGuide(true)}
-                className="text-emerald-400 hover:text-emerald-300 underline font-semibold cursor-pointer shrink-0"
+                className="text-xs sm:text-sm text-emerald-400 hover:text-emerald-300 underline font-semibold cursor-pointer shrink-0"
               >
                 {lang === 'hi' ? 'मार्गदर्शिका देखें (Guide) →' : 'How It Works →'}
               </button>
             </div>
 
             {/* QUICK SCENARIO STARTER TEMPLATE CHIPS */}
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1.5 font-semibold">
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="text-xs sm:text-sm font-mono text-slate-300 uppercase tracking-wider flex items-center gap-1.5 font-bold">
+                  <Sparkles className="w-4 h-4 text-emerald-400" />
                   <span>{lang === 'hi' ? 'सीधे चुनने के लिए क्लिक करें (आम समस्याएं):' : 'Common Issues (Click to pick):'}</span>
                 </span>
                 {grievance.length > 0 && (
                   <button
                     type="button"
                     onClick={() => setGrievance('')}
-                    className="text-[11px] font-mono text-slate-500 hover:text-red-400 transition-colors cursor-pointer"
+                    className="text-xs sm:text-sm font-mono text-slate-400 hover:text-red-400 transition-colors cursor-pointer font-medium"
                   >
                     {lang === 'hi' ? 'हटाएं (Clear)' : 'Clear'}
                   </button>
@@ -959,15 +959,15 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                         const tpl = sc.template[lang] || sc.template.en;
                         setGrievance(tpl);
                       }}
-                      className="p-3 rounded-lg bg-slate-950/70 hover:bg-slate-900 border border-slate-800/80 hover:border-emerald-500/50 text-left transition-all cursor-pointer group shadow-sm hover:shadow-emerald-950/20"
+                      className="p-3.5 rounded-lg bg-slate-950/70 hover:bg-slate-900 border border-slate-800/80 hover:border-emerald-500/50 text-left transition-all cursor-pointer group shadow-sm hover:shadow-emerald-950/20"
                     >
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-base shrink-0">{sc.icon}</span>
-                        <span className="text-xs font-mono font-semibold text-slate-200 group-hover:text-emerald-300 truncate">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="text-lg shrink-0">{sc.icon}</span>
+                        <span className="text-sm sm:text-base font-bold text-slate-100 group-hover:text-emerald-300 truncate">
                           {title}
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-400 leading-snug line-clamp-2">
+                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-2">
                         {sub}
                       </p>
                     </button>
@@ -981,15 +981,15 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               {isListening ? (
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3.5 bg-red-950/40 border border-red-500/50 rounded-xl">
                   <div className="flex items-center gap-3">
-                    <div className="relative flex items-center justify-center w-9 h-9 shrink-0">
-                      <span className="w-9 h-9 rounded-full bg-red-500/40 animate-ping absolute" />
-                      <span className="w-3.5 h-3.5 rounded-full bg-red-500" />
+                    <div className="relative flex items-center justify-center w-10 h-10 shrink-0">
+                      <span className="w-10 h-10 rounded-full bg-red-500/40 animate-ping absolute" />
+                      <span className="w-4 h-4 rounded-full bg-red-500" />
                     </div>
                     <div>
-                      <p className="text-xs sm:text-sm font-mono font-bold text-red-200 flex items-center gap-2">
+                      <p className="text-sm sm:text-base font-bold text-red-200 flex items-center gap-2">
                         <span>🔴 आपकी बात रिकॉर्ड हो रही है ({activeLangObj.native} • {activeLangObj.label})</span>
                       </p>
-                      <p className="text-[11px] text-slate-300">
+                      <p className="text-xs sm:text-sm text-slate-200 mt-0.5">
                         साफ-साफ बोलें। आपकी कही बात नीचे बॉक्स में अपने आप लिखी जा रही है।
                       </p>
                     </div>
@@ -997,7 +997,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                   <button
                     type="button"
                     onClick={toggleVoiceInput}
-                    className="w-full sm:w-auto px-4 py-2 bg-red-600 hover:bg-red-500 text-white text-xs font-mono font-bold rounded-lg transition-colors cursor-pointer shadow-sm flex items-center justify-center gap-1.5"
+                    className="w-full sm:w-auto px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white text-xs sm:text-sm font-mono font-bold rounded-lg transition-colors cursor-pointer shadow-sm flex items-center justify-center gap-1.5"
                   >
                     <MicOff className="w-4 h-4" />
                     <span>बोलना पूरा हुआ (बंद करें)</span>
@@ -1006,17 +1006,17 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               ) : (
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
                       <Mic className="w-5 h-5 text-emerald-400" />
                     </div>
                     <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                      <h4 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
                         <span>बोलकर बताएं (माइक दबाएं)</span>
-                        <span className="text-[10px] font-normal text-emerald-300 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded">
+                        <span className="text-xs font-semibold text-emerald-300 bg-emerald-950/60 border border-emerald-800/60 px-2.5 py-0.5 rounded">
                           {activeLangObj.native} ({activeLangObj.label})
                         </span>
                       </h4>
-                      <p className="text-[11px] text-slate-400 leading-snug">
+                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mt-0.5">
                         लिखने में परेशानी हो रही है? माइक दबाकर सीधे अपनी भाषा में बोलें।
                       </p>
                     </div>
@@ -1024,19 +1024,19 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
 
                   <div className="flex items-center gap-2 shrink-0">
                     {!isSpeechSupported ? (
-                      <span className="text-[11px] font-mono text-slate-500">
+                      <span className="text-xs sm:text-sm font-mono text-slate-400">
                         (इस ब्राउज़र में माइक उपलब्ध नहीं है — नीचे टाइप करें)
                       </span>
                     ) : !speechLocaleMap[lang] ? (
-                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-amber-950/40 border border-amber-800/40 text-amber-300">
-                        <MicOff className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-mono bg-amber-950/40 border border-amber-800/40 text-amber-300">
+                        <MicOff className="w-4 h-4 text-amber-400 shrink-0" />
                         <span>{activeLangObj.native} में माइक उपलब्ध नहीं है (नीचे लिखें या हिन्दी चुनें)</span>
                       </div>
                     ) : (
                       <button
                         type="button"
                         onClick={toggleVoiceInput}
-                        className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-mono bg-emerald-600 hover:bg-emerald-500 text-white transition-all cursor-pointer font-bold shadow-md shadow-emerald-950/50"
+                        className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-mono bg-emerald-600 hover:bg-emerald-500 text-white transition-all cursor-pointer font-bold shadow-md shadow-emerald-950/50"
                         title={`अपनी भाषा में बोलें (${activeLangObj.native})`}
                       >
                         <Mic className="w-4 h-4 text-white animate-pulse" />
@@ -1051,21 +1051,21 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             <textarea
               value={grievance}
               onChange={(e) => setGrievance(e.target.value)}
-              className="w-full h-48 bg-slate-950 border border-slate-800 rounded-lg p-4 text-slate-200 text-sm focus:border-emerald-500 focus:outline-none leading-relaxed shadow-inner"
+              className="w-full h-52 bg-slate-950 border border-slate-800 rounded-lg p-4 text-slate-100 text-base sm:text-lg focus:border-emerald-500 focus:outline-none leading-relaxed shadow-inner placeholder:text-slate-500"
               placeholder={t.placeholder}
               maxLength={4000}
             />
-            <div className="flex justify-between items-center text-[11px] font-mono text-slate-500">
-              <span className="flex items-center gap-1">
-                <Lock className="w-3 h-3 text-emerald-500" />
+            <div className="flex justify-between items-center text-xs sm:text-sm font-mono text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <Lock className="w-4 h-4 text-emerald-500" />
                 <span>100% सुरक्षित • केवल आपके फोन/कंप्यूटर पर (Zero-Retention)</span>
               </span>
-              <span>{grievance.length} / 4000</span>
+              <span className="font-semibold">{grievance.length} / 4000</span>
             </div>
             <button
               onClick={handleAnalyze}
               disabled={loading || !grievance.trim()}
-              className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-mono rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer font-semibold shadow-md shadow-emerald-950/40"
+              className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-mono text-base sm:text-lg rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer font-bold shadow-md shadow-emerald-950/40"
             >
               {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <ChevronRight className="w-5 h-5" />}
               {t.btnAnalyze}
@@ -1079,37 +1079,37 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             {/* EMERGENCY ALERT BANNER IF PHYSICAL DANGER DETECTED */}
             {classification.emergency_danger_detected && (
               <div className="bg-red-950/40 border border-red-800/80 p-4 rounded-lg space-y-2">
-                <div className="flex items-center gap-2 text-red-400 font-mono font-bold text-sm">
+                <div className="flex items-center gap-2 text-red-400 font-mono font-bold text-sm sm:text-base">
                   <PhoneCall className="w-4 h-4" />
                   {t.emergencyTitle}
                 </div>
-                <p className="text-xs text-red-200 font-mono">
+                <p className="text-xs sm:text-sm text-red-200 font-mono">
                   {classification.emergency_guidance}
                 </p>
-                <div className="flex flex-wrap gap-3 pt-2 text-[11px] font-mono text-red-300">
-                  <span className="bg-red-900/40 px-2 py-1 rounded border border-red-800/50">{t.emergencyPolice}</span>
-                  <span className="bg-red-900/40 px-2 py-1 rounded border border-red-800/50">{t.emergencyWomen}</span>
-                  <span className="bg-red-900/40 px-2 py-1 rounded border border-red-800/50">{t.emergencyCyber}</span>
+                <div className="flex flex-wrap gap-3 pt-2 text-xs font-mono text-red-200">
+                  <span className="bg-red-900/40 px-2.5 py-1 rounded border border-red-800/50">{t.emergencyPolice}</span>
+                  <span className="bg-red-900/40 px-2.5 py-1 rounded border border-red-800/50">{t.emergencyWomen}</span>
+                  <span className="bg-red-900/40 px-2.5 py-1 rounded border border-red-800/50">{t.emergencyCyber}</span>
                 </div>
               </div>
             )}
 
             {/* READINESS METER & SCORE WITH QUALITATIVE APPRAISAL */}
             <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2.5 shadow-sm">
-              <div className="flex flex-wrap items-center justify-between font-mono text-xs text-slate-300 gap-2">
+              <div className="flex flex-wrap items-center justify-between font-mono text-xs sm:text-sm text-slate-300 gap-2">
                 <span className="flex items-center gap-2 text-emerald-400 font-bold">
                   <TrendingUp className="w-4 h-4" />
                   <span>{t.readinessTitle}</span>
                 </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-mono hidden sm:inline text-slate-300">
+                  <span className="text-xs sm:text-sm font-mono hidden sm:inline text-slate-200 font-medium">
                     {classification.readiness_score >= 80 
                       ? (lang === 'hi' ? '✓ मजबूत शिकायत (अधिकारी टाल नहीं पाएंगे)' : '✓ Strong Complaint (Authorities cannot ignore)') 
                       : classification.readiness_score >= 50 
                       ? (lang === 'hi' ? '• अच्छी शिकायत — नीचे 2-3 जरूरी बातें और बताएं' : '• Good Merit — Clarify 2-3 points below') 
                       : (lang === 'hi' ? '⚠️ अधूरी शिकायत — खारिज होने से बचाने के लिए उत्तर दें' : '⚠️ Gaps Found — Answer below to prevent rejection')}
                   </span>
-                  <span className="font-bold text-sm text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded">
+                  <span className="font-bold text-sm sm:text-base text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2.5 py-0.5 rounded">
                     {classification.readiness_score}%
                   </span>
                 </div>
@@ -1132,15 +1132,15 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             <div className="bg-slate-950 border border-slate-800 rounded-xl p-5 space-y-4 shadow-lg">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-950/60 border border-emerald-800/60 flex items-center justify-center shrink-0">
+                  <div className="w-9 h-9 rounded-lg bg-emerald-950/60 border border-emerald-800/60 flex items-center justify-center shrink-0">
                     <Landmark className="w-4 h-4 text-emerald-400" />
                   </div>
                   <div>
-                    <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold">
+                    <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                       <span>{t.detectedJurisdiction}</span>
                     </div>
-                    <h3 className="text-white text-base sm:text-lg font-bold tracking-tight">
+                    <h3 className="text-white text-lg sm:text-xl font-bold tracking-tight">
                       {classification.target_authority}
                     </h3>
                   </div>
@@ -1151,7 +1151,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                     href={classification.authority_portal_url} 
                     target="_blank" 
                     rel="noreferrer" 
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-950/50 hover:bg-blue-900/60 border border-blue-800/60 text-blue-300 text-xs font-mono transition-colors font-semibold"
+                    className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg bg-blue-950/50 hover:bg-blue-900/60 border border-blue-800/60 text-blue-300 text-xs sm:text-sm font-mono transition-colors font-semibold"
                   >
                     <ExternalLink className="w-3.5 h-3.5 text-blue-400" />
                     <span>{t.officialPortal}</span>
@@ -1160,10 +1160,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               </div>
               
               <div className="space-y-1.5">
-                <span className="text-[11px] uppercase tracking-wider text-slate-400 font-mono block font-semibold">
+                <span className="text-xs sm:text-sm uppercase tracking-wider text-slate-300 font-mono block font-bold">
                   {t.routingWhyTitle}
                 </span>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed bg-slate-900/40 p-3 rounded-lg border border-slate-800/60">
+                <p className="text-sm sm:text-base text-slate-200 leading-relaxed bg-slate-900/40 p-3.5 rounded-lg border border-slate-800/60">
                   {classification.routing_explanation}
                 </p>
               </div>
@@ -1173,7 +1173,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             {classification.whistleblower_eligible && (
               <div className="bg-amber-950/30 border border-amber-900/50 p-4 rounded-xl flex items-start gap-3 shadow-sm">
                 <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-                <p className="text-xs text-amber-200/90 leading-relaxed">
+                <p className="text-xs sm:text-sm text-amber-200/95 leading-relaxed">
                   {t.whistleblowerNotice}
                 </p>
               </div>
@@ -1183,13 +1183,13 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* TIMELINE */}
               <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2.5">
-                <h4 className="text-xs font-mono text-slate-300 flex items-center gap-1.5 uppercase tracking-wider font-semibold">
+                <h4 className="text-xs sm:text-sm font-mono text-slate-200 flex items-center gap-1.5 uppercase tracking-wider font-bold">
                   <Clock className="w-3.5 h-3.5 text-blue-400" />
                   <span>{t.timelineTitle}</span>
                 </h4>
-                <ul className="space-y-2 text-xs text-slate-300">
+                <ul className="space-y-2 text-xs sm:text-sm text-slate-200">
                   {classification.timeline && classification.timeline.map((evt: string, i: number) => (
-                    <li key={i} className="flex items-start gap-2 bg-slate-900/40 p-2 rounded border border-slate-800/50">
+                    <li key={i} className="flex items-start gap-2 bg-slate-900/40 p-2.5 rounded border border-slate-800/50">
                       <span className="text-blue-400 font-bold mt-0.5">•</span>
                       <span className="leading-relaxed">{evt}</span>
                     </li>
@@ -1199,13 +1199,13 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
 
               {/* EVIDENCE MATRIX */}
               <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2.5">
-                <h4 className="text-xs font-mono text-slate-300 flex items-center gap-1.5 uppercase tracking-wider font-semibold">
+                <h4 className="text-xs sm:text-sm font-mono text-slate-200 flex items-center gap-1.5 uppercase tracking-wider font-bold">
                   <Briefcase className="w-3.5 h-3.5 text-emerald-400" />
                   <span>{t.evidenceMatrixTitle}</span>
                 </h4>
-                <ul className="space-y-2 text-xs text-slate-300">
+                <ul className="space-y-2 text-xs sm:text-sm text-slate-200">
                   {classification.evidence_checklist && classification.evidence_checklist.map((ev: string, i: number) => (
-                    <li key={i} className="flex items-start gap-2 bg-slate-900/40 p-2 rounded border border-slate-800/50">
+                    <li key={i} className="flex items-start gap-2 bg-slate-900/40 p-2.5 rounded border border-slate-800/50">
                       <span className="text-emerald-400 font-bold mt-0.5">✓</span>
                       <span className="leading-relaxed">{ev}</span>
                     </li>
@@ -1216,19 +1216,19 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
 
             {/* CLARIFYING GAP-CLOSING QUESTIONS */}
             <div className="space-y-4">
-              <div className="flex items-center gap-2 text-white font-mono text-sm">
-                <HelpCircle className="w-4 h-4 text-emerald-400" />
+              <div className="flex items-center gap-2 text-white font-mono text-base sm:text-lg font-bold">
+                <HelpCircle className="w-5 h-5 text-emerald-400" />
                 <h3>{t.clarifyingQuestionsTitle}</h3>
               </div>
-              <p className="text-xs text-slate-400 font-mono">{t.clarifyingQuestionsDesc}</p>
+              <p className="text-xs sm:text-sm text-slate-300 font-mono">{t.clarifyingQuestionsDesc}</p>
               {classification.clarifying_questions && classification.clarifying_questions.map((q: string, idx: number) => (
                 <div key={idx} className="space-y-2">
-                  <label className="text-sm text-slate-300 block">{idx + 1}. {q}</label>
+                  <label className="text-sm sm:text-base text-slate-200 block font-semibold">{idx + 1}. {q}</label>
                   <input
                     type="text"
                     value={answers[idx] || ''}
                     onChange={(e) => setAnswers({ ...answers, [idx]: e.target.value })}
-                    className="w-full bg-slate-950 border border-slate-800 rounded p-3 text-slate-200 text-sm focus:border-emerald-500 focus:outline-none"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3.5 text-slate-100 text-sm sm:text-base focus:border-emerald-500 focus:outline-none"
                     maxLength={1000}
                   />
                 </div>
@@ -1236,8 +1236,8 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             </div>
 
             {/* DECOUPLED DRAFT OUTPUT LANGUAGE SELECTOR (ALL 9 LANGUAGES + BILINGUAL) */}
-            <div className="p-4 bg-slate-950/60 border border-slate-800 rounded-lg space-y-2.5">
-              <label className="text-xs font-mono text-slate-300 block">{t.draftLangLabel}</label>
+            <div className="p-4 bg-slate-950/60 border border-slate-800 rounded-xl space-y-2.5">
+              <label className="text-xs sm:text-sm font-mono text-slate-300 block font-semibold">{t.draftLangLabel}</label>
               <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                 {[
                   { id: 'en', label: 'English' },
@@ -1255,10 +1255,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                     key={option.id}
                     type="button"
                     onClick={() => setDraftLang(option.id)}
-                    className={`px-2.5 py-2 rounded text-xs font-mono text-center border transition-colors cursor-pointer ${
+                    className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-mono text-center border transition-colors cursor-pointer font-medium ${
                       draftLang === option.id 
                         ? 'border-emerald-500 bg-emerald-500/15 text-emerald-300 font-bold shadow-sm'
-                        : 'border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                        : 'border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white'
                     }`}
                   >
                     {option.label}
@@ -1270,7 +1270,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             <button
               onClick={handleDraft}
               disabled={loading}
-              className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-mono rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer font-medium"
+              className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-mono text-base sm:text-lg rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer font-bold shadow-md shadow-emerald-950/40"
             >
               {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <FileCheck2 className="w-5 h-5" />}
               {t.btnGenerateDraft}
@@ -1282,30 +1282,30 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
         {step === 3 && draftData && (
           <div className="space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
-              <h2 className="text-xl font-mono text-white flex items-center gap-2">
-                <FileText className="w-5 h-5 text-emerald-500" /> {t.draftReadyTitle}
+              <h2 className="text-xl sm:text-2xl font-mono text-white flex items-center gap-2.5 font-bold">
+                <FileText className="w-6 h-6 text-emerald-500" /> {t.draftReadyTitle}
               </h2>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <button
                   onClick={handleCopy}
-                  className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono rounded flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-mono rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer font-semibold"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                   {copied ? t.btnCopied : t.btnCopy}
                 </button>
                 <button
                   onClick={handlePrint}
-                  className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono rounded flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-mono rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer font-semibold"
                   title="Prints or saves A4 PDF using native vector fonts for 100% Indic glyph fidelity"
                 >
-                  <Printer className="w-3.5 h-3.5 text-blue-400" />
+                  <Printer className="w-4 h-4 text-blue-400" />
                   {t.btnPrint}
                 </button>
                 <button
                   onClick={() => generatePDF(draftData.formal_draft, 'NyayaPath_Formal_Complaint.pdf')}
-                  className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono rounded flex items-center gap-1.5 transition-colors cursor-pointer font-medium"
+                  className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-mono rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer font-bold shadow-sm"
                 >
-                  <Download className="w-3.5 h-3.5" />
+                  <Download className="w-4 h-4" />
                   {t.btnExportPdf}
                 </button>
               </div>
@@ -1315,40 +1315,40 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             <div className="flex items-center gap-2 border-b border-slate-800">
               <button
                 onClick={() => handleTabChange('formal')}
-                className={`pb-2 px-3 text-xs font-mono transition-colors border-b-2 cursor-pointer ${
+                className={`pb-2.5 px-3.5 sm:px-4 text-xs sm:text-sm font-mono transition-colors border-b-2 cursor-pointer font-semibold ${
                   activeTab === 'formal'
                     ? 'border-emerald-500 text-emerald-400 font-bold'
                     : 'border-transparent text-slate-400 hover:text-slate-200'
                 }`}
               >
                 <span className="flex items-center gap-1.5">
-                  <FileText className="w-3.5 h-3.5" />
+                  <FileText className="w-4 h-4" />
                   {t.tabFormal}
                 </span>
               </button>
               <button
                 onClick={() => handleTabChange('citizen')}
-                className={`pb-2 px-3 text-xs font-mono transition-colors border-b-2 cursor-pointer ${
+                className={`pb-2.5 px-3.5 sm:px-4 text-xs sm:text-sm font-mono transition-colors border-b-2 cursor-pointer font-semibold ${
                   activeTab === 'citizen'
                     ? 'border-emerald-500 text-emerald-400 font-bold'
                     : 'border-transparent text-slate-400 hover:text-slate-200'
                 }`}
               >
                 <span className="flex items-center gap-1.5">
-                  <Eye className="w-3.5 h-3.5" />
+                  <Eye className="w-4 h-4" />
                   {t.tabCitizen}
                 </span>
               </button>
               <button
                 onClick={() => handleTabChange('escalation')}
-                className={`pb-2 px-3 text-xs font-mono transition-colors border-b-2 cursor-pointer ${
+                className={`pb-2.5 px-3.5 sm:px-4 text-xs sm:text-sm font-mono transition-colors border-b-2 cursor-pointer font-semibold ${
                   activeTab === 'escalation'
                     ? 'border-emerald-500 text-emerald-400 font-bold'
                     : 'border-transparent text-slate-400 hover:text-slate-200'
                 }`}
               >
                 <span className="flex items-center gap-1.5">
-                  <ListTodo className="w-3.5 h-3.5" />
+                  <ListTodo className="w-4 h-4" />
                   {t.tabEscalation}
                 </span>
               </button>
@@ -1359,26 +1359,26 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               <div className="rounded-xl border border-slate-800 overflow-hidden bg-slate-950 shadow-2xl">
                 {/* CIVIC COURT LETTERHEAD / DOCKET STRIP */}
                 <div className="p-4 bg-slate-900/90 border-b border-slate-800 space-y-2">
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm font-mono">
                     <div className="flex items-center gap-2 text-slate-200">
                       <Scale className="w-4 h-4 text-emerald-400" />
                       <span className="font-bold tracking-wider text-white uppercase">
                         {lang === 'hi' ? 'भारत गणराज्य • कानूनी शिकायत पत्र' : 'REPUBLIC OF INDIA • OFFICIAL LEGAL COMPLAINT'}
                       </span>
                     </div>
-                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-950/50 border border-emerald-800/60 text-emerald-300 text-[11px] font-mono font-semibold">
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-950/50 border border-emerald-800/60 text-emerald-300 text-xs font-mono font-semibold">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                       <span>{lang === 'hi' ? 'मान्य कानूनी प्रारूप' : 'Standard Legal Format'}</span>
                     </div>
                   </div>
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-800/60">
-                    <span>{lang === 'hi' ? 'सेवा में:' : 'To:'} <strong className="text-slate-200">{classification?.target_authority || 'Competent Authority'}</strong></span>
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm font-mono text-slate-300 pt-1 border-t border-slate-800/60">
+                    <span>{lang === 'hi' ? 'सेवा में:' : 'To:'} <strong className="text-slate-100 font-semibold">{classification?.target_authority || 'Competent Authority'}</strong></span>
                     <span>{lang === 'hi' ? 'प्रारूप: प्रिंट हेतु A4 साइज' : 'Format: A4 Print Ready'}</span>
                   </div>
                 </div>
 
                 <div className="p-6 max-h-[60vh] overflow-y-auto">
-                  <pre className="text-slate-300 font-legal-serif text-sm whitespace-pre-wrap leading-relaxed selection:bg-emerald-500/30">
+                  <pre className="text-slate-100 font-legal-serif text-base sm:text-lg whitespace-pre-wrap leading-relaxed selection:bg-emerald-500/30">
                     {draftData.formal_draft}
                   </pre>
                 </div>
@@ -1391,11 +1391,11 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                 {/* AUDIO HUD HEADER BAR */}
                 <div className="p-4 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
                   <div className="space-y-0.5">
-                    <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-400">
+                    <div className="flex items-center gap-2 text-sm sm:text-base font-mono font-bold text-emerald-400">
                       <Eye className="w-4 h-4" />
                       <span>{lang === 'hi' ? 'सरल नागरिक सारांश' : 'Citizen Plain-Language Summary'}</span>
                     </div>
-                    <p className="text-[11px] font-mono text-slate-400">
+                    <p className="text-xs sm:text-sm font-mono text-slate-300">
                       {lang === 'hi'
                         ? 'अपनी अर्जी, मांगे गए दस्तावेज और कानूनी अधिकारों को आसान भाषा में समझें या सुनें।'
                         : 'Everyday breakdown of rights, statutory claims, and evidence demanded on your behalf.'}
@@ -1410,7 +1410,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                           <button
                             type="button"
                             onClick={() => startAudioPlayback(draftData.citizen_view)}
-                            className="flex items-center gap-2 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-mono transition-all cursor-pointer font-semibold shadow-sm hover:shadow-emerald-950/40"
+                            className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs sm:text-sm font-mono transition-all cursor-pointer font-bold shadow-sm hover:shadow-emerald-950/40"
                             title={`Listen to this explanation in ${draftLangLabel} (${draftLangNative})`}
                           >
                             <Volume2 className="w-4 h-4" />
@@ -1418,7 +1418,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                           </button>
                         ) : (
                           <div
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] font-mono text-slate-400"
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs sm:text-sm font-mono text-slate-400"
                             title={`Your device does not have an installed voice pack for ${draftLangLabel}.`}
                           >
                             <MicOff className="w-3.5 h-3.5 text-slate-500" />
@@ -1427,7 +1427,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                         )
                       ) : (
                         <div className="flex items-center gap-2.5 bg-slate-950 border border-emerald-500/50 px-3 py-1.5 rounded-lg shadow-sm">
-                          <div className="flex items-center gap-1.5 text-xs font-mono text-emerald-400">
+                          <div className="flex items-center gap-1.5 text-xs sm:text-sm font-mono text-emerald-400">
                             <Volume2 className="w-4 h-4 animate-pulse" />
                             <span>{isAudioPaused ? (lang === 'hi' ? 'रुका हुआ' : 'Paused') : (lang === 'hi' ? `सुनाई दे रहा है (${draftLangNative})...` : `Reading (${draftLangNative})...`)}</span>
                           </div>
@@ -1469,7 +1469,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                 </div>
 
                 <div className="p-6 max-h-[60vh] overflow-y-auto">
-                  <div className="text-slate-300 text-sm whitespace-pre-wrap leading-relaxed">
+                  <div className="text-slate-100 text-base sm:text-lg whitespace-pre-wrap leading-relaxed">
                     {draftData.citizen_view}
                   </div>
                 </div>
@@ -1480,11 +1480,11 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             {activeTab === 'escalation' && (
               <div className="bg-slate-950 border border-slate-800 rounded-xl p-6 max-h-[60vh] overflow-y-auto space-y-6 shadow-2xl">
                 <div>
-                  <h4 className="text-xs uppercase tracking-wider text-emerald-400 font-mono mb-3 font-semibold flex items-center gap-1.5">
+                  <h4 className="text-xs sm:text-sm uppercase tracking-wider text-emerald-400 font-mono mb-3 font-bold flex items-center gap-1.5">
                     <CheckCircle2 className="w-4 h-4" />
                     <span>{t.submissionChecklistTitle}</span>
                   </h4>
-                  <ul className="space-y-2 text-xs text-slate-300 font-mono">
+                  <ul className="space-y-2 text-xs sm:text-sm text-slate-200 font-mono">
                     {draftData.submission_checklist && draftData.submission_checklist.map((item: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2.5 bg-slate-900/60 p-3 rounded-lg border border-slate-800/70">
                         <span className="text-emerald-400 font-bold mt-0.5">□</span>
@@ -1495,17 +1495,17 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                 </div>
 
                 <div>
-                  <h4 className="text-xs uppercase tracking-wider text-blue-400 font-mono mb-3 font-semibold flex items-center gap-1.5">
+                  <h4 className="text-xs sm:text-sm uppercase tracking-wider text-blue-400 font-mono mb-3 font-bold flex items-center gap-1.5">
                     <ListTodo className="w-4 h-4" />
                     <span>{t.tabEscalation}</span>
                   </h4>
                   <div className="space-y-3">
                     {draftData.escalation_steps && draftData.escalation_steps.map((stepDesc: string, idx: number) => (
                       <div key={idx} className="flex items-start gap-3 bg-slate-900/60 p-3.5 rounded-lg border border-slate-800/70">
-                        <div className="w-6 h-6 rounded-full bg-blue-950 border border-blue-800 text-blue-400 flex items-center justify-center text-xs font-mono font-bold shrink-0">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-blue-950 border border-blue-800 text-blue-400 flex items-center justify-center text-xs sm:text-sm font-mono font-bold shrink-0">
                           {idx + 1}
                         </div>
-                        <p className="text-xs text-slate-300 leading-relaxed">
+                        <p className="text-xs sm:text-sm text-slate-200 leading-relaxed mt-0.5">
                           {stepDesc}
                         </p>
                       </div>
@@ -1518,12 +1518,12 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
               <button
                 onClick={handleRestart}
-                className="text-xs text-slate-400 hover:text-white font-mono flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="text-xs sm:text-sm text-slate-300 hover:text-white font-mono flex items-center gap-1.5 transition-colors cursor-pointer font-semibold"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
+                <RotateCcw className="w-4 h-4" />
                 {t.btnRestart}
               </button>
-              <p className="text-[11px] text-slate-500 font-mono text-right">
+              <p className="text-xs sm:text-sm text-slate-400 font-mono text-right">
                 {t.zeroRetentionNotice}
               </p>
             </div>
@@ -1548,13 +1548,13 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                   <Compass className="w-5 h-5 text-emerald-400" />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                     <span>{lang === 'hi' ? 'आसान मार्गदर्शिका' : 'How NyayaPath Works'}</span>
-                    <span className="text-emerald-400 text-xs sm:text-sm font-normal">
+                    <span className="text-emerald-400 text-xs sm:text-sm font-semibold">
                       {lang === 'hi' ? '• 4 आसान कदम' : '• 4 Simple Steps'}
                     </span>
                   </h3>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs sm:text-sm text-slate-300 mt-0.5">
                     {lang === 'hi'
                       ? 'अपनी समस्या को सही कानूनी शिकायत पत्र में बदलने का आसान तरीका।'
                       : 'Simple 4-step process to create your official legal complaint letter.'}
@@ -1576,18 +1576,18 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                 const title = g.title[lang] || g.title.en;
                 const desc = g.desc[lang] || g.desc.en;
                 return (
-                  <div key={g.step} className="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800 flex items-start gap-3.5 hover:border-emerald-500/40 transition-colors">
-                    <div className="w-7 h-7 rounded-lg bg-emerald-950 border border-emerald-800/60 text-emerald-400 flex items-center justify-center font-bold text-xs shrink-0">
+                  <div key={g.step} className="p-3.5 sm:p-4 rounded-xl bg-slate-900/70 border border-slate-800 flex items-start gap-3.5 hover:border-emerald-500/40 transition-colors">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-950 border border-emerald-800/60 text-emerald-400 flex items-center justify-center font-bold text-sm shrink-0">
                       {g.step}
                     </div>
                     <div className="space-y-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <h4 className="text-xs sm:text-sm font-bold text-slate-100">{title}</h4>
-                        <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                        <h4 className="text-sm sm:text-base font-bold text-slate-100">{title}</h4>
+                        <span className="text-xs px-2.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 font-semibold">
                           {lang === 'hi' ? `कदम ${g.badge}` : `Step ${g.badge}`}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-400 leading-relaxed font-sans">
+                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
                         {desc}
                       </p>
                     </div>
@@ -1597,12 +1597,12 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             </div>
 
             {/* TRUST & ZERO RETENTION NOTICE */}
-            <div className="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/40 space-y-1.5 text-xs text-slate-400">
-              <div className="flex items-center gap-2 text-emerald-400 font-bold">
-                <ShieldCheck className="w-4 h-4" />
+            <div className="p-4 rounded-xl bg-slate-950 border border-emerald-900/40 space-y-1.5 text-xs sm:text-sm text-slate-300">
+              <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm sm:text-base">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <span>{lang === 'hi' ? '🔒 100% नि:शुल्क व पूरी तरह सुरक्षित (Full Privacy)' : '🔒 100% Free & Completely Private'}</span>
               </div>
-              <p className="text-[11px] leading-relaxed text-slate-300">
+              <p className="text-xs sm:text-sm leading-relaxed text-slate-200">
                 {lang === 'hi'
                   ? 'फोन नंबर या किसी आईडी की जरूरत नहीं। आपकी लिखी कोई भी बात किसी सर्वर पर सेव नहीं होती। जब चाहें सब मिटा सकते हैं।'
                   : 'No phone number or login needed. Your complaint is never saved on any server.'}
@@ -1612,7 +1612,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             {/* PRIMARY CTA BUTTON */}
             <button
               onClick={() => setShowGuide(false)}
-              className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl transition-colors cursor-pointer shadow-md shadow-emerald-950/40"
+              className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm sm:text-base rounded-xl transition-colors cursor-pointer shadow-md shadow-emerald-950/40"
             >
               {lang === 'hi' ? 'समझ गया • शुरू करें' : 'Got It • Start'}
             </button>
