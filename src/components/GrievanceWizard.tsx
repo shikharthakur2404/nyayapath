@@ -88,33 +88,36 @@ const ttsLocaleMap: Record<string, string> = {
 
 const EMPTY_VOICES: SpeechSynthesisVoice[] = [];
 let cachedVoices: SpeechSynthesisVoice[] = EMPTY_VOICES;
+let isVoiceCacheInitialized = false;
+
+function updateVoiceCache() {
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    const current = window.speechSynthesis.getVoices();
+    if (current && current.length > 0) {
+      cachedVoices = current;
+    }
+  }
+}
 
 function subscribeVoices(callback: () => void) {
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
     return () => {};
   }
-  window.speechSynthesis.addEventListener('voiceschanged', callback);
+  const handler = () => {
+    updateVoiceCache();
+    callback();
+  };
+  window.speechSynthesis.addEventListener('voiceschanged', handler);
   return () => {
-    window.speechSynthesis.removeEventListener('voiceschanged', callback);
+    window.speechSynthesis.removeEventListener('voiceschanged', handler);
   };
 }
 
 function getVoicesSnapshot(): SpeechSynthesisVoice[] {
-  if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-    return EMPTY_VOICES;
+  if (!isVoiceCacheInitialized) {
+    updateVoiceCache();
+    isVoiceCacheInitialized = true;
   }
-  const current = window.speechSynthesis.getVoices();
-  if (current.length === cachedVoices.length && current.length > 0) {
-    let matches = true;
-    for (let i = 0; i < current.length; i++) {
-      if (current[i] !== cachedVoices[i]) {
-        matches = false;
-        break;
-      }
-    }
-    if (matches) return cachedVoices;
-  }
-  cachedVoices = current;
   return cachedVoices;
 }
 
