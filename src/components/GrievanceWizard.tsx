@@ -37,7 +37,9 @@ import {
   Landmark,
   Lock,
   Sparkles,
-  ExternalLink
+  ExternalLink,
+  Compass,
+  X
 } from 'lucide-react';
 
 interface ClassificationResult {
@@ -170,6 +172,92 @@ const QUICK_SCENARIOS: QuickScenario[] = [
   }
 ];
 
+interface GuideStepItem {
+  step: string;
+  badge: string;
+  title: Record<string, string>;
+  desc: Record<string, string>;
+}
+
+const GUIDE_STEPS: GuideStepItem[] = [
+  {
+    step: '01',
+    badge: 'Intake',
+    title: {
+      en: 'Speak or Type Your Problem',
+      hi: 'अपनी भाषा में समस्या बोलें या लिखें',
+      pa: 'ਆਪਣੀ ਬੋਲੀ ਵਿੱਚ ਸਮੱਸਿਆ ਬੋਲੋ ਜਾਂ ਲਿਖੋ',
+      mr: 'आपल्या भाषेत तक्रार बोला किंवा लिहा',
+      bn: 'আপনার ভাষায় অভিযোগ বলুন বা লিখুন',
+      ta: 'உங்கள் மொழியில் புகாரை பேசுங்கள் அல்லது எழுதுங்கள்',
+      te: 'మీ స్వభాషలో సమస్యను మాట్లాడండి లేదా రాయండి',
+      gu: 'તમારી ભાષામાં સમસ્યા બોલો અથવા લખો',
+      kn: 'ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಸಮಸ್ಯೆಯನ್ನು ಮಾತನಾಡಿ ಅಥವಾ ಬರೆಯಿರಿ'
+    },
+    desc: {
+      en: 'Narrate what happened in plain language. Use the microphone for live voice dictation or choose a quick scenario (Bribe, FIR refusal, Ration denial, Cyber fraud). No legal jargon needed.',
+      hi: 'जो हुआ उसे साधारण शब्दों में बताएं। माइक से बोलें या त्वरित परिदृश्य (रिश्वत, FIR न लिखना, राशन कटौती, साइबर ठगी) चुनें। किसी कानूनी शब्दावली की आवश्यकता नहीं है।'
+    }
+  },
+  {
+    step: '02',
+    badge: 'Legal Routing',
+    title: {
+      en: 'AI Determines Jurisdiction & Readiness',
+      hi: 'अधिकार क्षेत्र व तत्परता स्कोर का निर्धारण',
+      pa: 'ਅਧਿਕਾਰ ਖੇਤਰ ਅਤੇ ਰੈਡੀਨੈੱਸ ਸਕੋਰ',
+      mr: 'अधिकार क्षेत्र आणि सज्जता स्कोर',
+      bn: 'এখতিয়ার এবং প্রস্তুতি স্কোর নির্ধারণ',
+      ta: 'அதிகார வரம்பு மற்றும் தயார்நிலை மதிப்பீடு',
+      te: 'అధికార పరిధి మరియు సంసిద్ధత స్కోర్',
+      gu: 'અધિકાર ક્ષેત્ર અને સજ્જતા સ્કોર',
+      kn: 'ಅಧಿಕಾರ ವ್ಯಾಪ್ತಿ ಮತ್ತು ಸನ್ನದ್ಧತೆ ಸ್ಕೋರ್'
+    },
+    desc: {
+      en: 'NyayaPath matches your issue to the correct statutory body (Central CVC, State Lokayukta, ACB, or Police) and calculates an Evidentiary Readiness Score (0-100%) to avoid rejection.',
+      hi: 'न्यायपथ आपकी शिकायत को सही सक्षम संस्था (केंद्रीय सीवीसी, राज्य लोकायुक्त, एसीबी या पुलिस) से जोड़ता है और शिकायत खारिज होने से बचाने हेतु 0-100% स्कोर तैयार करता है।'
+    }
+  },
+  {
+    step: '03',
+    badge: 'Gap Closing',
+    title: {
+      en: 'Close Procedural & Evidence Gaps',
+      hi: 'साक्ष्य व प्रक्रियात्मक कमियों को दूर करें',
+      pa: 'ਕਾਨੂੰਨੀ ਕਮੀਆਂ ਨੂੰ ਦੂਰ ਕਰੋ',
+      mr: 'पुरावे आणि त्रुटी पूर्ण करा',
+      bn: 'প্রক্রিয়াগত ফাঁক পূরণ করুন',
+      ta: 'ஆதார இடைவெளிகளை நிரப்பவும்',
+      te: 'ఆధారాల లోపాలను సరిదిద్దండి',
+      gu: 'પુરાવાઓની ક્ષતિઓ પૂર્ણ કરો',
+      kn: 'ಸಾಕ್ಷ್ಯಗಳ ಕೊರತೆಗಳನ್ನು ಪೂರ್ಣಗೊಳಿಸಿ'
+    },
+    desc: {
+      en: 'Answer 2-3 focused clarifying questions (e.g. incident dates, officer designations, receipt numbers) to make your complaint legally robust and dismiss-proof.',
+      hi: 'केवल 2-3 स्पष्ट प्रश्नों (जैसे घटना का दिनांक, अधिकारी का पद, आवेदन संख्या) का उत्तर देकर अपनी शिकायत को कानूनी रूप से मजबूत बनाएं।'
+    }
+  },
+  {
+    step: '04',
+    badge: 'Filing & Audio',
+    title: {
+      en: 'Export Formal Petition & Listen Aloud',
+      hi: 'औपचारिक कानूनी ड्राफ्ट व ऑडियो प्राप्त करें',
+      pa: 'ਕਾਨੂੰਨੀ ਡਰਾਫਟ ਅਤੇ ਆਡੀਓ ਸੁਣੋ',
+      mr: 'औपचारिक तक्रार आणि ऑडिओ ऐका',
+      bn: 'আনুষ্ঠানিক আইনি খসড়া এবং অডিও শুনুন',
+      ta: 'முறையான புகார் மற்றும் ஆடியோ கேட்கவும்',
+      te: 'అధికారిక ఫిర్యాదు మరియు ఆడియో వినండి',
+      gu: 'ઔપચારિક ફરિયાદ અને ઑડિયો સાંભળો',
+      kn: 'ಅಧಿಕೃತ ದೂರು ಮತ್ತು ಆಡಿಯೊ ಆಲಿಸಿ'
+    },
+    desc: {
+      en: 'Download court-formatted A4 vector PDF dossier, listen aloud to citizen plain view in your selected language, or submit via the direct official portal link with a 30-day escalation ladder.',
+      hi: 'न्यायालयीन प्रारूप में A4 वेक्टर PDF डाउनलोड करें, अपनी भाषा में साधारण सारांश सुनें, या 30-दिवसीय अनुवर्ती योजना के साथ आधिकारिक पोर्टल पर प्रस्तुत करें।'
+    }
+  }
+];
+
 const speechLocaleMap: Record<Language, string | null> = {
   en: 'en-IN',
   hi: 'hi-IN',
@@ -249,6 +337,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
   const [draftData, setDraftData] = useState<DraftResult | null>(null);
   const [activeTab, setActiveTab] = useState<'formal' | 'citizen' | 'escalation'>('formal');
   const [copied, setCopied] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
 
   // Voice Input State (Step 2: Indic & English speech intake)
   const [isListening, setIsListening] = useState(false);
@@ -641,8 +730,21 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
           <Languages className="w-4 h-4 text-emerald-500" />
           <span>Language / ਭਾਸ਼ਾ / भाषा:</span>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1 bg-slate-900 border border-slate-800 p-1 rounded-lg overflow-x-auto max-w-[300px] sm:max-w-md scrollbar-none">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={() => setShowGuide(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-800/50 text-emerald-300 text-xs font-mono rounded-lg transition-colors cursor-pointer shadow-sm"
+            title="How NyayaPath Works"
+          >
+            <Compass className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="hidden sm:inline">
+              {lang === 'hi' ? 'नागरिक मार्गदर्शिका' : lang === 'pa' ? 'ਗਾਈਡ' : lang === 'mr' ? 'मार्गदर्शक' : 'How It Works'}
+            </span>
+            <span className="sm:hidden">Guide</span>
+          </button>
+
+          <div className="flex items-center gap-1 bg-slate-900 border border-slate-800 p-1 rounded-lg overflow-x-auto max-w-[200px] sm:max-w-md scrollbar-none">
             {languagesList.map((l) => (
               <button
                 key={l.id}
@@ -795,6 +897,25 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* COMPACT FIRST-TIME CITIZEN GUIDE STRIP */}
+            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 flex flex-wrap items-center justify-between gap-2.5 text-xs font-mono">
+              <div className="flex items-center gap-2 text-slate-300">
+                <Compass className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>
+                  {lang === 'hi'
+                    ? 'नागरिक मार्गदर्शिका: 1. विवरण दर्ज करें → 2. अधिकार क्षेत्र जाँचें → 3. कानूनी ड्राफ्ट व ऑडियो प्राप्त करें।'
+                    : 'Citizen Roadmap: 1. State incident → 2. AI maps statutory jurisdiction → 3. Export court-ready dossier.'}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowGuide(true)}
+                className="text-emerald-400 hover:text-emerald-300 underline font-semibold cursor-pointer shrink-0"
+              >
+                {lang === 'hi' ? 'विस्तृत गाइड देखें (60s) →' : 'Quick Guide (60s) →'}
+              </button>
             </div>
 
             {/* QUICK SCENARIO STARTER TEMPLATE CHIPS */}
@@ -1382,6 +1503,89 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
           </div>
         )}
       </div>
+
+      {/* INTERACTIVE CITIZEN GUIDANCE MODAL */}
+      {showGuide && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setShowGuide(false)}
+        >
+          <div 
+            className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#070b16] border border-slate-700/90 rounded-2xl shadow-2xl p-5 sm:p-6 space-y-5 text-slate-200 font-mono relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* MODAL HEADER */}
+            <div className="flex items-start justify-between border-b border-slate-800 pb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-emerald-950/60 border border-emerald-800/60 flex items-center justify-center shrink-0">
+                  <Compass className="w-5 h-5 text-emerald-400" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                    <span>Citizen Guidance Roadmap</span>
+                    <span className="text-emerald-400 text-xs sm:text-sm font-normal">नागरिक मार्गदर्शिका</span>
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    4-step protocol for converting bureaucratic friction into structured legal action.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowGuide(false)}
+                className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
+                title="Close Guide"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* 4 ROADMAP STEP CARDS */}
+            <div className="space-y-3">
+              {GUIDE_STEPS.map((g) => {
+                const title = g.title[lang] || g.title.en;
+                const desc = g.desc[lang] || g.desc.en;
+                return (
+                  <div key={g.step} className="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800 flex items-start gap-3.5 hover:border-emerald-500/40 transition-colors">
+                    <div className="w-7 h-7 rounded-lg bg-emerald-950 border border-emerald-800/60 text-emerald-400 flex items-center justify-center font-bold text-xs shrink-0">
+                      {g.step}
+                    </div>
+                    <div className="space-y-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-xs sm:text-sm font-bold text-slate-100">{title}</h4>
+                        <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                          {g.badge}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-400 leading-relaxed font-sans">
+                        {desc}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* TRUST & ZERO RETENTION NOTICE */}
+            <div className="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/40 space-y-1.5 text-xs text-slate-400">
+              <div className="flex items-center gap-2 text-emerald-400 font-bold">
+                <ShieldCheck className="w-4 h-4" />
+                <span>Strict Zero Retention (DPDPA 2023) & Whistleblower Shield</span>
+              </div>
+              <p className="text-[11px] leading-relaxed">
+                No phone number or login needed. All inputs and drafts reside strictly in browser memory. Purge everything anytime via the <strong className="text-red-400">Destroy Case</strong> button.
+              </p>
+            </div>
+
+            {/* PRIMARY CTA BUTTON */}
+            <button
+              onClick={() => setShowGuide(false)}
+              className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl transition-colors cursor-pointer shadow-md shadow-emerald-950/40"
+            >
+              {lang === 'hi' ? 'समझ गया • शुरू करें' : 'Got It • Start'}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* PRINT-ONLY VIEW FOR PRINTER/PDF EXPORT */}
       {draftData && (
