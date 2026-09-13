@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useSyncExternalStore } from 'react';
 import { generatePDF, printDocument } from '@/lib/pdfGenerator';
 import { translations, languagesList, Language } from '@/lib/translations';
 import { 
@@ -25,7 +25,9 @@ import {
   TrendingUp,
   PhoneCall,
   ListTodo,
-  XCircle
+  XCircle,
+  Mic,
+  MicOff
 } from 'lucide-react';
 
 interface ClassificationResult {
@@ -71,12 +73,117 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
   const [activeTab, setActiveTab] = useState<'formal' | 'citizen' | 'escalation'>('formal');
   const [copied, setCopied] = useState(false);
 
+  // Voice Input State (Step 1: English en-IN only)
+  const [isListening, setIsListening] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const recognitionRef = useRef<any>(null);
+
+  // Feature detect SpeechRecognition cleanly on client
+  const isSpeechSupported = useSyncExternalStore(
+    () => () => {},
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    () => typeof window !== 'undefined' && Boolean((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition),
+    () => false
+  );
+
+  useEffect(() => {
+    return () => {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.abort();
+        } catch {
+          // graceful ignore
+        }
+      }
+    };
+  }, []);
+
   // Sync document language attribute for accessibility and screen readers
   useEffect(() => {
     if (typeof document !== 'undefined') {
       document.documentElement.lang = lang;
     }
   }, [lang]);
+
+  const toggleVoiceInput = () => {
+    if (isListening) {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch {
+          // graceful ignore
+        }
+      }
+      setIsListening(false);
+      return;
+    }
+
+    setErrorMessage(null);
+
+    // Feature detect
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const SpeechRecognitionAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognitionAPI) {
+      setErrorMessage('Voice input is not supported in your current browser. You can type your grievance directly below.');
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognitionAPI();
+      recognitionRef.current = recognition;
+
+      // STEP 1: Strict English only (en-IN)
+      recognition.lang = 'en-IN';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      recognition.onresult = (event: any) => {
+        const transcript = event.results?.[0]?.[0]?.transcript;
+        if (transcript) {
+          setGrievance((prev) => {
+            const trimmed = prev.trim();
+            return trimmed ? `${trimmed} ${transcript}` : transcript;
+          });
+        }
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      recognition.onerror = (event: any) => {
+        setIsListening(false);
+        if (event.error === 'no-speech' || event.error === 'aborted') {
+          // Graceful silent reset if user tapped but paused or canceled
+          return;
+        }
+        if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+          setErrorMessage('Microphone access was blocked. Please allow microphone permissions in your browser settings to speak, or type directly below.');
+          return;
+        }
+        if (event.error === 'audio-capture') {
+          setErrorMessage('No microphone hardware detected on this device. You can type your grievance directly below.');
+          return;
+        }
+        if (event.error === 'network') {
+          setErrorMessage('No internet connection for voice recognition right now — you can still type your grievance directly.');
+          return;
+        }
+        setErrorMessage(`Voice recognition issue (${event.error}). You can continue typing directly below.`);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.start();
+    } catch {
+      setIsListening(false);
+      setErrorMessage('Could not initialize voice input. You can type directly below.');
+    }
+  };
 
   const t = translations[lang] || translations.en;
 
@@ -240,6 +347,44 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             <p className="text-sm text-slate-400 font-mono leading-relaxed">
               {t.intakeDesc}
             </p>
+
+            {/* VOICE INPUT CONTROLS & PRIVACY DISCLOSURE (STEP 1: ENGLISH ONLY) */}
+            <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
+              <div className="flex items-center gap-2">
+                {isSpeechSupported ? (
+                  <button
+                    type="button"
+                    onClick={toggleVoiceInput}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer ${
+                      isListening
+                        ? 'bg-red-500/20 border border-red-500 text-red-300 animate-pulse font-bold'
+                        : 'bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200'
+                    }`}
+                    title="Speak grievance in English"
+                  >
+                    {isListening ? (
+                      <>
+                        <MicOff className="w-3.5 h-3.5 text-red-400" />
+                        <span>Listening... (Tap to finish)</span>
+                      </>
+                    ) : (
+                      <>
+                        <Mic className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Speak Grievance (English)</span>
+                      </>
+                    )}
+                  </button>
+                ) : (
+                  <span className="text-[11px] font-mono text-slate-500">
+                    Voice input not supported in this browser (typing available below)
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] font-mono text-slate-400/90">
+                Voice audio is processed by your device&apos;s speech service (not stored by NyayaPath).
+              </p>
+            </div>
+
             <textarea
               value={grievance}
               onChange={(e) => setGrievance(e.target.value)}
