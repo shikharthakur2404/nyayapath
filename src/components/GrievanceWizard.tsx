@@ -57,6 +57,18 @@ interface GrievanceWizardProps {
   initialLang?: Language;
 }
 
+const speechLocaleMap: Record<Language, string> = {
+  en: 'en-IN',
+  hi: 'hi-IN',
+  pa: 'pa-IN',
+  mr: 'mr-IN',
+  bn: 'bn-IN',
+  ta: 'ta-IN',
+  te: 'te-IN',
+  gu: 'gu-IN',
+  kn: 'kn-IN',
+};
+
 export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardProps) {
   const [lang, setLang] = useState<Language>(initialLang);
   const [draftLang, setDraftLang] = useState<string>('en');
@@ -73,7 +85,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
   const [activeTab, setActiveTab] = useState<'formal' | 'citizen' | 'escalation'>('formal');
   const [copied, setCopied] = useState(false);
 
-  // Voice Input State (Step 1: English en-IN only)
+  // Voice Input State (Step 2: Indic & English speech intake)
   const [isListening, setIsListening] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
@@ -132,8 +144,8 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
       const recognition = new SpeechRecognitionAPI();
       recognitionRef.current = recognition;
 
-      // STEP 1: Strict English only (en-IN)
-      recognition.lang = 'en-IN';
+      // STEP 2: Indic & English speech recognition mapped to active language
+      recognition.lang = speechLocaleMap[lang] || 'en-IN';
       recognition.continuous = false;
       recognition.interimResults = false;
 
@@ -171,6 +183,11 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
           setErrorMessage('No internet connection for voice recognition right now — you can still type your grievance directly.');
           return;
         }
+        if (event.error === 'language-not-supported') {
+          const currentLangName = languagesList.find((l) => l.id === lang)?.native || lang;
+          setErrorMessage(`Voice recognition for ${currentLangName} is not supported by your browser's speech engine. You can type your grievance directly below.`);
+          return;
+        }
         setErrorMessage(`Voice recognition issue (${event.error}). You can continue typing directly below.`);
       };
 
@@ -186,6 +203,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
   };
 
   const t = translations[lang] || translations.en;
+  const activeLangObj = languagesList.find((l) => l.id === lang) || languagesList[0];
 
   const handleAnalyze = async () => {
     if (!grievance.trim()) return;
@@ -293,6 +311,14 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               <button
                 key={l.id}
                 onClick={() => {
+                  if (isListening && recognitionRef.current) {
+                    try {
+                      recognitionRef.current.abort();
+                    } catch {
+                      // safe ignore
+                    }
+                    setIsListening(false);
+                  }
                   setLang(l.id);
                   if (draftLang === 'en' && l.id !== 'en') setDraftLang(l.id);
                 }}
@@ -348,7 +374,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               {t.intakeDesc}
             </p>
 
-            {/* VOICE INPUT CONTROLS & PRIVACY DISCLOSURE (STEP 1: ENGLISH ONLY) */}
+            {/* VOICE INPUT CONTROLS & PRIVACY DISCLOSURE */}
             <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
               <div className="flex items-center gap-2">
                 {isSpeechSupported ? (
@@ -360,17 +386,17 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                         ? 'bg-red-500/20 border border-red-500 text-red-300 animate-pulse font-bold'
                         : 'bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200'
                     }`}
-                    title="Speak grievance in English"
+                    title={`Speak grievance in ${activeLangObj.label} (${activeLangObj.native})`}
                   >
                     {isListening ? (
                       <>
                         <MicOff className="w-3.5 h-3.5 text-red-400" />
-                        <span>Listening... (Tap to finish)</span>
+                        <span>Listening ({activeLangObj.native})... (Tap to finish)</span>
                       </>
                     ) : (
                       <>
                         <Mic className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>Speak Grievance (English)</span>
+                        <span>Speak Grievance ({activeLangObj.native})</span>
                       </>
                     )}
                   </button>
