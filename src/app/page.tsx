@@ -21,10 +21,32 @@ export default async function Home({ searchParams }: PageProps) {
   const initialLang: Language = validLanguages.includes(rawLang as Language) ? (rawLang as Language) : 'en';
 
   return (
-    <main className="min-h-screen bg-[#050811] text-slate-100 py-6 px-4 selection:bg-emerald-500/30 selection:text-emerald-200">
+    <main className="min-h-screen bg-[#050811] text-slate-100 py-6 px-4 selection:bg-emerald-500/30 selection:text-emerald-200 relative overflow-x-hidden">
       
+      {/* 0. AMBIENT BACKGROUND CONSTITUTIONAL WATERMARKS & SLOGANS */}
+      <div 
+        aria-hidden="true" 
+        className="fixed inset-0 pointer-events-none select-none overflow-hidden z-0 flex flex-col justify-between py-8 opacity-[0.035] space-y-12 no-print"
+      >
+        <div className="-rotate-2 text-xl sm:text-3xl font-mono uppercase tracking-[0.4em] font-bold whitespace-nowrap text-emerald-400">
+          ॥ सत्यमेव जयते ॥ SATYAMEVA JAYATE • TRUTH ALONE TRIUMPHS • यतो धर्मस्ततो जयः • WHERE THERE IS JUSTICE, THERE IS VICTORY • मा गृधः कस्यस्विद्धनम् • DO NOT COVET ANYONE&apos;S WEALTH
+        </div>
+        <div className="rotate-2 text-xl sm:text-3xl font-mono uppercase tracking-[0.4em] font-bold whitespace-nowrap text-blue-400">
+          JUSTICE • LIBERTY • EQUALITY • FRATERNITY • न्याय • स्वतंत्रता • समता • बंधुता • CONSTITUTION OF INDIA • ARTICLE 21 • RIGHT TO FAIR ADMINISTRATIVE PROCESS
+        </div>
+        <div className="-rotate-1 text-xl sm:text-3xl font-mono uppercase tracking-[0.4em] font-bold whitespace-nowrap text-purple-400">
+          WHISTLE BLOWERS PROTECTION ACT 2014 • CENTRAL VIGILANCE COMMISSION • 28 STATES & 8 UT LOKAYUKTA REDRESSAL • ANTI-CORRUPTION BUREAU • CITIZEN SOVEREIGNTY
+        </div>
+        <div className="rotate-2 text-xl sm:text-3xl font-mono uppercase tracking-[0.4em] font-bold whitespace-nowrap text-emerald-400">
+          ॥ धर्मो रक्षति रक्षितः ॥ DIGITAL PERSONAL DATA PROTECTION ACT 2023 • ZERO RETENTION • EPHEMERAL LOCAL INFERENCE • NO SERVER STORAGE
+        </div>
+        <div className="-rotate-2 text-xl sm:text-3xl font-mono uppercase tracking-[0.4em] font-bold whitespace-nowrap text-amber-400">
+          भयमुक्त नागरिक • पारदर्शी प्रशासन • DEMOCRACY THROUGH STATUTORY ACCOUNTABILITY • NO CITIZEN STANDS ALONE BEFORE ADMINISTRATIVE POWER
+        </div>
+      </div>
+
       {/* 1. TOP STATUTORY & CITIZEN EMERGENCY HELPLINES BAR */}
-      <header className="max-w-4xl mx-auto mb-6 p-2 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-slate-400 no-print">
+      <header className="max-w-4xl mx-auto mb-4 p-2 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-slate-400 relative z-10 no-print">
         <div className="flex items-center gap-2 text-emerald-400 font-semibold px-2">
           <PhoneCall className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
           <span>National Citizen Helplines:</span>
@@ -48,8 +70,30 @@ export default async function Home({ searchParams }: PageProps) {
         </div>
       </header>
 
+      {/* CIVIC MOTTO & STATUTORY VALUE RIBBON */}
+      <div className="max-w-4xl mx-auto mb-6 px-4 py-2 rounded-xl bg-slate-900/40 border border-slate-800/60 backdrop-blur-sm flex flex-wrap items-center justify-around gap-3 text-xs font-mono text-slate-400 relative z-10 no-print">
+        <div className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <span className="text-emerald-500 font-bold">॥</span>
+          <span className="tracking-wide">सत्यमेव जयते</span>
+          <span className="text-emerald-500 font-bold">॥</span>
+          <span className="text-[10px] text-slate-500 font-normal hidden sm:inline">(Truth Alone Triumphs)</span>
+        </div>
+        <div className="flex items-center gap-1.5 text-blue-400 font-semibold">
+          <span className="text-blue-500 font-bold">॥</span>
+          <span className="tracking-wide">यतो धर्मस्ततो जयः</span>
+          <span className="text-blue-500 font-bold">॥</span>
+          <span className="text-[10px] text-slate-500 font-normal hidden sm:inline">(Where Justice Prevails, Victory Follows)</span>
+        </div>
+        <div className="flex items-center gap-1.5 text-amber-400 font-semibold">
+          <span className="text-amber-500 font-bold">॥</span>
+          <span className="tracking-wide">मा गृधः कस्यस्विद्धनम्</span>
+          <span className="text-amber-500 font-bold">॥</span>
+          <span className="text-[10px] text-slate-500 font-normal hidden sm:inline">(Do Not Covet Another&apos;s Wealth)</span>
+        </div>
+      </div>
+
       {/* 2. HERO BRANDING & CIVIC AUTHORITY CREST */}
-      <section className="max-w-4xl mx-auto mb-8 text-center space-y-4 no-print">
+      <section className="max-w-4xl mx-auto mb-8 text-center space-y-4 relative z-10 no-print">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-800/50 text-emerald-300 text-xs font-mono shadow-sm">
           <Scale className="w-4 h-4 text-emerald-400" />
           <span className="font-semibold tracking-wide">National Citizen Grievance Intelligence & Legal Router</span>
@@ -115,10 +159,12 @@ export default async function Home({ searchParams }: PageProps) {
       </section>
       
       {/* 5. INTERACTIVE GRIEVANCE WIZARD */}
-      <GrievanceWizard initialLang={initialLang} />
+      <div className="relative z-10">
+        <GrievanceWizard initialLang={initialLang} />
+      </div>
       
       {/* 6. INSTITUTIONAL FOOTER */}
-      <footer className="max-w-4xl mx-auto mt-12 text-center border-t border-slate-800/60 pt-6 space-y-2 no-print">
+      <footer className="max-w-4xl mx-auto mt-12 text-center border-t border-slate-800/60 pt-6 space-y-2 relative z-10 no-print">
         <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-slate-500">
           <span>Digital Personal Data Protection Act (DPDPA 2023) Compliant</span>
           <span>•</span>
