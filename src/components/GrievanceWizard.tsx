@@ -27,7 +27,11 @@ import {
   ListTodo,
   XCircle,
   Mic,
-  MicOff
+  MicOff,
+  Volume2,
+  Pause,
+  Play,
+  Square
 } from 'lucide-react';
 
 interface ClassificationResult {
@@ -98,8 +102,131 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
     () => false
   );
 
+  // Audio Playback State (Step 3: English Draft Read-Back)
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [isAudioPaused, setIsAudioPaused] = useState(false);
+  const isAudioActive = isPlayingAudio || isAudioPaused;
+  const currentChunkIndexRef = useRef(0);
+  const chunksRef = useRef<string[]>([]);
+
+  // Feature detect SpeechSynthesis cleanly on client
+  const isSynthesisSupported = useSyncExternalStore(
+    () => () => {},
+    () => typeof window !== 'undefined' && 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window,
+    () => false
+  );
+
+  const getEnglishVoice = () => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return null;
+    const voices = window.speechSynthesis.getVoices();
+    return (
+      voices.find((v) => v.lang === 'en-IN') ||
+      voices.find((v) => v.lang.startsWith('en')) ||
+      null
+    );
+  };
+
+  const stopAudio = () => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch {
+        // safe ignore
+      }
+    }
+    chunksRef.current = [];
+    currentChunkIndexRef.current = 0;
+    setIsPlayingAudio(false);
+    setIsAudioPaused(false);
+  };
+
+  const playChunk = (index: number) => {
+    if (index >= chunksRef.current.length) {
+      stopAudio();
+      return;
+    }
+
+    currentChunkIndexRef.current = index;
+    const utterance = new SpeechSynthesisUtterance(chunksRef.current[index]);
+    utterance.lang = 'en-IN';
+    utterance.rate = 0.95;
+
+    const voice = getEnglishVoice();
+    if (voice) utterance.voice = voice;
+
+    utterance.onend = () => {
+      playChunk(index + 1);
+    };
+
+    utterance.onerror = (e) => {
+      if (e.error === 'canceled' || e.error === 'interrupted') return;
+      stopAudio();
+    };
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const startEnglishPlayback = (text: string) => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+    stopAudio();
+
+    const sentences = text
+      .split(/([.?!।\n]+)/)
+      .reduce<string[]>((acc, cur, idx, arr) => {
+        if (idx % 2 === 0) {
+          const punctuation = arr[idx + 1] || '';
+          const full = (cur + punctuation).trim();
+          if (full) acc.push(full);
+        }
+        return acc;
+      }, []);
+
+    if (sentences.length === 0) return;
+
+    chunksRef.current = sentences;
+    setIsPlayingAudio(true);
+    setIsAudioPaused(false);
+    playChunk(0);
+  };
+
+  const pauseAudio = () => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.pause();
+        setIsAudioPaused(true);
+      } catch {
+        // safe ignore
+      }
+    }
+  };
+
+  const resumeAudio = () => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.resume();
+        setIsAudioPaused(false);
+      } catch {
+        // safe ignore
+      }
+    }
+  };
+
+  const handleTabChange = (tab: 'formal' | 'citizen' | 'escalation') => {
+    if (tab !== 'citizen') {
+      stopAudio();
+    }
+    setActiveTab(tab);
+  };
+
   useEffect(() => {
     return () => {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.cancel();
+        } catch {
+          // safe ignore
+        }
+      }
       if (recognitionRef.current) {
         try {
           recognitionRef.current.abort();
@@ -278,6 +405,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
   };
 
   const handleRestart = () => {
+    stopAudio();
     setStep(1);
     setGrievance('');
     setClassification(null);
@@ -288,6 +416,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
 
   const handleDestroyCase = () => {
     if (confirm(t.destroyConfirm)) {
+      stopAudio();
       setStep(1);
       setGrievance('');
       setClassification(null);
@@ -656,7 +785,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             {/* TAB NAVIGATION: FORMAL VIEW vs CITIZEN PLAIN VIEW vs ESCALATION LADDER */}
             <div className="flex items-center gap-2 border-b border-slate-800">
               <button
-                onClick={() => setActiveTab('formal')}
+                onClick={() => handleTabChange('formal')}
                 className={`pb-2 px-3 text-xs font-mono transition-colors border-b-2 cursor-pointer ${
                   activeTab === 'formal'
                     ? 'border-emerald-500 text-emerald-400 font-bold'
@@ -669,7 +798,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                 </span>
               </button>
               <button
-                onClick={() => setActiveTab('citizen')}
+                onClick={() => handleTabChange('citizen')}
                 className={`pb-2 px-3 text-xs font-mono transition-colors border-b-2 cursor-pointer ${
                   activeTab === 'citizen'
                     ? 'border-emerald-500 text-emerald-400 font-bold'
@@ -682,7 +811,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                 </span>
               </button>
               <button
-                onClick={() => setActiveTab('escalation')}
+                onClick={() => handleTabChange('escalation')}
                 className={`pb-2 px-3 text-xs font-mono transition-colors border-b-2 cursor-pointer ${
                   activeTab === 'escalation'
                     ? 'border-emerald-500 text-emerald-400 font-bold'
@@ -708,8 +837,63 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             {/* TAB 2: CITIZEN PLAIN VIEW */}
             {activeTab === 'citizen' && (
               <div className="bg-slate-950 border border-slate-800 rounded-lg p-6 max-h-[60vh] overflow-y-auto space-y-4">
-                <div className="p-3 bg-emerald-950/20 border border-emerald-900/40 rounded text-xs font-mono text-emerald-300">
-                  💡 This section explains in everyday language what the formal statutory document asserts on your behalf.
+                <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-emerald-950/20 border border-emerald-900/40 rounded">
+                  <div className="text-xs font-mono text-emerald-300">
+                    💡 This section explains in everyday language what the formal statutory document asserts on your behalf.
+                  </div>
+
+                  {/* AUDIO PLAYBACK CONTROLS (STEP 3: ENGLISH FIRST) */}
+                  {isSynthesisSupported && (
+                    <div className="flex items-center gap-2 shrink-0">
+                      {!isAudioActive ? (
+                        <button
+                          type="button"
+                          onClick={() => startEnglishPlayback(draftData.citizen_view)}
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-mono transition-colors cursor-pointer font-medium shadow-sm"
+                          title="Listen to this explanation in English"
+                        >
+                          <Volume2 className="w-3.5 h-3.5" />
+                          <span>Listen (English)</span>
+                        </button>
+                      ) : (
+                        <div className="flex items-center gap-2 bg-slate-900 border border-slate-700 px-2.5 py-1 rounded-lg">
+                          <span className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 animate-pulse">
+                            <Volume2 className="w-3.5 h-3.5" />
+                            <span>{isAudioPaused ? 'Paused' : 'Reading...'}</span>
+                          </span>
+
+                          {isAudioPaused ? (
+                            <button
+                              type="button"
+                              onClick={resumeAudio}
+                              className="p-1 text-slate-300 hover:text-white rounded hover:bg-slate-800 transition-colors cursor-pointer"
+                              title="Resume reading"
+                            >
+                              <Play className="w-3.5 h-3.5 fill-current" />
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={pauseAudio}
+                              className="p-1 text-slate-300 hover:text-white rounded hover:bg-slate-800 transition-colors cursor-pointer"
+                              title="Pause reading"
+                            >
+                              <Pause className="w-3.5 h-3.5 fill-current" />
+                            </button>
+                          )}
+
+                          <button
+                            type="button"
+                            onClick={stopAudio}
+                            className="p-1 text-red-400 hover:text-red-300 rounded hover:bg-slate-800 transition-colors cursor-pointer"
+                            title="Stop reading"
+                          >
+                            <Square className="w-3 h-3 fill-current" />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
                 <div className="text-slate-300 text-sm whitespace-pre-wrap leading-relaxed">
                   {draftData.citizen_view}
