@@ -29,10 +29,10 @@ export default async function Home({ searchParams }: PageProps) {
         className="fixed inset-0 pointer-events-none select-none overflow-hidden z-0 flex flex-col justify-between py-8 opacity-[0.035] space-y-12 no-print"
       >
         <div className="-rotate-2 text-xl sm:text-3xl font-mono uppercase tracking-[0.4em] font-bold whitespace-nowrap text-emerald-400">
-          ॥ सत्यमेव जयते ॥ SATYAMEVA JAYATE • TRUTH ALONE TRIUMPHS • यतो धर्मस्ततो जयः • WHERE THERE IS JUSTICE, THERE IS VICTORY • मा गृधः कस्यस्विद्धनम् • DO NOT COVET ANYONE&apos;S WEALTH
+          ॥ भारत गणराज्य ॥ INDIA, THAT IS BHARAT • सत्यमेव जयते • TRUTH ALONE TRIUMPHS • यतो धर्मस्ततो जयः • WHERE THERE IS JUSTICE, THERE IS VICTORY • मा गृधः कस्यस्विद्धनम्
         </div>
         <div className="rotate-2 text-xl sm:text-3xl font-mono uppercase tracking-[0.4em] font-bold whitespace-nowrap text-blue-400">
-          JUSTICE • LIBERTY • EQUALITY • FRATERNITY • न्याय • स्वतंत्रता • समता • बंधुता • CONSTITUTION OF INDIA • ARTICLE 21 • RIGHT TO FAIR ADMINISTRATIVE PROCESS
+          JUSTICE • LIBERTY • EQUALITY • FRATERNITY • न्याय • स्वतंत्रता • समता • बंधुता • CONSTITUTION OF INDIA • ARTICLE 21 • 28 STATES & 8 UNION TERRITORIES
         </div>
         <div className="-rotate-1 text-xl sm:text-3xl font-mono uppercase tracking-[0.4em] font-bold whitespace-nowrap text-purple-400">
           WHISTLE BLOWERS PROTECTION ACT 2014 • CENTRAL VIGILANCE COMMISSION • 28 STATES & 8 UT LOKAYUKTA REDRESSAL • ANTI-CORRUPTION BUREAU • CITIZEN SOVEREIGNTY
@@ -94,15 +94,29 @@ export default async function Home({ searchParams }: PageProps) {
 
       {/* 2. HERO BRANDING & CIVIC AUTHORITY CREST */}
       <section className="max-w-4xl mx-auto mb-8 text-center space-y-4 relative z-10 no-print">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-800/50 text-emerald-300 text-xs font-mono shadow-sm">
-          <Scale className="w-4 h-4 text-emerald-400" />
-          <span className="font-semibold tracking-wide">National Citizen Grievance Intelligence & Legal Router</span>
+        
+        {/* SOVEREIGN ARTICLE 1 IDENTITY CREST */}
+        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/80 text-xs font-mono shadow-md backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-amber-500 shadow-sm shadow-amber-500/50" />
+          <span className="text-amber-400 font-semibold tracking-wider">INDIA</span>
+          <span className="text-slate-600 font-bold">•</span>
+          <span className="text-slate-200 font-medium italic tracking-wide">that is BHARAT</span>
+          <span className="text-slate-600 font-bold">•</span>
+          <span className="text-emerald-400 font-semibold font-indic">भारत गणराज्य</span>
+          <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50" />
         </div>
         
         <h1 className="text-4xl sm:text-6xl font-extrabold font-mono text-white tracking-tight flex items-center justify-center gap-3">
           <span>NyayaPath</span> 
           <span className="text-emerald-400 font-normal font-indic">न्यायपथ</span>
         </h1>
+
+        <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-emerald-400 font-semibold">
+          <Scale className="w-4 h-4 text-emerald-400" />
+          <span>Pan-Bharat Citizen Grievance Intelligence</span>
+          <span className="text-slate-600">•</span>
+          <span className="text-slate-400 font-normal">28 States & 8 Union Territories</span>
+        </div>
         
         <p className="text-xs sm:text-base text-slate-300 font-mono max-w-2xl mx-auto leading-relaxed">
           Transform administrative friction, corruption, and bureaucratic delays into structured, jurisdiction-routed legal action with evidence matrixing and escalation roadmaps.

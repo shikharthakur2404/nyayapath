@@ -1338,7 +1338,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                     <div className="flex items-center gap-2 text-slate-200">
                       <Scale className="w-4 h-4 text-emerald-400" />
                       <span className="font-bold tracking-wider text-white uppercase">
-                        REPUBLIC OF INDIA • STATUTORY GRIEVANCE PETITION
+                        REPUBLIC OF INDIA • भारत गणराज्य • STATUTORY CITIZEN DOSSIER
                       </span>
                     </div>
                     <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-950/50 border border-emerald-800/60 text-emerald-300 text-[11px] font-mono font-semibold">
