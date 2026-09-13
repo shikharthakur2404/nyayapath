@@ -136,7 +136,7 @@ export default function CitizenFaq({ lang = 'hi' }: { lang?: string }) {
             return (
               <div
                 key={faq.id}
-                className={`rounded-xl border transition-all duration-200 overflow-hidden ${
+                className={`card-interactive rounded-xl border transition-all duration-200 overflow-hidden ${
                   isOpen
                     ? 'bg-amber-50/40 dark:bg-[#06102a] border-amber-300 dark:border-amber-500/60 shadow-xs dark:shadow-md dark:shadow-blue-950/50'
                     : 'bg-slate-50/80 dark:bg-[#061230]/60 border-slate-200 dark:border-blue-900/60 hover:border-slate-300 dark:hover:border-blue-700/80'
