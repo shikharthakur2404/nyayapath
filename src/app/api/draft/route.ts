@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenAI, Type, Schema } from '@google/genai';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimiter';
+import { GEMINI_MODEL, MAX_GRIEVANCE_LENGTH, MAX_ANSWER_LENGTH } from '@/lib/gemini';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
@@ -24,7 +26,37 @@ const draftResponseSchema: Schema = {
 
 export async function POST(req: Request) {
   try {
+    // 1. Rate Limiting Protection (10 requests per 10 mins per IP)
+    const clientIp = getClientIp(req);
+    const rateLimit = checkRateLimit(clientIp, 10, 10 * 60 * 1000);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: `Rate limit exceeded. Too many requests. Please retry in ${rateLimit.retryAfterSec} seconds.` },
+        { status: 429 }
+      );
+    }
+
     const { grievance, answers, jurisdictionInfo, draftLanguage = 'en' } = await req.json();
+
+    if (!grievance || typeof grievance !== 'string') {
+      return NextResponse.json({ error: 'Grievance text is required.' }, { status: 400 });
+    }
+
+    if (grievance.length > MAX_GRIEVANCE_LENGTH) {
+      return NextResponse.json(
+        { error: `Grievance exceeds maximum allowed length of ${MAX_GRIEVANCE_LENGTH} characters.` },
+        { status: 400 }
+      );
+    }
+
+    // Sanitize answers
+    if (answers && typeof answers === 'object') {
+      for (const key of Object.keys(answers)) {
+        if (typeof answers[key] === 'string' && answers[key].length > MAX_ANSWER_LENGTH) {
+          answers[key] = answers[key].slice(0, MAX_ANSWER_LENGTH);
+        }
+      }
+    }
 
     let langInstruction = "Draft both formal_draft and citizen_view in formal administrative English.";
     if (draftLanguage === 'hi') {
@@ -44,7 +76,7 @@ export async function POST(req: Request) {
     } else if (draftLanguage === 'kn') {
       langInstruction = "Draft formal_draft and citizen_view in official formal Kannada (ಕನ್ನಡ ಲಿಪಿ).";
     } else if (draftLanguage === 'bilingual') {
-      langInstruction = "Draft formal_draft with each legal section first in English followed by accurate vernacular translation. Draft citizen_view in English with key regional notes.";
+      langInstruction = "Draft formal_draft with each legal section first in English followed by accurate regional language translation. Draft citizen_view in English with key regional notes.";
     }
 
     const prompt = `
@@ -52,10 +84,10 @@ USER'S ORIGINAL GRIEVANCE:
 ${grievance}
 
 VERIFIED ANSWERS TO CLARIFYING QUESTIONS:
-${JSON.stringify(answers)}
+${JSON.stringify(answers || {})}
 
 CLASSIFIED JURISDICTION & AUTHORITY:
-${JSON.stringify(jurisdictionInfo)}
+${JSON.stringify(jurisdictionInfo || {})}
 
 LANGUAGE REQUIREMENT:
 ${langInstruction}
@@ -83,7 +115,7 @@ INSTRUCTIONS:
 `;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.6-flash',
+      model: GEMINI_MODEL,
       contents: prompt,
       config: {
         systemInstruction: "You are NyayaPath Legal Drafting & Citizen Empowerment Engine. Synthesize verified grievance facts into a legally unassailable administrative draft and an accessible citizen summary.",

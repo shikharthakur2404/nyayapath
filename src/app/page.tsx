@@ -1,6 +1,16 @@
 import GrievanceWizard from '@/components/GrievanceWizard';
+import { Language } from '@/lib/translations';
 
-export default function Home() {
+interface PageProps {
+  searchParams: Promise<{ lang?: string }>;
+}
+
+export default async function Home({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const rawLang = params?.lang || 'en';
+  const validLanguages: Language[] = ['en', 'hi', 'pa', 'mr', 'bn', 'ta', 'te', 'gu', 'kn'];
+  const initialLang: Language = validLanguages.includes(rawLang as Language) ? (rawLang as Language) : 'en';
+
   return (
     <main className="min-h-screen bg-[#060913] py-10 px-4 selection:bg-emerald-500/30 selection:text-emerald-200">
       <div className="max-w-4xl mx-auto mb-8 text-center space-y-3 no-print">
@@ -22,7 +32,7 @@ export default function Home() {
         </div>
       </div>
       
-      <GrievanceWizard />
+      <GrievanceWizard initialLang={initialLang} />
       
       <div className="max-w-4xl mx-auto mt-12 text-center border-t border-slate-800/50 pt-6 no-print">
         <p className="text-[10px] text-slate-600 font-mono uppercase tracking-widest">

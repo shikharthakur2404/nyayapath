@@ -19,6 +19,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
           bn: `${baseUrl}?lang=bn`,
           ta: `${baseUrl}?lang=ta`,
           te: `${baseUrl}?lang=te`,
+          gu: `${baseUrl}?lang=gu`,
+          kn: `${baseUrl}?lang=kn`,
         },
       },
     },

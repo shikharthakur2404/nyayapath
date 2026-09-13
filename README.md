@@ -1,154 +1,108 @@
-# Nyaya Setu (न्याय सेतु)
-### A Citizen Complaint Routing & Drafting Assistant for India
+# NyayaPath (न्यायपथ / ਨਿਆਂਪਥ)
+### Pan-India Citizen Grievance Intelligence & Legal Complaint Router
 
-**Working Title:** Nyaya Setu ("Bridge to Justice")  
-**Target Pilot Geographies:** Punjab (Mohali/Chandigarh) + Uttar Pradesh (Kanpur)  
-**Founder / Lead:** Shikhar Thakur  
-**Budget Constraint:** ₹0 Infrastructure & Hosting (Free-tier only)  
-**Core Engine:** Google Gemini 3.7 Flash Developer API  
+**Product Name:** NyayaPath ("Path to Justice")  
+**Target Coverage:** Pan-India (All 28 States & 8 UTs + Central Authorities)  
+**Lead / Author:** Shikhar Thakur  
+**Budget Constraint:** ₹0 Infrastructure & Hosting (Vercel / Cloudflare free-tier)  
+**Intelligence Core:** Google Gemini 3.6 Flash Developer API via `@google/genai`  
+**License:** Public Interest Open Source  
 
 ---
 
 ## 1. Executive Summary & Philosophy
 
-India contains established institutional mechanisms for public grievances and anti-corruption:
-- **Central Level:** Central Vigilance Commission (CVC), Lokpal, CBI.
-- **State Level:** State Anti-Corruption Bureaus (ACBs), State Lokayuktas, Vigilance Directorates.
+India maintains established statutory grievance and anti-corruption mechanisms:
+- **Central Level:** Central Vigilance Commission (CVC), Lokpal of India, CBI, Central Information Commission (CIC).
+- **State Level:** State Anti-Corruption Bureaus (ACBs), State Lokayuktas, Directorate of Vigilance (e.g. Punjab VB, UP ACO, Maharashtra ACB, Karnataka Lokayukta, Tamil Nadu DVAC).
 - **Departmental / Revenue:** District Magistrates (DM), Sub-Divisional Magistrates (SDM), Tehsildars, Revenue Courts.
-- **Police & Civil Rights:** SP/DGP Escalations, State Women's Commissions, National Human Rights Commission (NHRC), RTI Act.
+- **Police & Civil Rights:** District Superintendent of Police (SP/SSP) escalations under Section 154(3) CrPC / Section 173(4) BNSS 2023, State Women's Commissions, RTI Act.
 
 ### The Real Friction
 Grievances die before submission because:
 1. **Jurisdiction Blindness:** Citizens cannot distinguish between Central vs. State officers, or direct crimes vs. police inaction escalation paths.
 2. **Structural Rejections:** Complaints lack dates, sequential facts, statutory references, or proper formatting.
-3. **Fear of Retaliation:** Complainants are unaware of confidentiality and protections under the *Whistle Blowers Protection Act, 2014*.
+3. **Language Barriers:** Official administrative drafting requires formal legal terms inaccessible to vernacular citizens.
+4. **Fear of Retaliation:** Complainants are unaware of confidentiality and protections under the *Whistle Blowers Protection Act, 2014*.
 
 ### The Core Solution
-**Nyaya Setu** is an intelligent, zero-retention routing and drafting assistant. It takes natural language input (Hindi, Punjabi, English) and converts it into a formal, actionable legal draft directed to the exact authority.
+**NyayaPath** is an intelligent, zero-retention routing and drafting assistant. It takes natural language input across **9 major Indian languages** (English, Hindi, Punjabi, Marathi, Bengali, Tamil, Telugu, Gujarati, Kannada) and converts it into a formal, actionable legal draft directed to the exact authority.
 
-> **Absolute Boundary:** Nyaya Setu does **NOT** build public dossiers, name databases, scraped graphs, or accusation lists. It is a client-side legal drafting accelerator.
+> **Absolute Privacy Boundary:** NyayaPath operates on pure in-memory ephemeral client state under DPDPA 2023 principles. It maintains **NO central database**, no citizen dossiers, and no tracking cookies. A one-click **Burn Bag (Destroy Case)** feature permanently wipes all local session data.
 
 ---
 
-## 2. User Flow & System Architecture
+## 2. System Architecture & Flow
 
 ```text
-       ┌───────────────────────────────┐
-       │   1. Plain Language Input     │
-       │   (Hindi / Punjabi / English) │
-       │   Voice or Text Description   │
-       └───────────────┬───────────────┘
-                       │
-                       ▼
-       ┌───────────────────────────────┐
-       │     2. Classification Engine  │
-       │   (Jurisdiction & Category)   │
-       └───────────────┬───────────────┘
-                       │
-                       ▼
-       ┌───────────────────────────────┐
-       │   3. Gap-Closing Interview    │
-       │   (2-3 Targeted Questions:    │
-       │   Dates, Proofs, Witnesses)   │
-       └───────────────┬───────────────┘
-                       │
-                       ▼
-       ┌───────────────────────────────┐
-       │   4. Formal Complaint Draft   │
-       │   (Statutory Format + Secs)   │
-       └───────────────┬───────────────┘
-                       │
-                       ▼
-       ┌───────────────────────────────┐
-       │     5. Routing & Submission   │
-       │   Official Portal Links,      │
-       │   Addresses, Whistleblower    │
-       │   Protections Notice          │
-       └───────────────────────────────┘
+       ┌─────────────────────────────────────────────────────────────────┐
+       │                  1. Plain Language Grievance                    │
+       │ (English, हिन्दी, ਪੰਜਾਬੀ, मराठी, বাংলা, தமிழ், తెలుగు, ગુજરાતી, ಕನ್ನಡ)  │
+       └────────────────────────────────┬────────────────────────────────┘
+                                        │
+                                        ▼
+       ┌─────────────────────────────────────────────────────────────────┐
+       │                   2. Pan-India Routing Engine                   │
+       │       - State & Central Authority Matching (VB, ACB, CVC)       │
+       │       - Explainable Routing Rationale                           │
+       │       - Dynamic Complaint Readiness Score (0–100%)              │
+       │       - Chronological Timeline & Evidence Matrix                │
+       │       - Whistleblower & Imminent Physical Danger Detection      │
+       └────────────────────────────────┬────────────────────────────────┘
+                                        │
+                                        ▼
+       ┌─────────────────────────────────────────────────────────────────┐
+       │                   3. Gap-Closing Clarification                  │
+       │      2-3 targeted, localized questions (dates, reference IDs,   │
+       │           audio recordings, witness presence)                   │
+       └────────────────────────────────┬────────────────────────────────┘
+                                        │
+                                        ▼
+       ┌─────────────────────────────────────────────────────────────────┐
+       │                   4. Dual-Representation Output                 │
+       │   - Official Statutory Draft (PCA 1988/2018, BNSS, BSA Sec 63B) │
+       │   - Citizen Plain View (Plain-language non-legal summary)       │
+       │   - Post-Submission Escalation Ladder (Day 1, 15, 30+ RTI/Lokayukta)
+       └────────────────────────────────┬────────────────────────────────┘
+                                        │
+                                        ▼
+       ┌─────────────────────────────────────────────────────────────────┐
+       │                   5. High-Fidelity Export Engine                │
+       │   - Dedicated A4 Vector Print with Google Noto Fonts (All 9)    │
+       │   - jsPDF Latin fallback                                        │
+       │   - One-click clipboard copy                                    │
+       │   - Ephemeral Burn Bag browser destruction                      │
+       └─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 3. Jurisdiction & Routing Taxonomy (Punjab & UP Focus)
+## 3. Tech Stack
 
-| Category / Scenario | Primary Receiving Body | Escalation / Alternate Body | Statutory Reference / Notes |
-|---|---|---|---|
-| **Bribery by Central Govt Employee** (Railways, Income Tax, National Banks, PSUs) | **CVC / VIGEYE Portal** | Lokpal of India | Prevention of Corruption Act, 1988 (PCA) |
-| **Bribery / Extortion by Punjab State Employee** (Patwari, Police, Municipal Corp) | **Punjab Vigilance Bureau (VB)** | Punjab Lokpal | PB Vigilance Toll-free 1800-1800-1000 / CM Anti-Corruption Action Line |
-| **Bribery / Extortion by UP State Employee** (Lekhpal, RTO, Development Authority) | **UP Anti-Corruption Organization (ACO)** | UP Lokayukta / IGRS Jansunwai | UP IGRS Portal (`jansunwai.up.nic.in`) |
-| **Police Inaction / Refusal to File FIR** (Local Thana) | **Written Complaint to District SP / SSP (Sec 154(3) CrPC / Sec 173(4) BNSS)** | Judicial Magistrate (Sec 156(3) CrPC / Sec 175(3) BNSS) | Distinct from the crime itself: targets procedural non-compliance |
-| **Violence / Harassment against Women (with local friction)** | **State Women's Commission (Punjab / UP)** | National Commission for Women (NCW) / Cyber Crime Portal | NCW Online Complaint Management System |
-| **Land / Revenue Record Tampering** (Patwari/Lekhpal) | **SDM / District Revenue Officer** | Divisional Commissioner / Lokayukta | State Land Revenue Codes |
-| **Information Denial by Public Authority** | **Public Information Officer (PIO) -> First Appellate Authority** | Central/State Information Commission (CIC/SIC) | RTI Act, 2005 (Sec 6(1) & Sec 19) |
+- **Framework:** Next.js 16 (App Router, Turbopack, React 19, TypeScript)
+- **Styling & Fonts:** Tailwind CSS v4 + Google Noto Sans/Serif fonts for all 9 Indian scripts
+- **AI Backend:** Google Gemini 3.6 Flash (`@google/genai` Developer API)
+- **Rate Limiting & Abuse Prevention:** In-memory sliding-window IP rate limiter + 4,000-char input capping
+- **SEO & Discoverability:** Rich JSON-LD (`WebApplication`, `FAQPage` rich snippets), `sitemap.xml` with regional hreflang alternates, `robots.txt`
+- **Privacy Standard:** Zero Server Database, DPDPA 2023 compliant, client-side ephemeral memory
 
 ---
 
-## 4. Prompt Engineering & LLM Architecture
+## 4. Local Development
 
-Using **Google Gemini 3.7 Flash** Developer API via structured JSON outputs:
+```bash
+# Clone the repository
+git clone https://github.com/shikharthakur2404/nyayapath.git
+cd nyayapath
 
-### Phase 1: Classification & Gap Detection Prompt
+# Install dependencies
+npm install
 
-```json
-{
-  "system_instruction": "You are Nyaya Setu, an expert Indian administrative and legal grievance router. Analyze the user's plain-language grievance. Determine the jurisdiction (Central, State - Punjab, State - UP, or Local), the specific category, identify missing critical facts (exact dates, specific designations, transaction IDs, witness presence), and generate up to 3 clarifying questions.",
-  "response_schema": {
-    "jurisdiction": "CENTRAL | STATE_PUNJAB | STATE_UP | LOCAL_POLICE",
-    "target_authority": "string",
-    "authority_portal_url": "string",
-    "missing_elements": ["string"],
-    "clarifying_questions": ["string"],
-    "whistleblower_eligible": "boolean"
-  }
-}
+# Configure environment variables
+echo "GEMINI_API_KEY=your_key_here" > .env.local
+
+# Run development server
+npm run dev
 ```
 
-### Phase 2: Formal Legal Complaint Drafting Prompt
-
-```text
-TASK: Generate a formal, respectful, and legally sound complaint letter based on the verified facts.
-STRUCTURE:
-1. To: [Designation of Receiving Authority, Department, Location]
-2. Subject: Formal Complaint regarding [Concise Subject Line referencing relevant Act/Section]
-3. Complainant Details: [Name/Confidential/Representative]
-4. Chronological Statement of Facts: [Numbered paragraphs with exact dates and actions]
-5. Specific Grievance & Legal Breach: [e.g., Prevention of Corruption Act / Failure under Sec 154 CrPC]
-6. Relief / Action Requested: [Formal inquiry, FIR registration, departmental action]
-7. List of Enclosures: [Identified documents, receipts, screenshots]
-```
-
----
-
-## 5. Zero-Budget Implementation Stack
-
-| Layer | Technology | Cost | Hosting / Platform |
-|---|---|---|---|
-| **Frontend** | Next.js 15 (React 19, Tailwind CSS, Lucide Icons) | ₹0 | **Vercel** / **Cloudflare Pages** |
-| **LLM Engine** | **Google Gemini 3.7 Flash** (Developer API) | ₹0 | Google AI Studio (Free Tier) |
-| **State / Cache** | LocalStorage / IndexedDB (Client-side only) | ₹0 | User Browser (Zero-Knowledge) |
-| **Backend / Edge** | Next.js Edge API Routes | ₹0 | Vercel Edge Functions |
-| **Export Engine** | `jspdf` / `docx` (Client-side PDF & Word document generation) | ₹0 | In-browser processing |
-
----
-
-## 6. Privacy & Legal Safeguards (DPDPA 2023 Compliant)
-
-1. **Zero Server Storage:** All text drafts, names, and grievance details are processed in memory and retained purely in the user's local browser storage (`localStorage`). No central database of grievances is maintained.
-2. **Whistleblower Framing:** Prominently displays provisions of the *Whistle Blowers Protection Act, 2014* before drafting begins.
-3. **Disclaimer & Boundary:** Clear disclaimers stating the tool is an automated drafting assistant, not an advocate, and does not provide legal representation.
-4. **Zero Doxxing Vector:** No public feed, no searchable names, no profile aggregation.
-
----
-
-## 7. Phased Implementation Roadmap
-
-- [ ] **Phase 1 (MVP — 48h):**
-  - Next.js web application with language toggle (English / Hindi / Punjabi).
-  - Gemini 3.7 Flash classification & multi-turn drafting prompt.
-  - One-click PDF download formatted to standard Indian administrative template.
-  - Dedicated Punjab (VB/Lokayukta) + UP (ACO/IGRS) routing paths.
-- [ ] **Phase 2 (UX & Guidance):**
-  - Offline local draft persistence via unique 6-digit access token.
-  - Audio input support (Whisper / Gemini multimodal speech-to-text) for rural users.
-- [ ] **Phase 3 (Resource Hub):**
-  - Verified directory of nodal anti-corruption & grievance officers for Punjab & UP.
+Visit `http://localhost:3000` to access the application.

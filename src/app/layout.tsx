@@ -79,6 +79,8 @@ export const metadata: Metadata = {
       'bn': 'https://nyayapath.in?lang=bn',
       'ta': 'https://nyayapath.in?lang=ta',
       'te': 'https://nyayapath.in?lang=te',
+      'gu': 'https://nyayapath.in?lang=gu',
+      'kn': 'https://nyayapath.in?lang=kn',
     }
   }
 };
