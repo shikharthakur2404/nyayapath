@@ -70,7 +70,7 @@ export default async function Home({ searchParams }: PageProps) {
           <span className="font-semibold text-emerald-400">सत्यमेव जयते</span>
           <span className="text-emerald-400 font-bold">॥</span>
           <span className="text-slate-600">•</span>
-          <span>हर नागरिक का संवैधानिक अधिकार • Citizen Legal Action</span>
+          <span>हर नागरिक का अधिकार • Free Help For Everyone</span>
         </div>
         
         <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-mono text-white tracking-tight leading-tight">
@@ -112,22 +112,22 @@ export default async function Home({ searchParams }: PageProps) {
               <div className="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 flex items-start gap-2.5">
                 <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-mono font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
                 <div>
-                  <p className="text-xs font-bold text-slate-200 font-mono">अपनी समस्या बताएं</p>
+                  <p className="text-xs font-bold text-slate-200 font-mono">1. क्या हुआ?</p>
                   <p className="text-[11px] text-slate-400 leading-snug">माइक दबाकर बोलें या लिखें। कानून की धाराओं की चिंता न करें।</p>
                 </div>
               </div>
               <div className="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 flex items-start gap-2.5">
                 <span className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 text-xs font-mono font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
                 <div>
-                  <p className="text-xs font-bold text-slate-200 font-mono">विभाग व कानून तय होगा</p>
-                  <p className="text-[11px] text-slate-400 leading-snug">AI सही विभाग (CVC, लोकायुक्त, पुलिस) व धाराएं जोड़ेगा।</p>
+                  <p className="text-xs font-bold text-slate-200 font-mono">2. सरकारी दफ्तर</p>
+                  <p className="text-[11px] text-slate-400 leading-snug">AI सही सरकारी विभाग व जरूरी नियम खुद ढूंढेगा।</p>
                 </div>
               </div>
               <div className="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 flex items-start gap-2.5">
                 <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 text-xs font-mono font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
                 <div>
-                  <p className="text-xs font-bold text-slate-200 font-mono">अर्जी प्रिंट करें या भेजें</p>
-                  <p className="text-[11px] text-slate-400 leading-snug">जन सेवा केंद्र से प्रिंट निकालें या ऑनलाइन पोर्टल पर जमा करें।</p>
+                  <p className="text-xs font-bold text-slate-200 font-mono">3. अर्जी तैयार!</p>
+                  <p className="text-[11px] text-slate-400 leading-snug">जन सेवा केंद्र से प्रिंट निकालें या ऑनलाइन जमा करें।</p>
                 </div>
               </div>
             </div>
@@ -141,14 +141,14 @@ export default async function Home({ searchParams }: PageProps) {
       {/* 4. CALM INSTITUTIONAL FOOTER */}
       <footer className="max-w-4xl mx-auto mt-12 text-center border-t border-slate-800/60 pt-6 space-y-2 no-print">
         <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-mono text-slate-500">
-          <span>Digital Personal Data Protection Act (DPDPA 2023) Compliant</span>
+          <span>DPDPA 2023 सुरक्षित</span>
           <span>•</span>
-          <span>Zero Server Storage</span>
+          <span>कोई डेटा सर्वर पर सेव नहीं होता</span>
           <span>•</span>
-          <span>Local Ephemeral Processing</span>
+          <span>100% नि:शुल्क जन-सेवा</span>
         </div>
         <p className="text-[10px] text-slate-600 font-mono max-w-2xl mx-auto">
-          NyayaPath is an independent public-interest initiative and does not substitute formal legal representation before courts of record.
+          न्यायपथ आम नागरिकों की सहायता हेतु बनाया गया स्वतंत्र लोक-हित मंच है।
         </p>
       </footer>
     </main>

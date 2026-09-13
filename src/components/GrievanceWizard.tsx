@@ -182,78 +182,78 @@ interface GuideStepItem {
 const GUIDE_STEPS: GuideStepItem[] = [
   {
     step: '01',
-    badge: 'Intake',
+    badge: '1',
     title: {
-      en: 'Speak or Type Your Problem',
-      hi: 'अपनी भाषा में समस्या बोलें या लिखें',
-      pa: 'ਆਪਣੀ ਬੋਲੀ ਵਿੱਚ ਸਮੱਸਿਆ ਬੋਲੋ ਜਾਂ ਲਿਖੋ',
-      mr: 'आपल्या भाषेत तक्रार बोला किंवा लिहा',
-      bn: 'আপনার ভাষায় অভিযোগ বলুন বা লিখুন',
-      ta: 'உங்கள் மொழியில் புகாரை பேசுங்கள் அல்லது எழுதுங்கள்',
-      te: 'మీ స్వభాషలో సమస్యను మాట్లాడండి లేదా రాయండి',
-      gu: 'તમારી ભાષામાં સમસ્યા બોલો અથવા લખો',
-      kn: 'ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಸಮಸ್ಯೆಯನ್ನು ಮಾತನಾಡಿ ಅಥವಾ ಬರೆಯಿರಿ'
+      en: 'Tell What Happened (Speak or Type)',
+      hi: 'समस्या बताएं (बोलें या लिखें)',
+      pa: 'ਸਮੱਸਿਆ ਦੱਸੋ (ਬੋਲੋ ਜਾਂ ਲਿਖੋ)',
+      mr: 'तक्रार सांगा (बोला किंवा लिहा)',
+      bn: 'সমস্যা বলুন বা লিখুন',
+      ta: 'பிரச்சனையை சொல்லுங்கள்',
+      te: 'సమస్యను చెప్పండి',
+      gu: 'સમસ્યા જણાવો',
+      kn: 'ಸಮಸ್ಯೆ ತಿಳಿಸಿ'
     },
     desc: {
-      en: 'Narrate what happened in plain language. Use the microphone for live voice dictation or choose a quick scenario (Bribe, FIR refusal, Ration denial, Cyber fraud). No legal jargon needed.',
-      hi: 'जो हुआ उसे साधारण शब्दों में बताएं। माइक से बोलें या त्वरित परिदृश्य (रिश्वत, FIR न लिखना, राशन कटौती, साइबर ठगी) चुनें। किसी कानूनी शब्दावली की आवश्यकता नहीं है।'
+      en: 'Describe your issue in simple words. Click the microphone to speak in your language or select a common problem (Ration, Police, Bribes, or Bank Fraud).',
+      hi: 'माइक दबाकर अपनी बोली में बोलें या संक्षेप में लिखें। राशन, रिश्वत, पुलिस FIR या बैंक ठगी जैसे विकल्प सीधे भी चुन सकते हैं।'
     }
   },
   {
     step: '02',
-    badge: 'Legal Routing',
+    badge: '2',
     title: {
-      en: 'AI Determines Jurisdiction & Readiness',
-      hi: 'अधिकार क्षेत्र व तत्परता स्कोर का निर्धारण',
-      pa: 'ਅਧਿਕਾਰ ਖੇਤਰ ਅਤੇ ਰੈਡੀਨੈੱਸ ਸਕੋਰ',
-      mr: 'अधिकार क्षेत्र आणि सज्जता स्कोर',
-      bn: 'এখতিয়ার এবং প্রস্তুতি স্কোর নির্ধারণ',
-      ta: 'அதிகார வரம்பு மற்றும் தயார்நிலை மதிப்பீடு',
-      te: 'అధికార పరిధి మరియు సంసిద్ధత స్కోర్',
-      gu: 'અધિકાર ક્ષેત્ર અને સજ્જતા સ્કોર',
-      kn: 'ಅಧಿಕಾರ ವ್ಯಾಪ್ತಿ ಮತ್ತು ಸನ್ನದ್ಧತೆ ಸ್ಕೋರ್'
+      en: 'Find the Right Department',
+      hi: 'सही सरकारी विभाग व दफ्तर',
+      pa: 'ਸਹੀ ਸਰਕਾਰੀ ਵਿਭਾਗ',
+      mr: 'योग्य सरकारी कार्यालय',
+      bn: 'সঠিক সরকারি দপ্তর',
+      ta: 'சரியான அரசு துறை',
+      te: 'సరైన ప్రభుత్వ విభాగం',
+      gu: 'સાચો સરકારી વિભાગ',
+      kn: 'ಸರಿಯಾದ ಸರ್ಕಾರಿ ಇಲಾಖೆ'
     },
     desc: {
-      en: 'NyayaPath matches your issue to the correct statutory body (Central CVC, State Lokayukta, ACB, or Police) and calculates an Evidentiary Readiness Score (0-100%) to avoid rejection.',
-      hi: 'न्यायपथ आपकी शिकायत को सही सक्षम संस्था (केंद्रीय सीवीसी, राज्य लोकायुक्त, एसीबी या पुलिस) से जोड़ता है और शिकायत खारिज होने से बचाने हेतु 0-100% स्कोर तैयार करता है।'
+      en: 'NyayaPath automatically figures out which government office (like Vigilance, Lokayukta, District Magistrate, or Police) is required to take action.',
+      hi: 'न्यायपथ खुद तय करेगा कि यह शिकायत किस सरकारी विभाग (जैसे सतर्कता आयोग, लोकायुक्त, डीएम या पुलिस) के पास जानी चाहिए।'
     }
   },
   {
     step: '03',
-    badge: 'Gap Closing',
+    badge: '3',
     title: {
-      en: 'Close Procedural & Evidence Gaps',
-      hi: 'साक्ष्य व प्रक्रियात्मक कमियों को दूर करें',
-      pa: 'ਕਾਨੂੰਨੀ ਕਮੀਆਂ ਨੂੰ ਦੂਰ ਕਰੋ',
-      mr: 'पुरावे आणि त्रुटी पूर्ण करा',
-      bn: 'প্রক্রিয়াগত ফাঁক পূরণ করুন',
-      ta: 'ஆதார இடைவெளிகளை நிரப்பவும்',
-      te: 'ఆధారాల లోపాలను సరిదిద్దండి',
-      gu: 'પુરાવાઓની ક્ષતિઓ પૂર્ણ કરો',
-      kn: 'ಸಾಕ್ಷ್ಯಗಳ ಕೊರತೆಗಳನ್ನು ಪೂರ್ಣಗೊಳಿಸಿ'
+      en: 'Make Your Complaint Strong',
+      hi: 'शिकायत पक्की करें (2-3 सवाल)',
+      pa: 'ਸ਼ਿਕਾਇਤ ਪੱਕੀ ਕਰੋ',
+      mr: 'तक्रार पक्की करा',
+      bn: 'অভিযোগ শক্ত করুন',
+      ta: 'புகாரை உறுதிப்படுத்தவும்',
+      te: 'ఫిర్యాదును పటిష్టం చేయండి',
+      gu: 'ફરિયાદ પાકી કરો',
+      kn: 'ದೂರು ಬಲಪಡಿಸಿ'
     },
     desc: {
-      en: 'Answer 2-3 focused clarifying questions (e.g. incident dates, officer designations, receipt numbers) to make your complaint legally robust and dismiss-proof.',
-      hi: 'केवल 2-3 स्पष्ट प्रश्नों (जैसे घटना का दिनांक, अधिकारी का पद, आवेदन संख्या) का उत्तर देकर अपनी शिकायत को कानूनी रूप से मजबूत बनाएं।'
+      en: 'Answer 2-3 quick questions (like the date or receipt number) so no officer can delay or dismiss your complaint.',
+      hi: 'केवल 2-3 आसान सवालों के जवाब दें (जैसे तारीख या रसीद नंबर) ताकि कोई भी अधिकारी अर्जी को टाल न सके।'
     }
   },
   {
     step: '04',
-    badge: 'Filing & Audio',
+    badge: '4',
     title: {
-      en: 'Export Formal Petition & Listen Aloud',
-      hi: 'औपचारिक कानूनी ड्राफ्ट व ऑडियो प्राप्त करें',
-      pa: 'ਕਾਨੂੰਨੀ ਡਰਾਫਟ ਅਤੇ ਆਡੀਓ ਸੁਣੋ',
-      mr: 'औपचारिक तक्रार आणि ऑडिओ ऐका',
-      bn: 'আনুষ্ঠানিক আইনি খসড়া এবং অডিও শুনুন',
-      ta: 'முறையான புகார் மற்றும் ஆடியோ கேட்கவும்',
-      te: 'అధికారిక ఫిర్యాదు మరియు ఆడియో వినండి',
-      gu: 'ઔપચારિક ફરિયાદ અને ઑડિયો સાંભળો',
-      kn: 'ಅಧಿಕೃತ ದೂರು ಮತ್ತು ಆಡಿಯೊ ಆಲಿಸಿ'
+      en: 'Print Letter & Submit',
+      hi: 'अर्जी प्रिंट करें व जमा करें',
+      pa: 'ਅਰਜ਼ੀ ਪ੍ਰਿੰਟ ਕਰੋ ਅਤੇ ਜਮ੍ਹਾਂ ਕਰੋ',
+      mr: 'अर्जी प्रिंट करा आणि जमा करा',
+      bn: 'দরখাস্ত প্রিন্ট ও জমা দিন',
+      ta: 'மனுவை அச்சிட்டு சமர்ப்பிக்கவும்',
+      te: 'దరఖాస్తు ప్రింట్ చేసి సమర్పించండి',
+      gu: 'અરજી પ્રિન્ટ કરો અને જમા કરો',
+      kn: 'ಅರ್ಜಿ ಪ್ರಿಂಟ್ ಮಾಡಿ ಸಲ್ಲಿಸಿ'
     },
     desc: {
-      en: 'Download court-formatted A4 vector PDF dossier, listen aloud to citizen plain view in your selected language, or submit via the direct official portal link with a 30-day escalation ladder.',
-      hi: 'न्यायालयीन प्रारूप में A4 वेक्टर PDF डाउनलोड करें, अपनी भाषा में साधारण सारांश सुनें, या 30-दिवसीय अनुवर्ती योजना के साथ आधिकारिक पोर्टल पर प्रस्तुत करें।'
+      en: 'Print your formal letter at any local cyber cafe or Jan Seva Kendra (CSC), listen to the audio summary on your phone, and submit it to get an official stamped receipt.',
+      hi: 'साइबर कैफे या जन सेवा केंद्र (CSC) से अर्जी का प्रिंट निकालें, फोन पर पूरा सारांश सुनें और दफ्तर में जमा करके मुहर लगी रसीद लें।'
     }
   }
 ];
@@ -826,10 +826,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             </div>
             <div className="min-w-0">
               <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
-                {lang === 'hi' ? 'कदम 01' : 'Step 01'}
+                {lang === 'hi' ? 'पहला कदम' : 'Step 1'}
               </p>
               <p className={`text-xs sm:text-sm font-semibold truncate ${step === 1 ? 'text-white' : 'text-slate-300'}`}>
-                {lang === 'hi' ? 'अपनी समस्या बताएं' : 'Tell Your Problem'}
+                {lang === 'hi' ? '1. क्या हुआ?' : '1. What Happened?'}
               </p>
             </div>
           </div>
@@ -859,10 +859,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             </div>
             <div className="min-w-0">
               <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
-                {lang === 'hi' ? 'कदम 02' : 'Step 02'}
+                {lang === 'hi' ? 'दूसरा कदम' : 'Step 2'}
               </p>
               <p className={`text-xs sm:text-sm font-semibold truncate ${step === 2 ? 'text-white' : 'text-slate-300'}`}>
-                {lang === 'hi' ? 'विभाग व कानूनी जाँच' : 'Department & Laws'}
+                {lang === 'hi' ? '2. सरकारी दफ्तर' : '2. Which Department?'}
               </p>
             </div>
           </div>
@@ -885,10 +885,10 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             </div>
             <div className="min-w-0">
               <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
-                {lang === 'hi' ? 'कदम 03' : 'Step 03'}
+                {lang === 'hi' ? 'तीसरा कदम' : 'Step 3'}
               </p>
               <p className={`text-xs sm:text-sm font-semibold truncate ${step === 3 ? 'text-white' : 'text-slate-400'}`}>
-                {lang === 'hi' ? 'अर्जी व अगला कदम' : 'Letter & Next Steps'}
+                {lang === 'hi' ? '3. अर्जी तैयार!' : '3. Letter Ready!'}
               </p>
             </div>
           </div>
@@ -917,8 +917,8 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                 <Compass className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>
                   {lang === 'hi'
-                    ? 'नागरिक मार्गदर्शिका: 1. विवरण दर्ज करें → 2. अधिकार क्षेत्र जाँचें → 3. कानूनी ड्राफ्ट व ऑडियो प्राप्त करें।'
-                    : 'Citizen Roadmap: 1. State incident → 2. AI maps statutory jurisdiction → 3. Export court-ready dossier.'}
+                    ? '3 आसान कदम: 1. समस्या बताएं → 2. सरकारी विभाग चुनें → 3. अर्जी प्रिंट करें या सुनें।'
+                    : '3 Simple Steps: 1. Tell what happened → 2. Find right department → 3. Print or listen to letter.'}
                 </span>
               </div>
               <button
@@ -926,7 +926,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                 onClick={() => setShowGuide(true)}
                 className="text-emerald-400 hover:text-emerald-300 underline font-semibold cursor-pointer shrink-0"
               >
-                {lang === 'hi' ? 'विस्तृत गाइड देखें (60s) →' : 'Quick Guide (60s) →'}
+                {lang === 'hi' ? 'मार्गदर्शिका देखें (Guide) →' : 'How It Works →'}
               </button>
             </div>
 
@@ -935,7 +935,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1.5 font-semibold">
                   <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Quick-Start Citizen Scenarios (Click to Pre-fill):</span>
+                  <span>{lang === 'hi' ? 'सीधे चुनने के लिए क्लिक करें (आम समस्याएं):' : 'Common Issues (Click to pick):'}</span>
                 </span>
                 {grievance.length > 0 && (
                   <button
@@ -943,7 +943,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                     onClick={() => setGrievance('')}
                     className="text-[11px] font-mono text-slate-500 hover:text-red-400 transition-colors cursor-pointer"
                   >
-                    Clear Input
+                    {lang === 'hi' ? 'हटाएं (Clear)' : 'Clear'}
                   </button>
                 )}
               </div>
@@ -1363,17 +1363,17 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                     <div className="flex items-center gap-2 text-slate-200">
                       <Scale className="w-4 h-4 text-emerald-400" />
                       <span className="font-bold tracking-wider text-white uppercase">
-                        REPUBLIC OF INDIA • भारत गणराज्य • STATUTORY CITIZEN DOSSIER
+                        {lang === 'hi' ? 'भारत गणराज्य • कानूनी शिकायत पत्र' : 'REPUBLIC OF INDIA • OFFICIAL LEGAL COMPLAINT'}
                       </span>
                     </div>
                     <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-950/50 border border-emerald-800/60 text-emerald-300 text-[11px] font-mono font-semibold">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Verified Docket Standard</span>
+                      <span>{lang === 'hi' ? 'मान्य कानूनी प्रारूप' : 'Standard Legal Format'}</span>
                     </div>
                   </div>
                   <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-800/60">
-                    <span>Addressed To: <strong className="text-slate-200">{classification?.target_authority || 'Competent Statutory Authority'}</strong></span>
-                    <span>Format: <strong className="text-slate-200">A4 Vector Legal Docket (DPDPA 2023)</strong></span>
+                    <span>{lang === 'hi' ? 'सेवा में:' : 'To:'} <strong className="text-slate-200">{classification?.target_authority || 'Competent Authority'}</strong></span>
+                    <span>{lang === 'hi' ? 'प्रारूप: प्रिंट हेतु A4 साइज' : 'Format: A4 Print Ready'}</span>
                   </div>
                 </div>
 
@@ -1549,11 +1549,15 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                    <span>Citizen Guidance Roadmap</span>
-                    <span className="text-emerald-400 text-xs sm:text-sm font-normal">नागरिक मार्गदर्शिका</span>
+                    <span>{lang === 'hi' ? 'आसान मार्गदर्शिका' : 'How NyayaPath Works'}</span>
+                    <span className="text-emerald-400 text-xs sm:text-sm font-normal">
+                      {lang === 'hi' ? '• 4 आसान कदम' : '• 4 Simple Steps'}
+                    </span>
                   </h3>
                   <p className="text-xs text-slate-400">
-                    4-step protocol for converting bureaucratic friction into structured legal action.
+                    {lang === 'hi'
+                      ? 'अपनी समस्या को सही कानूनी शिकायत पत्र में बदलने का आसान तरीका।'
+                      : 'Simple 4-step process to create your official legal complaint letter.'}
                   </p>
                 </div>
               </div>
@@ -1580,7 +1584,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                       <div className="flex items-center gap-2">
                         <h4 className="text-xs sm:text-sm font-bold text-slate-100">{title}</h4>
                         <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
-                          {g.badge}
+                          {lang === 'hi' ? `कदम ${g.badge}` : `Step ${g.badge}`}
                         </span>
                       </div>
                       <p className="text-xs text-slate-400 leading-relaxed font-sans">
@@ -1596,10 +1600,12 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             <div className="p-3.5 rounded-xl bg-slate-950 border border-emerald-900/40 space-y-1.5 text-xs text-slate-400">
               <div className="flex items-center gap-2 text-emerald-400 font-bold">
                 <ShieldCheck className="w-4 h-4" />
-                <span>Strict Zero Retention (DPDPA 2023) & Whistleblower Shield</span>
+                <span>{lang === 'hi' ? '🔒 100% नि:शुल्क व पूरी तरह सुरक्षित (Full Privacy)' : '🔒 100% Free & Completely Private'}</span>
               </div>
-              <p className="text-[11px] leading-relaxed">
-                No phone number or login needed. All inputs and drafts reside strictly in browser memory. Purge everything anytime via the <strong className="text-red-400">Destroy Case</strong> button.
+              <p className="text-[11px] leading-relaxed text-slate-300">
+                {lang === 'hi'
+                  ? 'फोन नंबर या किसी आईडी की जरूरत नहीं। आपकी लिखी कोई भी बात किसी सर्वर पर सेव नहीं होती। जब चाहें सब मिटा सकते हैं।'
+                  : 'No phone number or login needed. Your complaint is never saved on any server.'}
               </p>
             </div>
 
