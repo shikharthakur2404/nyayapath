@@ -73,6 +73,19 @@ const speechLocaleMap: Record<Language, string | null> = {
   kn: 'kn-IN',
 };
 
+const ttsLocaleMap: Record<string, string> = {
+  en: 'en-IN',
+  hi: 'hi-IN',
+  pa: 'pa-IN',
+  mr: 'mr-IN',
+  bn: 'bn-IN',
+  ta: 'ta-IN',
+  te: 'te-IN',
+  gu: 'gu-IN',
+  kn: 'kn-IN',
+  bilingual: 'en-IN',
+};
+
 export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardProps) {
   const [lang, setLang] = useState<Language>(initialLang);
   const [draftLang, setDraftLang] = useState<string>('en');
@@ -102,7 +115,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
     () => false
   );
 
-  // Audio Playback State (Step 3: English Draft Read-Back)
+  // Audio Playback State (Step 4: Indic & English Draft Read-Back)
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [isAudioPaused, setIsAudioPaused] = useState(false);
   const isAudioActive = isPlayingAudio || isAudioPaused;
@@ -116,14 +129,41 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
     () => false
   );
 
-  const getEnglishVoice = () => {
+  // Synchronize available device speech voices reactively
+  const voices = useSyncExternalStore(
+    (callback) => {
+      if (typeof window === 'undefined' || !('speechSynthesis' in window)) return () => {};
+      window.speechSynthesis.addEventListener('voiceschanged', callback);
+      return () => {
+        window.speechSynthesis.removeEventListener('voiceschanged', callback);
+      };
+    },
+    () => (typeof window !== 'undefined' && 'speechSynthesis' in window ? window.speechSynthesis.getVoices() : []),
+    () => []
+  );
+
+  const getVoiceForLocale = (locale: string, baseLang: string) => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return null;
-    const voices = window.speechSynthesis.getVoices();
-    return (
-      voices.find((v) => v.lang === 'en-IN') ||
-      voices.find((v) => v.lang.startsWith('en')) ||
-      null
+    const voiceList = window.speechSynthesis.getVoices();
+    if (!voiceList || voiceList.length === 0) return null;
+
+    // 1. Exact match e.g. 'hi-IN' or 'en-IN'
+    const exact = voiceList.find(
+      (v) => v.lang.toLowerCase() === locale.toLowerCase() || v.lang.replace('_', '-').toLowerCase() === locale.toLowerCase()
     );
+    if (exact) return exact;
+
+    // 2. Base language match e.g. 'hi' or 'mr'
+    const prefix = voiceList.find((v) => v.lang.toLowerCase().startsWith(baseLang.toLowerCase()));
+    if (prefix) return prefix;
+
+    // 3. Fallback for English
+    if (baseLang === 'en' || baseLang === 'bilingual') {
+      const enVoice = voiceList.find((v) => v.lang.toLowerCase().startsWith('en'));
+      if (enVoice) return enVoice;
+    }
+
+    return null;
   };
 
   const stopAudio = () => {
@@ -140,7 +180,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
     setIsAudioPaused(false);
   };
 
-  const playChunk = (index: number) => {
+  const playChunk = (index: number, targetLang: string, voice: SpeechSynthesisVoice | null) => {
     if (index >= chunksRef.current.length) {
       stopAudio();
       return;
@@ -148,14 +188,15 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
 
     currentChunkIndexRef.current = index;
     const utterance = new SpeechSynthesisUtterance(chunksRef.current[index]);
-    utterance.lang = 'en-IN';
+    utterance.lang = targetLang;
     utterance.rate = 0.95;
 
-    const voice = getEnglishVoice();
-    if (voice) utterance.voice = voice;
+    if (voice) {
+      utterance.voice = voice;
+    }
 
     utterance.onend = () => {
-      playChunk(index + 1);
+      playChunk(index + 1, targetLang, voice);
     };
 
     utterance.onerror = (e) => {
@@ -166,9 +207,12 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
     window.speechSynthesis.speak(utterance);
   };
 
-  const startEnglishPlayback = (text: string) => {
+  const startAudioPlayback = (text: string) => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
     stopAudio();
+
+    const targetLocale = ttsLocaleMap[draftLang] || 'en-IN';
+    const voice = getVoiceForLocale(targetLocale, draftLang);
 
     const sentences = text
       .split(/([.?!।\n]+)/)
@@ -186,7 +230,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
     chunksRef.current = sentences;
     setIsPlayingAudio(true);
     setIsAudioPaused(false);
-    playChunk(0);
+    playChunk(0, targetLocale, voice);
   };
 
   const pauseAudio = () => {
@@ -337,6 +381,21 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
 
   const t = translations[lang] || translations.en;
   const activeLangObj = languagesList.find((l) => l.id === lang) || languagesList[0];
+
+  const currentDraftLangObj = languagesList.find((l) => l.id === draftLang);
+  const draftLangNative = currentDraftLangObj ? currentDraftLangObj.native : (draftLang === 'bilingual' ? 'Bilingual' : 'English');
+  const draftLangLabel = currentDraftLangObj ? currentDraftLangObj.label : (draftLang === 'bilingual' ? 'Bilingual' : 'English');
+
+  const targetTtsLocale = ttsLocaleMap[draftLang] || 'en-IN';
+  const hasVoiceForDraft = Boolean(
+    draftLang === 'en' ||
+    draftLang === 'bilingual' ||
+    voices.some((v) => 
+      v.lang.toLowerCase() === targetTtsLocale.toLowerCase() || 
+      v.lang.replace('_', '-').toLowerCase() === targetTtsLocale.toLowerCase() ||
+      v.lang.toLowerCase().startsWith(draftLang.toLowerCase())
+    )
+  );
 
   const handleAnalyze = async () => {
     if (!grievance.trim()) return;
@@ -842,24 +901,34 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                     💡 This section explains in everyday language what the formal statutory document asserts on your behalf.
                   </div>
 
-                  {/* AUDIO PLAYBACK CONTROLS (STEP 3: ENGLISH FIRST) */}
+                  {/* AUDIO PLAYBACK CONTROLS (STEP 4: INDIC & ENGLISH) */}
                   {isSynthesisSupported && (
                     <div className="flex items-center gap-2 shrink-0">
                       {!isAudioActive ? (
-                        <button
-                          type="button"
-                          onClick={() => startEnglishPlayback(draftData.citizen_view)}
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-mono transition-colors cursor-pointer font-medium shadow-sm"
-                          title="Listen to this explanation in English"
-                        >
-                          <Volume2 className="w-3.5 h-3.5" />
-                          <span>Listen (English)</span>
-                        </button>
+                        hasVoiceForDraft ? (
+                          <button
+                            type="button"
+                            onClick={() => startAudioPlayback(draftData.citizen_view)}
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-mono transition-colors cursor-pointer font-medium shadow-sm"
+                            title={`Listen to this explanation in ${draftLangLabel} (${draftLangNative})`}
+                          >
+                            <Volume2 className="w-3.5 h-3.5" />
+                            <span>Listen ({draftLangNative})</span>
+                          </button>
+                        ) : (
+                          <div
+                            className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-[11px] font-mono text-slate-400"
+                            title={`Your device does not have an installed voice pack for ${draftLangLabel}. You can add Indic voices in your operating system settings.`}
+                          >
+                            <MicOff className="w-3 h-3 text-slate-500" />
+                            <span>Audio unavailable for {draftLangNative} (no device voice)</span>
+                          </div>
+                        )
                       ) : (
                         <div className="flex items-center gap-2 bg-slate-900 border border-slate-700 px-2.5 py-1 rounded-lg">
                           <span className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 animate-pulse">
                             <Volume2 className="w-3.5 h-3.5" />
-                            <span>{isAudioPaused ? 'Paused' : 'Reading...'}</span>
+                            <span>{isAudioPaused ? 'Paused' : `Reading in ${draftLangNative}...`}</span>
                           </span>
 
                           {isAudioPaused ? (
