@@ -15,8 +15,36 @@ export default async function Home({ searchParams }: PageProps) {
   return (
     <main className="min-h-screen bg-[#060913] text-slate-100 py-6 px-4 selection:bg-emerald-500/30 selection:text-emerald-200">
       
+      {/* BACKGROUND BHARAT / INDIA MOTIF & CONSTITUTIONAL WATERMARK (NEUTRAL, CALM, ZERO CLUTTER) */}
+      <div className="fixed inset-0 pointer-events-none select-none flex flex-col justify-between items-center p-6 opacity-[0.025] z-0 overflow-hidden text-slate-300 font-mono text-xs tracking-[0.35em] uppercase text-center">
+        <div>॥ सत्यमेव जयते • RECOGNISED CITIZEN ACTION • भारत गणराज्य ॥</div>
+        <svg
+          className="w-96 h-96 max-w-full text-slate-100 animate-spin-slow"
+          viewBox="0 0 100 100"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="0.8"
+        >
+          <circle cx="50" cy="50" r="45" />
+          <circle cx="50" cy="50" r="41" strokeDasharray="1.5 1.5" />
+          <circle cx="50" cy="50" r="8" fill="currentColor" fillOpacity="0.3" />
+          {/* 24 Ashoka Chakra Spokes */}
+          {Array.from({ length: 24 }).map((_, i) => (
+            <line
+              key={i}
+              x1="50"
+              y1="50"
+              x2="50"
+              y2="9"
+              transform={`rotate(${i * 15} 50 50)`}
+            />
+          ))}
+        </svg>
+        <div>॥ यतो धर्मस्ततो जयः • JUSTICE • EQUALITY • LIBERTY • FRATERNITY ॥</div>
+      </div>
+
       {/* 1. CALM TOP BAR: CIVIC IDENTITY & ESSENTIAL HELPLINES */}
-      <header className="max-w-4xl mx-auto mb-6 p-2.5 rounded-xl bg-slate-900/50 border border-slate-800/70 backdrop-blur-sm flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-slate-400 no-print">
+      <header className="relative z-10 max-w-4xl mx-auto mb-6 p-2.5 rounded-xl bg-slate-900/50 border border-slate-800/70 backdrop-blur-sm flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-slate-400 no-print">
         <div className="flex items-center gap-2 text-slate-300">
           <Scale className="w-4 h-4 text-emerald-400 shrink-0" />
           <span className="font-bold text-white tracking-tight">NyayaPath</span>
@@ -35,38 +63,75 @@ export default async function Home({ searchParams }: PageProps) {
         </div>
       </header>
 
-      {/* 2. MINIMAL, CALM HERO */}
-      <section className="max-w-3xl mx-auto mb-8 text-center space-y-3 no-print">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/60 border border-slate-800 text-[11px] font-mono text-slate-400">
+      {/* 2. MINIMAL, CALM HERO (ACCESSIBLE TO EVERY CITIZEN) */}
+      <section className="relative z-10 max-w-3xl mx-auto mb-6 text-center space-y-3.5 no-print">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/60 border border-slate-800 text-[11px] font-mono text-slate-300">
           <span className="text-emerald-400 font-bold">॥</span>
-          <span className="text-slate-300 font-medium">सत्यमेव जयते</span>
+          <span className="font-semibold text-emerald-400">सत्यमेव जयते</span>
           <span className="text-emerald-400 font-bold">॥</span>
           <span className="text-slate-600">•</span>
-          <span>National Citizen Grievance Intelligence</span>
+          <span>हर नागरिक का संवैधानिक अधिकार • Citizen Legal Action</span>
         </div>
         
-        <h1 className="text-3xl sm:text-5xl font-bold font-mono text-white tracking-tight">
-          File Administrative Grievances With Legal Clarity
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-mono text-white tracking-tight leading-tight">
+          सरकारी काम में रिश्वत, देरी या सुनवाई न होने पर — सीधे अपनी अर्जी बनाएं
         </h1>
         
-        <p className="text-xs sm:text-sm text-slate-400 font-mono max-w-xl mx-auto leading-relaxed">
-          Transform administrative friction, corruption, and delays into structured, jurisdiction-routed complaints with evidence checklists.
+        <p className="text-xs sm:text-base text-slate-300 font-mono max-w-2xl mx-auto leading-relaxed">
+          पटवारी द्वारा पैसे मांगना, राशन डीलर द्वारा अनाज रोकना या थाने में FIR न लिखना — बस अपनी भाषा में बोलकर या लिखकर बताएं। NyayaPath सही कानूनी अर्जी तैयार करेगा।
         </p>
 
-        {/* COMPACT QUIET PILLARS (SINGLE CLEAN ROW) */}
+        {/* 4 PROMISES TO NERVOUS/FIRST-TIME CITIZENS */}
         <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-[11px] font-mono text-slate-400">
-          <span className="px-2.5 py-1 rounded-md bg-slate-900/50 border border-slate-800/80">
-            🏛️ 28 States & 8 UTs (CVC / Lokayukta)
+          <span className="px-2.5 py-1 rounded-md bg-slate-900/60 border border-slate-800/80 text-emerald-300 font-medium">
+            ✓ 100% नि:शुल्क (Free For All)
           </span>
-          <span className="px-2.5 py-1 rounded-md bg-slate-900/50 border border-slate-800/80">
-            🛡️ Whistleblower Shield (WBPA 2014)
+          <span className="px-2.5 py-1 rounded-md bg-slate-900/60 border border-slate-800/80 text-blue-300 font-medium">
+            ✓ फोन नंबर या लॉगिन की जरूरत नहीं
           </span>
-          <span className="px-2.5 py-1 rounded-md bg-slate-900/50 border border-slate-800/80">
-            🔒 Zero Retention (DPDPA 2023)
+          <span className="px-2.5 py-1 rounded-md bg-slate-900/60 border border-slate-800/80 text-amber-300 font-medium">
+            ✓ कोई भी डेटा सर्वर पर सेव नहीं होता
           </span>
-          <span className="px-2.5 py-1 rounded-md bg-slate-900/50 border border-slate-800/80">
-            🌐 9 Indic Languages
+          <span className="px-2.5 py-1 rounded-md bg-slate-900/60 border border-slate-800/80 text-purple-300 font-medium">
+            ✓ 9 भारतीय भाषाओं में बोलें या सुनें
           </span>
+        </div>
+
+        {/* CHHOTA SA GUIDING SYSTEM (3-STEP VISUAL ROADMAP FOR FAST UNDERSTANDING) */}
+        <div className="pt-2">
+          <div className="p-3 sm:p-3.5 rounded-xl bg-slate-900/50 border border-slate-800/70 text-left">
+            <div className="flex items-center justify-between gap-2 mb-2.5">
+              <span className="text-[11px] font-mono text-emerald-400 font-semibold uppercase tracking-wider flex items-center gap-1.5">
+                <span>💡 3 आसान कदमों में आपकी अर्जी तैयार:</span>
+              </span>
+              <span className="text-[10px] font-mono text-slate-500">
+                समय: केवल 2 मिनट
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+              <div className="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 flex items-start gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-mono font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+                <div>
+                  <p className="text-xs font-bold text-slate-200 font-mono">अपनी समस्या बताएं</p>
+                  <p className="text-[11px] text-slate-400 leading-snug">माइक दबाकर बोलें या लिखें। कानून की धाराओं की चिंता न करें।</p>
+                </div>
+              </div>
+              <div className="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 flex items-start gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 text-xs font-mono font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+                <div>
+                  <p className="text-xs font-bold text-slate-200 font-mono">विभाग व कानून तय होगा</p>
+                  <p className="text-[11px] text-slate-400 leading-snug">AI सही विभाग (CVC, लोकायुक्त, पुलिस) व धाराएं जोड़ेगा।</p>
+                </div>
+              </div>
+              <div className="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 flex items-start gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 text-xs font-mono font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+                <div>
+                  <p className="text-xs font-bold text-slate-200 font-mono">अर्जी प्रिंट करें या भेजें</p>
+                  <p className="text-[11px] text-slate-400 leading-snug">जन सेवा केंद्र से प्रिंट निकालें या ऑनलाइन पोर्टल पर जमा करें।</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       

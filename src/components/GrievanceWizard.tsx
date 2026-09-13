@@ -82,19 +82,19 @@ const QUICK_SCENARIOS: QuickScenario[] = [
     id: 'bribe_mutation',
     icon: '🏛️',
     title: {
-      en: 'Land Mutation / Bribe',
-      hi: 'दाखिल-खारिज में रिश्वत',
-      pa: 'ਇੰਤਕਾਲ / ਰਿਸ਼ਵਤ',
+      en: 'Land Mutation / Bribe Demanded',
+      hi: 'पटवारी / अफसर द्वारा रिश्वत मांगना',
+      pa: 'ਇੰਤਕਾਲ / ਰਿਸ਼ਵਤ ਦੀ ਮੰਗ',
       mr: 'फेरफार / लाच मागणी',
       bn: 'নামজারি / ঘুষ দাবি',
       ta: 'பட்டா மாற்றம் / லஞ்சம்',
-      te: 'మ్యుటేషన్ / లంచం',
+      te: 'మ్యुటేషన్ / లంచం',
       gu: 'જમીન નોંધણી / લાંચ',
       kn: 'ಖಾತೆ ಬದಲಾವಣೆ / ಲಂಚ'
     },
     subtitle: {
-      en: 'Tehsildar/Patwari demanding unlawful cash for mutation',
-      hi: 'राजस्व अधिकारी/पटवारी द्वारा अनुचित मांग',
+      en: 'Officer demanding unlawful cash for mutation or government work',
+      hi: 'दाखिल-खारिज या सरकारी काम के लिए पैसों की अवैध मांग',
     },
     template: {
       en: 'The local revenue circle office (Patwari / Tehsildar) at [District / Tehsil Name] is demanding an unlawful cash gratification of ₹[Amount] for processing the land mutation (dakhil-kharij) application No. [Application Number] submitted on [Date]. Despite submitting all verified sale deed records and registry copies, the file has been intentionally kept pending for [Number] months without any written rejection notice or lawful cause.',
@@ -105,19 +105,19 @@ const QUICK_SCENARIOS: QuickScenario[] = [
     id: 'police_refusal',
     icon: '👮',
     title: {
-      en: 'Police Refusing FIR',
-      hi: 'FIR दर्ज करने से मनाही',
-      pa: 'FIR ਦਰਜ ਨਾ ਕਰਨਾ',
-      mr: 'एफआयआर नोंदवण्यास नकार',
-      bn: 'এফআইআর নিতে অস্বীকার',
+      en: 'Police Refusing FIR / Complaint',
+      hi: 'थाने में FIR दर्ज करने से मनाही',
+      pa: 'ਪੁਲਿਸ ਵੱਲੋਂ FIR ਦਰਜ ਨਾ ਕਰਨਾ',
+      mr: 'पोलीस ठाण्यात तक्रार नोंदवण्यास नकार',
+      bn: 'থানায় এফআইআর নিতে অস্বীকার',
       ta: 'காவல்துறை FIR மறுப்பு',
-      te: 'FIR నమోదు నిరాకరణ',
+      te: 'పోలీస్ FIR నమోదు నిరాకరణ',
       gu: 'પોલીસ ફરિયાદ ના નોંધવી',
-      kn: 'ಎಫ್‌ಐಆರ್ ದಾಖಲಿಸದಿರುವುದು'
+      kn: 'ಪೊಲೀಸ್ ದೂರು ದಾಖಲಿಸದಿರುವುದು'
     },
     subtitle: {
-      en: 'SHO refusing written cognizable complaint / GD entry',
-      hi: 'थाना प्रभारी द्वारा तहरीर व जीडी संख्या देने से इनकार',
+      en: 'Police refusing written complaint or not giving receipt / GD number',
+      hi: 'थाना प्रभारी द्वारा तहरीर लेने से इनकार या पर्ची न देना',
     },
     template: {
       en: 'On [Date] at approximately [Time], a cognizable offense occurred at [Location]. When I approached the Station House Officer (SHO) at [Police Station Name] to lodge a written First Information Report (FIR), the officers refused to accept my written complaint or issue a General Diary (GD) entry acknowledgment number, in direct violation of Section 173 of Bharatiya Nagarik Suraksha Sanhita (BNSS) / Section 154 CrPC and Supreme Court Lalita Kumari guidelines.',
@@ -128,10 +128,10 @@ const QUICK_SCENARIOS: QuickScenario[] = [
     id: 'ration_pds',
     icon: '🌾',
     title: {
-      en: 'Ration / PDS Denial',
-      hi: 'राशन वितरण में कटौती',
-      pa: 'ਰਾਸ਼ਨ ਡੀਲਰ ਵੱਲੋਂ ਕਟੌਤੀ',
-      mr: 'रेशन धान्य न मिळणे',
+      en: 'Ration Not Given / Grain Withheld',
+      hi: 'राशन नहीं मिल रहा / अनाज में कटौती',
+      pa: 'ਰਾਸ਼ਨ ਡੀਲਰ ਵੱਲੋਂ ਕਟੌਤੀ ਜਾਂ ਇਨਕਾਰ',
+      mr: 'रेशन धान्य न मिळणे / कपात',
       bn: 'রেশন সামগ্রী না দেওয়া',
       ta: 'ரேஷன் உணவு மறுப்பு',
       te: 'రేషన్ సరుకులు నిరాకరణ',
@@ -139,8 +139,8 @@ const QUICK_SCENARIOS: QuickScenario[] = [
       kn: 'ಪಡಿತರ ವಿತರಣೆ ನಿರಾಕರಣೆ'
     },
     subtitle: {
-      en: 'Subsidized grain withheld by dealer under false pretexts',
-      hi: 'डीलर द्वारा बायोमेट्रिक के बाद भी अनाज न देना',
+      en: 'Ration dealer denying quota or refusing receipt after thumb scan',
+      hi: 'डीलर द्वारा अंगूठा लगवाने के बाद भी अनाज न देना',
     },
     template: {
       en: 'The Fair Price Shop (PDS Dealer) Licensee No. [FPS Number] located in [Village / Ward Name] has refused to distribute the monthly statutory grain quota for Ration Card No. [Card Number] for the months of [Months], falsely claiming offline POS machine failure while diverting subsidized public welfare grain to commercial open markets.',
@@ -151,10 +151,10 @@ const QUICK_SCENARIOS: QuickScenario[] = [
     id: 'cyber_fraud',
     icon: '💳',
     title: {
-      en: 'Cyber Fraud / UPI Scam',
-      hi: 'साइबर वित्तीय धोखाधड़ी',
-      pa: 'ਸਾਈਬਰ ਧੋਖਾਧੜੀ',
-      mr: 'सायबर फसवणूक / स्कॅम',
+      en: 'Online / UPI / Bank Account Fraud',
+      hi: 'बैंक खाते से पैसे कट गए / ऑनलाइन ठगी',
+      pa: 'ਬੈਂਕ ਖਾਤੇ ਵਿੱਚੋਂ ਧੋਖਾਧੜੀ',
+      mr: 'खात्यातून परस्पर पैसे कपात / ऑनलाइन फसवणूक',
       bn: 'সাইবার আর্থিক প্রতারণা',
       ta: 'சைபர் நிதி மோசடி',
       te: 'సైబర్ ఆర్థిక మోసం',
@@ -162,8 +162,8 @@ const QUICK_SCENARIOS: QuickScenario[] = [
       kn: 'ಸೈಬರ್ ಆರ್ಥಿಕ ವಂಚನೆ'
     },
     subtitle: {
-      en: 'Unauthorized bank debit or UPI phishing withdrawal',
-      hi: 'अनधिकृत निकासी व बैंक द्वारा तुरंत खाता फ्रीज न करना',
+      en: 'Unauthorized debit from bank account or UPI fraud',
+      hi: 'खाते से बिना इजाजत पैसे कटना या ऑनलाइन धोखाधड़ी',
     },
     template: {
       en: 'On [Date] at [Time], an unauthorized fraudulent debit of ₹[Amount] was executed from my bank account No. [Account No / Bank Name] via UPI / Netbanking transaction reference [UTR / Transaction ID] under deceptive pretexts. The transaction was immediately reported to the bank customer care, but no immediate freeze or chargeback was initiated.',
@@ -825,8 +825,12 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               {step > 1 ? '✓' : '1'}
             </div>
             <div className="min-w-0">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Step 01</p>
-              <p className={`text-xs sm:text-sm font-semibold truncate ${step === 1 ? 'text-white' : 'text-slate-300'}`}>Citizen Statement</p>
+              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                {lang === 'hi' ? 'कदम 01' : 'Step 01'}
+              </p>
+              <p className={`text-xs sm:text-sm font-semibold truncate ${step === 1 ? 'text-white' : 'text-slate-300'}`}>
+                {lang === 'hi' ? 'अपनी समस्या बताएं' : 'Tell Your Problem'}
+              </p>
             </div>
           </div>
         </button>
@@ -854,8 +858,12 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               {step > 2 ? '✓' : '2'}
             </div>
             <div className="min-w-0">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Step 02</p>
-              <p className={`text-xs sm:text-sm font-semibold truncate ${step === 2 ? 'text-white' : 'text-slate-300'}`}>Jurisdiction & Matrix</p>
+              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                {lang === 'hi' ? 'कदम 02' : 'Step 02'}
+              </p>
+              <p className={`text-xs sm:text-sm font-semibold truncate ${step === 2 ? 'text-white' : 'text-slate-300'}`}>
+                {lang === 'hi' ? 'विभाग व कानूनी जाँच' : 'Department & Laws'}
+              </p>
             </div>
           </div>
         </button>
@@ -876,8 +884,12 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               3
             </div>
             <div className="min-w-0">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Step 03</p>
-              <p className={`text-xs sm:text-sm font-semibold truncate ${step === 3 ? 'text-white' : 'text-slate-400'}`}>Dossier & Filing</p>
+              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                {lang === 'hi' ? 'कदम 03' : 'Step 03'}
+              </p>
+              <p className={`text-xs sm:text-sm font-semibold truncate ${step === 3 ? 'text-white' : 'text-slate-400'}`}>
+                {lang === 'hi' ? 'अर्जी व अगला कदम' : 'Letter & Next Steps'}
+              </p>
             </div>
           </div>
         </div>
@@ -965,59 +977,72 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             </div>
 
             {/* ELEVATED STUDIO VOICE INTAKE BAR & PRIVACY EMBLEM */}
-            <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/90 shadow-sm">
+            <div className="p-3.5 sm:p-4 rounded-xl bg-slate-950/80 border border-slate-800/90 shadow-sm space-y-2">
               {isListening ? (
-                <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 bg-red-950/30 border border-red-500/40 rounded-lg">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3.5 bg-red-950/40 border border-red-500/50 rounded-xl">
                   <div className="flex items-center gap-3">
-                    <div className="relative flex items-center justify-center w-6 h-6">
-                      <span className="w-4 h-4 rounded-full bg-red-500/40 animate-ping absolute" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                    <div className="relative flex items-center justify-center w-9 h-9 shrink-0">
+                      <span className="w-9 h-9 rounded-full bg-red-500/40 animate-ping absolute" />
+                      <span className="w-3.5 h-3.5 rounded-full bg-red-500" />
                     </div>
                     <div>
-                      <p className="text-xs font-mono font-bold text-red-300 flex items-center gap-2">
-                        <span>Dictation Active ({activeLangObj.native} • {activeLangObj.label})</span>
+                      <p className="text-xs sm:text-sm font-mono font-bold text-red-200 flex items-center gap-2">
+                        <span>🔴 आपकी बात रिकॉर्ड हो रही है ({activeLangObj.native} • {activeLangObj.label})</span>
                       </p>
-                      <p className="text-[11px] font-mono text-slate-400">
-                        Speak clearly. Spoken audio is converted into text live below.
+                      <p className="text-[11px] text-slate-300">
+                        साफ-साफ बोलें। आपकी कही बात नीचे बॉक्स में अपने आप लिखी जा रही है।
                       </p>
                     </div>
                   </div>
                   <button
                     type="button"
                     onClick={toggleVoiceInput}
-                    className="px-3.5 py-1.5 bg-red-600 hover:bg-red-500 text-white text-xs font-mono font-bold rounded-lg transition-colors cursor-pointer shadow-sm flex items-center gap-1.5"
+                    className="w-full sm:w-auto px-4 py-2 bg-red-600 hover:bg-red-500 text-white text-xs font-mono font-bold rounded-lg transition-colors cursor-pointer shadow-sm flex items-center justify-center gap-1.5"
                   >
-                    <MicOff className="w-3.5 h-3.5" />
-                    <span>Stop Dictating</span>
+                    <MicOff className="w-4 h-4" />
+                    <span>बोलना पूरा हुआ (बंद करें)</span>
                   </button>
                 </div>
               ) : (
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
+                      <Mic className="w-5 h-5 text-emerald-400" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                        <span>बोलकर बताएं (माइक दबाएं)</span>
+                        <span className="text-[10px] font-normal text-emerald-300 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded">
+                          {activeLangObj.native} ({activeLangObj.label})
+                        </span>
+                      </h4>
+                      <p className="text-[11px] text-slate-400 leading-snug">
+                        लिखने में परेशानी हो रही है? माइक दबाकर सीधे अपनी भाषा में बोलें।
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
                     {!isSpeechSupported ? (
                       <span className="text-[11px] font-mono text-slate-500">
-                        Voice input unavailable in this browser (manual typing available below)
+                        (इस ब्राउज़र में माइक उपलब्ध नहीं है — नीचे टाइप करें)
                       </span>
                     ) : !speechLocaleMap[lang] ? (
                       <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-amber-950/40 border border-amber-800/40 text-amber-300">
                         <MicOff className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                        <span>Voice dictation unavailable for {activeLangObj.native} in browser engines (type below or switch to हिन्दी / English)</span>
+                        <span>{activeLangObj.native} में माइक उपलब्ध नहीं है (नीचे लिखें या हिन्दी चुनें)</span>
                       </div>
                     ) : (
                       <button
                         type="button"
                         onClick={toggleVoiceInput}
-                        className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-mono bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-700/60 text-emerald-300 transition-all cursor-pointer font-semibold shadow-sm hover:border-emerald-500"
-                        title={`Speak grievance in ${activeLangObj.label} (${activeLangObj.native})`}
+                        className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-mono bg-emerald-600 hover:bg-emerald-500 text-white transition-all cursor-pointer font-bold shadow-md shadow-emerald-950/50"
+                        title={`अपनी भाषा में बोलें (${activeLangObj.native})`}
                       >
-                        <Mic className="w-4 h-4 text-emerald-400 animate-pulse" />
-                        <span>Dictate Grievance ({activeLangObj.native})</span>
+                        <Mic className="w-4 h-4 text-white animate-pulse" />
+                        <span>🎙️ माइक चालू करें</span>
                       </button>
                     )}
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-500">
-                    <Lock className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-                    <span>Device Speech API • Zero Audio Retention on NyayaPath</span>
                   </div>
                 </div>
               )}
@@ -1033,7 +1058,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             <div className="flex justify-between items-center text-[11px] font-mono text-slate-500">
               <span className="flex items-center gap-1">
                 <Lock className="w-3 h-3 text-emerald-500" />
-                <span>Zero-knowledge client processing (DPDPA 2023)</span>
+                <span>100% सुरक्षित • केवल आपके फोन/कंप्यूटर पर (Zero-Retention)</span>
               </span>
               <span>{grievance.length} / 4000</span>
             </div>
@@ -1077,12 +1102,12 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                   <span>{t.readinessTitle}</span>
                 </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-[11px] text-slate-400 font-mono hidden sm:inline">
+                  <span className="text-[11px] font-mono hidden sm:inline text-slate-300">
                     {classification.readiness_score >= 80 
-                      ? 'Prima Facie Case Established' 
+                      ? (lang === 'hi' ? '✓ मजबूत शिकायत (अधिकारी टाल नहीं पाएंगे)' : '✓ Strong Complaint (Authorities cannot ignore)') 
                       : classification.readiness_score >= 50 
-                      ? 'Substantial Merit • Clarifications Recommended Below' 
-                      : 'Critical Gaps • Answers Needed to Prevent Dismissal'}
+                      ? (lang === 'hi' ? '• अच्छी शिकायत — नीचे 2-3 जरूरी बातें और बताएं' : '• Good Merit — Clarify 2-3 points below') 
+                      : (lang === 'hi' ? '⚠️ अधूरी शिकायत — खारिज होने से बचाने के लिए उत्तर दें' : '⚠️ Gaps Found — Answer below to prevent rejection')}
                   </span>
                   <span className="font-bold text-sm text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded">
                     {classification.readiness_score}%
@@ -1368,10 +1393,12 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                   <div className="space-y-0.5">
                     <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-400">
                       <Eye className="w-4 h-4" />
-                      <span>Citizen Plain-Language Summary</span>
+                      <span>{lang === 'hi' ? 'सरल नागरिक सारांश' : 'Citizen Plain-Language Summary'}</span>
                     </div>
                     <p className="text-[11px] font-mono text-slate-400">
-                      Everyday breakdown of rights, statutory claims, and evidence demanded on your behalf.
+                      {lang === 'hi'
+                        ? 'अपनी अर्जी, मांगे गए दस्तावेज और कानूनी अधिकारों को आसान भाषा में समझें या सुनें।'
+                        : 'Everyday breakdown of rights, statutory claims, and evidence demanded on your behalf.'}
                     </p>
                   </div>
 
@@ -1387,7 +1414,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                             title={`Listen to this explanation in ${draftLangLabel} (${draftLangNative})`}
                           >
                             <Volume2 className="w-4 h-4" />
-                            <span>Listen Aloud ({draftLangNative})</span>
+                            <span>{lang === 'hi' ? 'बोलकर सुनाएं' : 'Listen Aloud'} ({draftLangNative})</span>
                           </button>
                         ) : (
                           <div
@@ -1395,14 +1422,14 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                             title={`Your device does not have an installed voice pack for ${draftLangLabel}.`}
                           >
                             <MicOff className="w-3.5 h-3.5 text-slate-500" />
-                            <span>Audio unavailable for {draftLangNative} (no device voice)</span>
+                            <span>{lang === 'hi' ? `आवाज़ उपलब्ध नहीं है (${draftLangNative})` : `Audio unavailable for ${draftLangNative}`}</span>
                           </div>
                         )
                       ) : (
                         <div className="flex items-center gap-2.5 bg-slate-950 border border-emerald-500/50 px-3 py-1.5 rounded-lg shadow-sm">
                           <div className="flex items-center gap-1.5 text-xs font-mono text-emerald-400">
                             <Volume2 className="w-4 h-4 animate-pulse" />
-                            <span>{isAudioPaused ? 'Paused' : `Reading (${draftLangNative})...`}</span>
+                            <span>{isAudioPaused ? (lang === 'hi' ? 'रुका हुआ' : 'Paused') : (lang === 'hi' ? `सुनाई दे रहा है (${draftLangNative})...` : `Reading (${draftLangNative})...`)}</span>
                           </div>
 
                           <div className="flex items-center gap-1 pl-2 border-l border-slate-800">
