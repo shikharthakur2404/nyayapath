@@ -57,10 +57,10 @@ interface GrievanceWizardProps {
   initialLang?: Language;
 }
 
-const speechLocaleMap: Record<Language, string> = {
+const speechLocaleMap: Record<Language, string | null> = {
   en: 'en-IN',
   hi: 'hi-IN',
-  pa: 'pa-IN',
+  pa: null, // Note: Google Chrome & Apple Web Speech engines omit Punjabi (pa-IN / pa-Guru-IN)
   mr: 'mr-IN',
   bn: 'bn-IN',
   ta: 'ta-IN',
@@ -140,12 +140,18 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
       return;
     }
 
+    const targetLocale = speechLocaleMap[lang];
+    if (!targetLocale) {
+      setErrorMessage(`Voice intake in ${activeLangObj.native} (${activeLangObj.label}) is not supported by standard browser speech engines (Google/Apple). You can type directly below, or dictate in Hindi / English.`);
+      return;
+    }
+
     try {
       const recognition = new SpeechRecognitionAPI();
       recognitionRef.current = recognition;
 
       // STEP 2: Indic & English speech recognition mapped to active language
-      recognition.lang = speechLocaleMap[lang] || 'en-IN';
+      recognition.lang = targetLocale;
       recognition.continuous = false;
       recognition.interimResults = false;
 
@@ -180,7 +186,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
           return;
         }
         if (event.error === 'network') {
-          setErrorMessage('No internet connection for voice recognition right now — you can still type your grievance directly.');
+          setErrorMessage('Speech service network error or unsupported dialect. You can still type your grievance directly below.');
           return;
         }
         if (event.error === 'language-not-supported') {
@@ -377,7 +383,16 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             {/* VOICE INPUT CONTROLS & PRIVACY DISCLOSURE */}
             <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
               <div className="flex items-center gap-2">
-                {isSpeechSupported ? (
+                {!isSpeechSupported ? (
+                  <span className="text-[11px] font-mono text-slate-500">
+                    Voice input not supported in this browser (typing available below)
+                  </span>
+                ) : !speechLocaleMap[lang] ? (
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-amber-950/40 border border-amber-800/40 text-amber-300">
+                    <MicOff className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                    <span>Voice intake unavailable for {activeLangObj.native} in browser engines (type below or use हिन्दी / English)</span>
+                  </div>
+                ) : (
                   <button
                     type="button"
                     onClick={toggleVoiceInput}
@@ -400,10 +415,6 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                       </>
                     )}
                   </button>
-                ) : (
-                  <span className="text-[11px] font-mono text-slate-500">
-                    Voice input not supported in this browser (typing available below)
-                  </span>
                 )}
               </div>
               <p className="text-[11px] font-mono text-slate-400/90">
