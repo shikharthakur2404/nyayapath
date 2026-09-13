@@ -37,6 +37,7 @@ import {
   Sparkles,
   ExternalLink,
   Compass,
+  ClipboardList,
   X
 } from 'lucide-react';
 
@@ -166,6 +167,98 @@ const QUICK_SCENARIOS: QuickScenario[] = [
     template: {
       en: 'On [Date] at [Time], an unauthorized fraudulent debit of ₹[Amount] was executed from my bank account No. [Account No / Bank Name] via UPI / Netbanking transaction reference [UTR / Transaction ID] under deceptive pretexts. The transaction was immediately reported to the bank customer care, but no immediate freeze or chargeback was initiated.',
       hi: 'दिनांक [दिनांक] को समय [समय] पर मेरे बैंक खाते संख्या [खाता संख्या, बैंक नाम] से बिना मेरी सहमति के यूपीआई / ऑनलाइन माध्यम से ₹[राशि] की अनधिकृत निकासी (ट्रांजैक्शन आईडी: [ID]) कर ली गई। घटना की सूचना तुरंत बैंक को दिए जाने के बावजूद खाते को फ्रीज करने अथवा राशि सुरक्षित करने में लापरवाही बरती जा रही है।'
+    }
+  },
+  {
+    id: 'consumer_refund',
+    icon: '🛍️',
+    title: {
+      en: 'E-Commerce / Refund Denied',
+      hi: 'ऑनलाइन शॉपिंग / रिफंड न मिलना',
+      pa: 'ਆਨਲਾਈਨ ਖਰੀਦਦਾਰੀ / ਰਿਫੰਡ ਇਨਕਾਰ',
+      mr: 'ऑनलाइन खरेदी / परतावा नकार',
+      bn: 'অনলাইন কেনাকাটা / রিফান্ড অস্বীকার',
+      ta: 'இணையவழி கொள்முதல் / பணத்தைத் திரும்பப்பெற மறுப்பு',
+      te: 'ఆన్‌లైన్ షాపింగ్ / రీఫండ్ నిராకరణ',
+      gu: 'ઓનલાઈન ખરીદી / રિફંડ ન મળવું',
+      kn: 'ಆನ್‌ಲೈನ್ ಶಾಪಿಂಗ್ / ಮರುಪಾವತಿ ನಿರಾಕರಣೆ'
+    },
+    subtitle: {
+      en: 'Defective product, return refused, or false delivery claim',
+      hi: 'खराब सामान, वापसी से इनकार या धोखाधड़ी (उपभोक्ता कानून)',
+    },
+    template: {
+      en: 'On [Date], I ordered [Product Name / Service Description] from [E-Commerce Platform / Merchant Name] for ₹[Amount] (Order / Invoice No: [Order ID]). The product delivered was defective / damaged / counterfeit, and my repeated statutory return and refund requests (Support Ticket: [Ticket ID]) have been arbitrarily rejected, constituting an unfair trade practice and deficiency of service under Section 2(47) and Section 35 of the Consumer Protection Act, 2019.',
+      hi: 'दिनांक [दिनांक] को मैंने [कंपनी / ई-कॉमर्स पोर्टल का नाम] से ₹[राशि] का [सामान का नाम] ऑर्डर किया था (ऑर्डर संख्या: [ऑर्डर आईडी])। प्राप्त हुआ सामान खराब / नकली था। उपभोक्ता संरक्षण अधिनियम, 2019 के अंतर्गत निर्धारित समय-सीमा में शिकायत (शिकायत संख्या: [ID]) दर्ज कराने के बावजूद कंपनी ने रिफंड अथवा सामान बदलने से अनुचित रूप से मना कर दिया है।'
+    }
+  },
+  {
+    id: 'electricity_billing',
+    icon: '⚡',
+    title: {
+      en: 'Electricity / Water Overbilling',
+      hi: 'बिजली / पानी का भारी गलत बिल',
+      pa: 'ਬਿਜਲੀ / ਪਾਣੀ ਦਾ ਗਲਤ ਬਿੱਲ',
+      mr: 'वीज / पाणी अवाजवी बिल',
+      bn: 'বিদ্যুৎ / জলের অস্বাভাবিক বিল',
+      ta: 'மின்சாரம் / குடிநீர் அதிகப்படியான பில்',
+      te: 'విద్యుత్ / నీటి అధిక బిల్లు',
+      gu: 'વીજળી / પાણીનું વધુ પડતું બિલ',
+      kn: 'ವಿದ್ಯುತ್ / ನೀರಿನ ತಪ್ಪು ಬಿಲ್'
+    },
+    subtitle: {
+      en: 'Faulty meter billing without actual reading or disconnection threat',
+      hi: 'खराब मीटर पर मनमाना बिल या कनेक्शन काटने की धमकी',
+    },
+    template: {
+      en: 'For electricity / water service connection Consumer Account No. [Consumer Number] at [Address], the distribution licensee (DISCOM) has served an inflated, arbitrary bill of ₹[Amount] for the billing cycle [Month/Year] without recording actual physical meter readings. Despite lodging a formal meter testing request on [Date], the department has failed to inspect the defective meter and is unlawfully threatening supply disconnection in violation of statutory Electricity Supply Code regulations.',
+      hi: 'मेरे विद्युत उपभोक्ता खाता संख्या [उपभोक्ता संख्या], पता [पूरा पता] पर विद्युत वितरण कंपनी (DISCOM) द्वारा माह [महीना/वर्ष] का ₹[राशि] का अत्यधिक व फर्जी बिल जारी कर दिया गया है। बिना कोई वास्तविक मीटर रीडिंग लिए खराब मीटर के आधार पर मनमाना बिल थोपा गया है तथा दिनांक [दिनांक] को लिखित आपत्ति दर्ज कराने के बावजूद बिना जांच किए बिजली काटने की अवैध धमकी दी जा रही है।'
+    }
+  },
+  {
+    id: 'epfo_delay',
+    icon: '💼',
+    title: {
+      en: 'EPFO / PF Withdrawal Delay',
+      hi: 'PF का पैसा अटकना / खारिज होना',
+      pa: 'ਪੀਐਫ (PF) ਕਲੇਮ ਵਿੱਚ ਦੇਰੀ ਜਾਂ ਰੱਦ',
+      mr: 'पीएफ (PF) पैसे मिळण्यात विलंब / नकार',
+      bn: 'পিএফ (PF) টাকা আটকে থাকা / বিলম্ব',
+      ta: 'வருங்கால வைப்பு நிதி (PF) தாமதம்',
+      te: 'పీఎఫ్ (PF) క్లెయిమ్ ఆలస్యం / తిరస్కరణ',
+      gu: 'પીએફ (PF) ઉપાડમાં વિલંબ / રદ',
+      kn: 'ಪಿಎಫ್ (PF) ಹಿಂಪಡೆಯುವಿಕೆ ವಿಳಂಬ'
+    },
+    subtitle: {
+      en: 'Unlawful rejection or delay beyond statutory 20-day citizen charter',
+      hi: '20 दिनों की तय सीमा के बाद भी पीएफ का भुगतान न होना',
+    },
+    template: {
+      en: 'I submitted my online PF final settlement / pension claim Form [Form 19 / 10C / 31] (UAN: [UAN Number], Claim ID: [Claim ID]) on [Date]. Despite verified Aadhaar-linked KYC and active bank details, the Regional PF Commissioner (EPFO) office at [City Name] has unlawfully kept the claim pending / repeatedly rejected it on frivolous technical pretexts, in direct breach of the 20-day statutory settlement mandate under Para 72(7) of the Employees Provident Funds Scheme, 1952.',
+      hi: 'मैंने अपने यूएएन (UAN संख्या: [UAN]) के तहत पीएफ अंतिम भुगतान / क्लेम फॉर्म [फॉर्म 19/10C/31] (क्लेम संख्या: [क्लेम आईडी]) दिनांक [दिनांक] को जमा किया था। सभी बैंक व आधार केवाईसी सत्यापित होने के बावजूद क्षेत्रीय भविष्य निधि कार्यालय द्वारा कर्मचारी भविष्य निधि योजना के 20 दिवसीय नागरिक चार्टर का उल्लंघन करते हुए क्लेम को अटकाया गया है।'
+    }
+  },
+  {
+    id: 'rti_application',
+    icon: '📑',
+    title: {
+      en: 'RTI Application / Info Denied',
+      hi: 'RTI / सूचना का अधिकार (RTI Act)',
+      pa: 'ਸੂਚਨਾ ਦਾ ਅਧਿਕਾਰ (RTI)',
+      mr: 'माहिती अधिकार (RTI) अर्ज',
+      bn: 'তথ্যের অধিকার (RTI) আবেদন',
+      ta: 'தகவல் அறியும் உரிமை (RTI)',
+      te: 'సమాచార హక్కు చట్టం (RTI)',
+      gu: 'માહિતી અધિકાર (RTI) અરજી',
+      kn: 'ಮಾಹಿತಿ ಹಕ್ಕು (RTI) ಅರ್ಜಿ'
+    },
+    subtitle: {
+      en: 'Seeking official file notings, expenditure, or reasons for delay',
+      hi: 'सरकारी फाइल की प्रमाणित प्रति, खर्च का ब्योरा व जांच रिपोर्ट',
+    },
+    template: {
+      en: 'Under Section 6(1) of the Right to Information Act, 2005, I hereby seek certified copies of official file notings, inspection reports, sanction orders, and daily progress logs regarding [Subject Matter / Application / Scheme No.] pending with [Public Authority / Department Name] since [Date], along with the names and designations of all public officials who handled the file and grounds for delay.',
+      hi: 'सूचना का अधिकार अधिनियम, 2005 की धारा 6(1) के अंतर्गत मैं [विभाग/कार्यालय का नाम] में दिनांक [दिनांक] से लंबित [आवेदन/कार्य/योजना का नाम] से संबंधित आधिकारिक फाइल नोटिंग्स (टिप्पणी), दैनिक प्रगति रजिस्टर, स्वीकृति आदेश तथा पत्रावली पर कार्य करने वाले संबंधित अधिकारियों के नाम व पदनाम की प्रमाणित प्रतिलिपियां प्राप्त करने हेतु यह औपचारिक आवेदन प्रस्तुत कर रहा हूँ।'
     }
   }
 ];
@@ -336,6 +429,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
   const [activeTab, setActiveTab] = useState<'formal' | 'citizen' | 'escalation'>('formal');
   const [copied, setCopied] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
+  const [docketId, setDocketId] = useState<string>('');
 
   // Voice Input State (Step 2: Indic & English speech intake)
   const [isListening, setIsListening] = useState(false);
@@ -664,6 +758,9 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
       const data = await res.json();
       if (!res.ok || data.error) throw new Error(data.error || 'Failed to generate legal draft');
       setDraftData(data);
+      const stateCode = (classification?.state_or_ut || 'IN').replace(/[^a-zA-Z]/g, '').slice(0, 2).toUpperCase() || 'IN';
+      const randHash = Math.floor(100000 + Math.random() * 900000);
+      setDocketId(`NP-2026-${stateCode}-${randHash}`);
       setStep(3);
     } catch (err: unknown) {
       setErrorMessage((err as Error).message || 'Drafting failed. Please retry.');
@@ -699,6 +796,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
     setClassification(null);
     setAnswers({});
     setDraftData(null);
+    setDocketId('');
     setErrorMessage(null);
   };
 
@@ -710,6 +808,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
       setClassification(null);
       setAnswers({});
       setDraftData(null);
+      setDocketId('');
       setErrorMessage(null);
       try {
         localStorage.clear();
@@ -931,6 +1030,32 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               >
                 {lang === 'hi' ? 'मार्गदर्शिका देखें (Guide) →' : 'How It Works →'}
               </button>
+            </div>
+
+            {/* GOV.UK & CPGRAMS STYLE: BEFORE YOU START PREREQUISITE CHECKLIST */}
+            <div className="p-3 sm:p-4 rounded-xl bg-[#061433] border border-blue-800/80 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm">
+              <div className="flex items-start sm:items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-blue-900/60 border border-blue-700/60 flex items-center justify-center shrink-0 text-amber-400">
+                  <ClipboardList className="w-4 h-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-bold text-slate-100 font-indic flex items-center gap-2 flex-wrap">
+                    <span>{lang === 'hi' ? 'शुरू करने से पहले आवश्यक तैयारी:' : 'Before You Start (Takes ~2 mins):'}</span>
+                    <span className="text-[10px] font-sans px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-700/60 font-semibold">
+                      {lang === 'hi' ? 'नो लॉगिन • 100% फ्री' : 'No Login • 100% Free'}
+                    </span>
+                  </p>
+                  <p className="text-[11px] sm:text-xs text-slate-300 font-indic mt-0.5">
+                    {lang === 'hi'
+                      ? '1. घटना की तारीख/स्थान  •  2. अधिकारी या कंपनी का नाम  •  3. कोई रसीद या स्क्रीनशॉट (यदि उपलब्ध हो)'
+                      : '1. Date & location of incident  •  2. Officer or company name  •  3. Receipts/screenshots (if any)'}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-center text-[11px] text-blue-300 font-sans">
+                <Clock className="w-3.5 h-3.5 text-amber-400" />
+                <span>{lang === 'hi' ? 'समय: 2 मिनट' : 'Time: 2 mins'}</span>
+              </div>
             </div>
 
             {/* QUICK SCENARIO STARTER TEMPLATE CHIPS */}
@@ -1319,6 +1444,46 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
                   <Download className="w-4 h-4" />
                   <span className="truncate">{t.btnExportPdf}</span>
                 </button>
+              </div>
+            </div>
+
+            {/* CPGRAMS & CIVIC DOCKET REFERENCE & RESOLUTION SLA TICKER */}
+            <div className="p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-[#061536] via-[#091e4a] to-[#061536] border border-blue-700/70 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs sm:text-sm">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-blue-950/90 border border-blue-700 flex items-center justify-center shrink-0 text-amber-400 shadow-inner">
+                  <FileCheck2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                      {lang === 'hi' ? 'दस्तावेज़ संदर्भ:' : 'CIVIC DOCKET REF:'}
+                    </span>
+                    <span className="font-mono font-bold text-amber-300 tracking-wider text-xs sm:text-sm bg-blue-950/80 px-2 py-0.5 rounded border border-blue-800/80">
+                      {docketId || 'NP-2026-IN-884920'}
+                    </span>
+                    <span className="text-[10px] font-sans px-2 py-0.5 rounded bg-blue-900/80 text-blue-200 border border-blue-700 font-semibold">
+                      CPGRAMS / NALSA
+                    </span>
+                  </div>
+                  <p className="text-[11px] sm:text-xs text-slate-300 font-indic mt-1">
+                    {lang === 'hi'
+                      ? 'नागरिक अधिकार चार्टर: कार्मिक मंत्रालय (DoPT) निर्देशानुसार 21 से 30 कार्य दिवसों में समाधान अनिवार्य।'
+                      : 'Citizen Charter Mandate: Public authorities must resolve grievances within 21-30 working days.'}
+                  </p>
+                </div>
+              </div>
+              
+              {/* THREE SUBMISSION CHANNELS QUICK-BADGES */}
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap text-[10px] sm:text-[11px] font-indic self-start sm:self-center">
+                <span className="px-2 py-1 rounded-lg bg-[#091b42] border border-blue-800 text-slate-200 flex items-center gap-1 shadow-sm">
+                  <span>🖨️ CSC / प्रिंट</span>
+                </span>
+                <span className="px-2 py-1 rounded-lg bg-[#091b42] border border-blue-800 text-slate-200 flex items-center gap-1 shadow-sm">
+                  <span>📮 स्पीड पोस्ट AD</span>
+                </span>
+                <span className="px-2 py-1 rounded-lg bg-[#091b42] border border-blue-800 text-slate-200 flex items-center gap-1 shadow-sm">
+                  <span>🌐 ऑनलाइन पोर्टल</span>
+                </span>
               </div>
             </div>
 

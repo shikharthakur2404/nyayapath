@@ -1,4 +1,5 @@
 import GrievanceWizard from '@/components/GrievanceWizard';
+import CitizenFaq from '@/components/CitizenFaq';
 import { Language } from '@/lib/translations';
 import { LionCapitalEmblem, AshokaChakra, TricolorRibbon } from '@/components/NationalEmblem';
 import { ShieldCheck, PhoneCall, CheckCircle2 } from 'lucide-react';
@@ -18,6 +19,24 @@ export default async function Home({ searchParams }: PageProps) {
       
       {/* 1. NATIONAL TRICOLOR TOP RIBBON (TIRANGA) */}
       <TricolorRibbon height="h-2" />
+
+      {/* GOV.UK STYLE PHASE BANNER (PUBLIC CIVIC UTILITY) */}
+      <div className="bg-[#081538]/95 border-b border-blue-900/80 px-3 sm:px-6 py-1.5 text-[11px] sm:text-xs text-slate-300 no-print">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 overflow-hidden">
+            <span className="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-bold text-[10px] tracking-wider uppercase shrink-0">
+              CIVIC UTILITY
+            </span>
+            <span className="truncate font-indic">
+              न्यायपथ: राष्ट्रीय जन-शिकायत निवारण मंच (CPGRAMS, NALSA व उपभोक्ता संरक्षण मानक)
+            </span>
+          </div>
+          <span className="hidden md:inline-flex items-center gap-1.5 text-[11px] text-emerald-300 font-semibold shrink-0">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>100% नि:शुल्क लोक सेवा • शून्य डेटा संचय</span>
+          </span>
+        </div>
+      </div>
 
       <div className="py-4 sm:py-6 px-3 sm:px-6 relative max-w-7xl mx-auto w-full pb-safe">
         {/* MAJESTIC CIVIC WATERMARK (LION CAPITAL & ASHOKA CHAKRA - HIGH-TRUST PSYCHOLOGY) */}
@@ -162,8 +181,11 @@ export default async function Home({ searchParams }: PageProps) {
         
         {/* 4. INTERACTIVE GRIEVANCE WIZARD */}
         <GrievanceWizard initialLang={initialLang} />
+
+        {/* 5. CITIZEN RIGHTS & STATUTORY SAFEGUARDS FAQ (DIGILOCKER / CPGRAMS ACCORDION) */}
+        <CitizenFaq lang={initialLang} />
         
-        {/* 5. DIGNIFIED INSTITUTIONAL FOOTER */}
+        {/* 6. DIGNIFIED INSTITUTIONAL FOOTER */}
         <footer className="max-w-4xl mx-auto mt-12 text-center border-t border-blue-800/40 pt-6 space-y-2 no-print">
           <div className="flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-slate-400 font-indic">
             <span className="text-amber-400 font-semibold">सत्यमेव जयते</span>
