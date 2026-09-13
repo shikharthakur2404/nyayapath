@@ -31,7 +31,13 @@ import {
   Volume2,
   Pause,
   Play,
-  Square
+  Square,
+  Scale,
+  ShieldCheck,
+  Landmark,
+  Lock,
+  Sparkles,
+  ExternalLink
 } from 'lucide-react';
 
 interface ClassificationResult {
@@ -60,6 +66,109 @@ interface DraftResult {
 interface GrievanceWizardProps {
   initialLang?: Language;
 }
+
+interface QuickScenario {
+  id: string;
+  icon: string;
+  title: Record<string, string>;
+  subtitle: Record<string, string>;
+  template: Record<string, string>;
+}
+
+const QUICK_SCENARIOS: QuickScenario[] = [
+  {
+    id: 'bribe_mutation',
+    icon: '🏛️',
+    title: {
+      en: 'Land Mutation / Bribe',
+      hi: 'दाखिल-खारिज में रिश्वत',
+      pa: 'ਇੰਤਕਾਲ / ਰਿਸ਼ਵਤ',
+      mr: 'फेरफार / लाच मागणी',
+      bn: 'নামজারি / ঘুষ দাবি',
+      ta: 'பட்டா மாற்றம் / லஞ்சம்',
+      te: 'మ్యుటేషన్ / లంచం',
+      gu: 'જમીન નોંધણી / લાંચ',
+      kn: 'ಖಾತೆ ಬದಲಾವಣೆ / ಲಂಚ'
+    },
+    subtitle: {
+      en: 'Tehsildar/Patwari demanding unlawful cash for mutation',
+      hi: 'राजस्व अधिकारी/पटवारी द्वारा अनुचित मांग',
+    },
+    template: {
+      en: 'The local revenue circle office (Patwari / Tehsildar) at [District / Tehsil Name] is demanding an unlawful cash gratification of ₹[Amount] for processing the land mutation (dakhil-kharij) application No. [Application Number] submitted on [Date]. Despite submitting all verified sale deed records and registry copies, the file has been intentionally kept pending for [Number] months without any written rejection notice or lawful cause.',
+      hi: 'तहसील [तहसील/जिले का नाम] में नामांतरण / दाखिल-खारिज आवेदन संख्या [आवेदन संख्या] दिनांक [दिनांक] को प्रस्तुत किया गया था। समस्त वैधानिक रजिस्ट्री दस्तावेज संलग्न होने के बावजूद हलका पटवारी/राजस्व अधिकारी द्वारा कार्य आगे बढ़ाने के लिए ₹[राशि] की अनुचित रिश्वत की मांग की जा रही है तथा पिछले [महीने] महीनों से बिना किसी लिखित कारण के कार्य को लंबित रखा गया है।'
+    }
+  },
+  {
+    id: 'police_refusal',
+    icon: '👮',
+    title: {
+      en: 'Police Refusing FIR',
+      hi: 'FIR दर्ज करने से मनाही',
+      pa: 'FIR ਦਰਜ ਨਾ ਕਰਨਾ',
+      mr: 'एफआयआर नोंदवण्यास नकार',
+      bn: 'এফআইআর নিতে অস্বীকার',
+      ta: 'காவல்துறை FIR மறுப்பு',
+      te: 'FIR నమోదు నిరాకరణ',
+      gu: 'પોલીસ ફરિયાદ ના નોંધવી',
+      kn: 'ಎಫ್‌ಐಆರ್ ದಾಖಲಿಸದಿರುವುದು'
+    },
+    subtitle: {
+      en: 'SHO refusing written cognizable complaint / GD entry',
+      hi: 'थाना प्रभारी द्वारा तहरीर व जीडी संख्या देने से इनकार',
+    },
+    template: {
+      en: 'On [Date] at approximately [Time], a cognizable offense occurred at [Location]. When I approached the Station House Officer (SHO) at [Police Station Name] to lodge a written First Information Report (FIR), the officers refused to accept my written complaint or issue a General Diary (GD) entry acknowledgment number, in direct violation of Section 173 of Bharatiya Nagarik Suraksha Sanhita (BNSS) / Section 154 CrPC and Supreme Court Lalita Kumari guidelines.',
+      hi: 'दिनांक [दिनांक] को [स्थान] पर मेरे साथ संज्ञेय अपराध घटित हुआ। जब मैं लिखित प्राथमिकी (FIR) दर्ज कराने [थाने का नाम] पहुँचा, तो थाना प्रभारी/ड्यूटी अधिकारी ने लिखित तहरीर लेने और जीडी (GD) प्रविष्टि संख्या देने से साफ इनकार कर दिया, जो कि भारतीय नागरिक सुरक्षा संहिता की धारा 173 (पूर्व धारा 154 CrPC) तथा सर्वोच्च न्यायालय के ललिता कुमारी दिशा-निर्देशों का खुला उल्लंघन है।'
+    }
+  },
+  {
+    id: 'ration_pds',
+    icon: '🌾',
+    title: {
+      en: 'Ration / PDS Denial',
+      hi: 'राशन वितरण में कटौती',
+      pa: 'ਰਾਸ਼ਨ ਡੀਲਰ ਵੱਲੋਂ ਕਟੌਤੀ',
+      mr: 'रेशन धान्य न मिळणे',
+      bn: 'রেশন সামগ্রী না দেওয়া',
+      ta: 'ரேஷன் உணவு மறுப்பு',
+      te: 'రేషన్ సరుకులు నిరాకరణ',
+      gu: 'રેશન વિતરણમાં ગેરરીતિ',
+      kn: 'ಪಡಿತರ ವಿತರಣೆ ನಿರಾಕರಣೆ'
+    },
+    subtitle: {
+      en: 'Subsidized grain withheld by dealer under false pretexts',
+      hi: 'डीलर द्वारा बायोमेट्रिक के बाद भी अनाज न देना',
+    },
+    template: {
+      en: 'The Fair Price Shop (PDS Dealer) Licensee No. [FPS Number] located in [Village / Ward Name] has refused to distribute the monthly statutory grain quota for Ration Card No. [Card Number] for the months of [Months], falsely claiming offline POS machine failure while diverting subsidized public welfare grain to commercial open markets.',
+      hi: 'उचित दर विक्रेता (राशन डीलर) दुकान संख्या [दुकान नंबर], वार्ड/ग्राम [ग्राम/वार्ड का नाम] द्वारा मेरे राशन कार्ड संख्या [राशन कार्ड नंबर] पर निर्धारित खाद्यान्न देने से लगातार मना किया जा रहा है। ई-पॉस (e-POS) मशीन में बायोमेट्रिक दर्ज कराने के बावजूद पर्ची नहीं दी जा रही है तथा राशन को अवैध रूप से खुले बाजार में बेचने की आशंका है।'
+    }
+  },
+  {
+    id: 'cyber_fraud',
+    icon: '💳',
+    title: {
+      en: 'Cyber Fraud / UPI Scam',
+      hi: 'साइबर वित्तीय धोखाधड़ी',
+      pa: 'ਸਾਈਬਰ ਧੋਖਾਧੜੀ',
+      mr: 'सायबर फसवणूक / स्कॅम',
+      bn: 'সাইবার আর্থিক প্রতারণা',
+      ta: 'சைபர் நிதி மோசடி',
+      te: 'సైబర్ ఆర్థిక మోసం',
+      gu: 'સાયબર છેતરપિંડી',
+      kn: 'ಸೈಬರ್ ಆರ್ಥಿಕ ವಂಚನೆ'
+    },
+    subtitle: {
+      en: 'Unauthorized bank debit or UPI phishing withdrawal',
+      hi: 'अनधिकृत निकासी व बैंक द्वारा तुरंत खाता फ्रीज न करना',
+    },
+    template: {
+      en: 'On [Date] at [Time], an unauthorized fraudulent debit of ₹[Amount] was executed from my bank account No. [Account No / Bank Name] via UPI / Netbanking transaction reference [UTR / Transaction ID] under deceptive pretexts. The transaction was immediately reported to the bank customer care, but no immediate freeze or chargeback was initiated.',
+      hi: 'दिनांक [दिनांक] को समय [समय] पर मेरे बैंक खाते संख्या [खाता संख्या, बैंक नाम] से बिना मेरी सहमति के यूपीआई / ऑनलाइन माध्यम से ₹[राशि] की अनधिकृत निकासी (ट्रांजैक्शन आईडी: [ID]) कर ली गई। घटना की सूचना तुरंत बैंक को दिए जाने के बावजूद खाते को फ्रीज करने अथवा राशि सुरक्षित करने में लापरवाही बरती जा रही है।'
+    }
+  }
+];
 
 const speechLocaleMap: Record<Language, string | null> = {
   en: 'en-IN',
@@ -589,75 +698,228 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
         </div>
       )}
 
+      {/* 3-STEP INTERACTIVE CIVIC LEGAL WORKFLOW STEPPER */}
+      <div className="mb-6 grid grid-cols-3 gap-2 sm:gap-4 no-print">
+        <button
+          type="button"
+          onClick={() => step > 1 && setStep(1)}
+          disabled={step === 1}
+          className={`p-3 rounded-xl border text-left transition-all ${
+            step === 1
+              ? 'bg-emerald-950/50 border-emerald-500/60 shadow-lg shadow-emerald-950/30 ring-1 ring-emerald-500/30'
+              : step > 1
+              ? 'bg-slate-900/60 border-slate-700/80 hover:border-emerald-500/40 cursor-pointer'
+              : 'bg-slate-950/40 border-slate-900 opacity-60 cursor-not-allowed'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 ${
+              step === 1 
+                ? 'bg-emerald-500 text-slate-950' 
+                : step > 1 
+                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' 
+                : 'bg-slate-800 text-slate-500'
+            }`}>
+              {step > 1 ? '✓' : '1'}
+            </div>
+            <div className="min-w-0">
+              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Step 01</p>
+              <p className={`text-xs sm:text-sm font-semibold truncate ${step === 1 ? 'text-white' : 'text-slate-300'}`}>Citizen Statement</p>
+            </div>
+          </div>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => step > 2 && setStep(2)}
+          disabled={step < 2}
+          className={`p-3 rounded-xl border text-left transition-all ${
+            step === 2
+              ? 'bg-emerald-950/50 border-emerald-500/60 shadow-lg shadow-emerald-950/30 ring-1 ring-emerald-500/30'
+              : step > 2
+              ? 'bg-slate-900/60 border-slate-700/80 hover:border-emerald-500/40 cursor-pointer'
+              : 'bg-slate-950/40 border-slate-900 opacity-60 cursor-not-allowed'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 ${
+              step === 2 
+                ? 'bg-emerald-500 text-slate-950' 
+                : step > 2 
+                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' 
+                : 'bg-slate-800 text-slate-500'
+            }`}>
+              {step > 2 ? '✓' : '2'}
+            </div>
+            <div className="min-w-0">
+              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Step 02</p>
+              <p className={`text-xs sm:text-sm font-semibold truncate ${step === 2 ? 'text-white' : 'text-slate-300'}`}>Jurisdiction & Matrix</p>
+            </div>
+          </div>
+        </button>
+
+        <div
+          className={`p-3 rounded-xl border text-left transition-all ${
+            step === 3
+              ? 'bg-emerald-950/50 border-emerald-500/60 shadow-lg shadow-emerald-950/30 ring-1 ring-emerald-500/30'
+              : 'bg-slate-950/40 border-slate-900 opacity-60'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 ${
+              step === 3 
+                ? 'bg-emerald-500 text-slate-950' 
+                : 'bg-slate-800 text-slate-500'
+            }`}>
+              3
+            </div>
+            <div className="min-w-0">
+              <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Step 03</p>
+              <p className={`text-xs sm:text-sm font-semibold truncate ${step === 3 ? 'text-white' : 'text-slate-400'}`}>Dossier & Filing</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="p-6 bg-slate-900/90 border border-slate-800 rounded-xl shadow-2xl backdrop-blur-sm no-print">
         {/* STEP 1: INTAKE */}
         {step === 1 && (
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 border-b border-slate-800 pb-4">
-              <ShieldAlert className="w-6 h-6 text-emerald-500" />
-              <h2 className="text-xl font-mono text-white">{t.intakeTitle}</h2>
+          <div className="space-y-5">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+              <div className="flex items-center gap-3">
+                <ShieldAlert className="w-6 h-6 text-emerald-500 shrink-0" />
+                <div>
+                  <h2 className="text-xl font-mono text-white font-bold">{t.intakeTitle}</h2>
+                  <p className="text-xs text-slate-400 font-mono">
+                    {t.intakeDesc}
+                  </p>
+                </div>
+              </div>
             </div>
-            <p className="text-sm text-slate-400 font-mono leading-relaxed">
-              {t.intakeDesc}
-            </p>
 
-            {/* VOICE INPUT CONTROLS & PRIVACY DISCLOSURE */}
-            <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
-              <div className="flex items-center gap-2">
-                {!isSpeechSupported ? (
-                  <span className="text-[11px] font-mono text-slate-500">
-                    Voice input not supported in this browser (typing available below)
-                  </span>
-                ) : !speechLocaleMap[lang] ? (
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-amber-950/40 border border-amber-800/40 text-amber-300">
-                    <MicOff className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                    <span>Voice intake unavailable for {activeLangObj.native} in browser engines (type below or use हिन्दी / English)</span>
-                  </div>
-                ) : (
+            {/* QUICK SCENARIO STARTER TEMPLATE CHIPS */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1.5 font-semibold">
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Quick-Start Citizen Scenarios (Click to Pre-fill):</span>
+                </span>
+                {grievance.length > 0 && (
                   <button
                     type="button"
-                    onClick={toggleVoiceInput}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer ${
-                      isListening
-                        ? 'bg-red-500/20 border border-red-500 text-red-300 animate-pulse font-bold'
-                        : 'bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200'
-                    }`}
-                    title={`Speak grievance in ${activeLangObj.label} (${activeLangObj.native})`}
+                    onClick={() => setGrievance('')}
+                    className="text-[11px] font-mono text-slate-500 hover:text-red-400 transition-colors cursor-pointer"
                   >
-                    {isListening ? (
-                      <>
-                        <MicOff className="w-3.5 h-3.5 text-red-400" />
-                        <span>Listening ({activeLangObj.native})... (Tap to finish)</span>
-                      </>
-                    ) : (
-                      <>
-                        <Mic className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>Speak Grievance ({activeLangObj.native})</span>
-                      </>
-                    )}
+                    Clear Input
                   </button>
                 )}
               </div>
-              <p className="text-[11px] font-mono text-slate-400/90">
-                Voice audio is processed by your device&apos;s speech service (not stored by NyayaPath).
-              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+                {QUICK_SCENARIOS.map((sc) => {
+                  const title = sc.title[lang] || sc.title.en;
+                  const sub = sc.subtitle[lang] || sc.subtitle.en;
+                  return (
+                    <button
+                      key={sc.id}
+                      type="button"
+                      onClick={() => {
+                        const tpl = sc.template[lang] || sc.template.en;
+                        setGrievance(tpl);
+                      }}
+                      className="p-3 rounded-lg bg-slate-950/70 hover:bg-slate-900 border border-slate-800/80 hover:border-emerald-500/50 text-left transition-all cursor-pointer group shadow-sm hover:shadow-emerald-950/20"
+                    >
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-base shrink-0">{sc.icon}</span>
+                        <span className="text-xs font-mono font-semibold text-slate-200 group-hover:text-emerald-300 truncate">
+                          {title}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-400 leading-snug line-clamp-2">
+                        {sub}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* ELEVATED STUDIO VOICE INTAKE BAR & PRIVACY EMBLEM */}
+            <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/90 shadow-sm">
+              {isListening ? (
+                <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 bg-red-950/30 border border-red-500/40 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div className="relative flex items-center justify-center w-6 h-6">
+                      <span className="w-4 h-4 rounded-full bg-red-500/40 animate-ping absolute" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-mono font-bold text-red-300 flex items-center gap-2">
+                        <span>Dictation Active ({activeLangObj.native} • {activeLangObj.label})</span>
+                      </p>
+                      <p className="text-[11px] font-mono text-slate-400">
+                        Speak clearly. Spoken audio is converted into text live below.
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={toggleVoiceInput}
+                    className="px-3.5 py-1.5 bg-red-600 hover:bg-red-500 text-white text-xs font-mono font-bold rounded-lg transition-colors cursor-pointer shadow-sm flex items-center gap-1.5"
+                  >
+                    <MicOff className="w-3.5 h-3.5" />
+                    <span>Stop Dictating</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    {!isSpeechSupported ? (
+                      <span className="text-[11px] font-mono text-slate-500">
+                        Voice input unavailable in this browser (manual typing available below)
+                      </span>
+                    ) : !speechLocaleMap[lang] ? (
+                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-amber-950/40 border border-amber-800/40 text-amber-300">
+                        <MicOff className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                        <span>Voice dictation unavailable for {activeLangObj.native} in browser engines (type below or switch to हिन्दी / English)</span>
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={toggleVoiceInput}
+                        className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-mono bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-700/60 text-emerald-300 transition-all cursor-pointer font-semibold shadow-sm hover:border-emerald-500"
+                        title={`Speak grievance in ${activeLangObj.label} (${activeLangObj.native})`}
+                      >
+                        <Mic className="w-4 h-4 text-emerald-400 animate-pulse" />
+                        <span>Dictate Grievance ({activeLangObj.native})</span>
+                      </button>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-500">
+                    <Lock className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                    <span>Device Speech API • Zero Audio Retention on NyayaPath</span>
+                  </div>
+                </div>
+              )}
             </div>
 
             <textarea
               value={grievance}
               onChange={(e) => setGrievance(e.target.value)}
-              className="w-full h-48 bg-slate-950 border border-slate-800 rounded-lg p-4 text-slate-200 text-sm focus:border-emerald-500 focus:outline-none leading-relaxed"
+              className="w-full h-48 bg-slate-950 border border-slate-800 rounded-lg p-4 text-slate-200 text-sm focus:border-emerald-500 focus:outline-none leading-relaxed shadow-inner"
               placeholder={t.placeholder}
               maxLength={4000}
             />
             <div className="flex justify-between items-center text-[11px] font-mono text-slate-500">
-              <span>Zero-knowledge client processing</span>
+              <span className="flex items-center gap-1">
+                <Lock className="w-3 h-3 text-emerald-500" />
+                <span>Zero-knowledge client processing (DPDPA 2023)</span>
+              </span>
               <span>{grievance.length} / 4000</span>
             </div>
             <button
               onClick={handleAnalyze}
-              disabled={loading || !grievance}
-              className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-mono rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer font-medium"
+              disabled={loading || !grievance.trim()}
+              className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-mono rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer font-semibold shadow-md shadow-emerald-950/40"
             >
               {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <ChevronRight className="w-5 h-5" />}
               {t.btnAnalyze}
@@ -686,47 +948,76 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               </div>
             )}
 
-            {/* READINESS METER & SCORE */}
-            <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg space-y-2">
-              <div className="flex items-center justify-between font-mono text-xs text-slate-300">
-                <span className="flex items-center gap-1.5 text-emerald-400">
+            {/* READINESS METER & SCORE WITH QUALITATIVE APPRAISAL */}
+            <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2.5 shadow-sm">
+              <div className="flex flex-wrap items-center justify-between font-mono text-xs text-slate-300 gap-2">
+                <span className="flex items-center gap-2 text-emerald-400 font-bold">
                   <TrendingUp className="w-4 h-4" />
-                  {t.readinessTitle}
+                  <span>{t.readinessTitle}</span>
                 </span>
-                <span className="font-bold text-emerald-400">{classification.readiness_score}%</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] text-slate-400 font-mono hidden sm:inline">
+                    {classification.readiness_score >= 80 
+                      ? 'Prima Facie Case Established' 
+                      : classification.readiness_score >= 50 
+                      ? 'Substantial Merit • Clarifications Recommended Below' 
+                      : 'Critical Gaps • Answers Needed to Prevent Dismissal'}
+                  </span>
+                  <span className="font-bold text-sm text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded">
+                    {classification.readiness_score}%
+                  </span>
+                </div>
               </div>
               <div className="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-800">
                 <div 
-                  className="bg-emerald-500 h-full rounded-full transition-all duration-700" 
+                  className={`h-full rounded-full transition-all duration-700 ${
+                    classification.readiness_score >= 75 
+                      ? 'bg-emerald-500' 
+                      : classification.readiness_score >= 50 
+                      ? 'bg-amber-500' 
+                      : 'bg-red-500'
+                  }`} 
                   style={{ width: `${Math.max(10, Math.min(100, classification.readiness_score))}%` }}
                 />
               </div>
             </div>
 
-            {/* EXPLAINABLE ROUTING RECOMMENDATION */}
-            <div className="bg-slate-950 border border-slate-800 p-5 rounded-lg space-y-3">
-              <div className="flex items-center justify-between">
-                <h3 className="text-emerald-400 font-mono text-sm flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4" /> {t.detectedJurisdiction}
-                </h3>
+            {/* EXPLAINABLE ROUTING RECOMMENDATION (AUTHORITY DOSSIER CARD) */}
+            <div className="bg-slate-950 border border-slate-800 rounded-xl p-5 space-y-4 shadow-lg">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-950/60 border border-emerald-800/60 flex items-center justify-center shrink-0">
+                    <Landmark className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>{t.detectedJurisdiction}</span>
+                    </div>
+                    <h3 className="text-white text-base sm:text-lg font-bold tracking-tight">
+                      {classification.target_authority}
+                    </h3>
+                  </div>
+                </div>
+
                 {Boolean(classification.authority_portal_url) && (
                   <a 
                     href={classification.authority_portal_url} 
                     target="_blank" 
                     rel="noreferrer" 
-                    className="text-xs text-blue-400 hover:underline"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-950/50 hover:bg-blue-900/60 border border-blue-800/60 text-blue-300 text-xs font-mono transition-colors font-semibold"
                   >
-                    🔗 {t.officialPortal}
+                    <ExternalLink className="w-3.5 h-3.5 text-blue-400" />
+                    <span>{t.officialPortal}</span>
                   </a>
                 )}
               </div>
-              <p className="text-white text-base font-semibold">{classification.target_authority}</p>
               
-              <div className="pt-2 border-t border-slate-800/60">
-                <span className="text-[11px] uppercase tracking-wider text-slate-500 font-mono block mb-1">
+              <div className="space-y-1.5">
+                <span className="text-[11px] uppercase tracking-wider text-slate-400 font-mono block font-semibold">
                   {t.routingWhyTitle}
                 </span>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed bg-slate-900/40 p-3 rounded-lg border border-slate-800/60">
                   {classification.routing_explanation}
                 </p>
               </div>
@@ -734,7 +1025,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
 
             {/* WHISTLEBLOWER NOTICE */}
             {classification.whistleblower_eligible && (
-              <div className="bg-amber-950/30 border border-amber-900/50 p-4 rounded-lg flex items-start gap-3">
+              <div className="bg-amber-950/30 border border-amber-900/50 p-4 rounded-xl flex items-start gap-3 shadow-sm">
                 <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                 <p className="text-xs text-amber-200/90 leading-relaxed">
                   {t.whistleblowerNotice}
@@ -745,32 +1036,32 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
             {/* TIMELINE & EVIDENCE MATRIX SPLIT */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* TIMELINE */}
-              <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg space-y-2">
-                <h4 className="text-xs font-mono text-slate-400 flex items-center gap-1.5 uppercase tracking-wider">
+              <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2.5">
+                <h4 className="text-xs font-mono text-slate-300 flex items-center gap-1.5 uppercase tracking-wider font-semibold">
                   <Clock className="w-3.5 h-3.5 text-blue-400" />
-                  {t.timelineTitle}
+                  <span>{t.timelineTitle}</span>
                 </h4>
-                <ul className="space-y-1.5 text-xs text-slate-300">
+                <ul className="space-y-2 text-xs text-slate-300">
                   {classification.timeline && classification.timeline.map((evt: string, i: number) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="text-blue-500 font-bold">•</span>
-                      <span>{evt}</span>
+                    <li key={i} className="flex items-start gap-2 bg-slate-900/40 p-2 rounded border border-slate-800/50">
+                      <span className="text-blue-400 font-bold mt-0.5">•</span>
+                      <span className="leading-relaxed">{evt}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* EVIDENCE MATRIX */}
-              <div className="bg-slate-950 border border-slate-800 p-4 rounded-lg space-y-2">
-                <h4 className="text-xs font-mono text-slate-400 flex items-center gap-1.5 uppercase tracking-wider">
+              <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2.5">
+                <h4 className="text-xs font-mono text-slate-300 flex items-center gap-1.5 uppercase tracking-wider font-semibold">
                   <Briefcase className="w-3.5 h-3.5 text-emerald-400" />
-                  {t.evidenceMatrixTitle}
+                  <span>{t.evidenceMatrixTitle}</span>
                 </h4>
-                <ul className="space-y-1.5 text-xs text-slate-300">
+                <ul className="space-y-2 text-xs text-slate-300">
                   {classification.evidence_checklist && classification.evidence_checklist.map((ev: string, i: number) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="text-emerald-500">✓</span>
-                      <span>{ev}</span>
+                    <li key={i} className="flex items-start gap-2 bg-slate-900/40 p-2 rounded border border-slate-800/50">
+                      <span className="text-emerald-400 font-bold mt-0.5">✓</span>
+                      <span className="leading-relaxed">{ev}</span>
                     </li>
                   ))}
                 </ul>
@@ -917,117 +1208,153 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
               </button>
             </div>
             
-            {/* TAB 1: FORMAL LEGAL DRAFT */}
+            {/* TAB 1: FORMAL LEGAL DRAFT (COURT DOCKET LETTERHEAD STYLING) */}
             {activeTab === 'formal' && (
-              <div className="bg-slate-950 border border-slate-800 rounded-lg p-6 max-h-[60vh] overflow-y-auto">
-                <pre className="text-slate-300 font-legal-serif text-sm whitespace-pre-wrap leading-relaxed">
-                  {draftData.formal_draft}
-                </pre>
+              <div className="rounded-xl border border-slate-800 overflow-hidden bg-slate-950 shadow-2xl">
+                {/* CIVIC COURT LETTERHEAD / DOCKET STRIP */}
+                <div className="p-4 bg-slate-900/90 border-b border-slate-800 space-y-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+                    <div className="flex items-center gap-2 text-slate-200">
+                      <Scale className="w-4 h-4 text-emerald-400" />
+                      <span className="font-bold tracking-wider text-white uppercase">
+                        REPUBLIC OF INDIA • STATUTORY GRIEVANCE PETITION
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-950/50 border border-emerald-800/60 text-emerald-300 text-[11px] font-mono font-semibold">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Verified Docket Standard</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-slate-400 pt-1 border-t border-slate-800/60">
+                    <span>Addressed To: <strong className="text-slate-200">{classification?.target_authority || 'Competent Statutory Authority'}</strong></span>
+                    <span>Format: <strong className="text-slate-200">A4 Vector Legal Docket (DPDPA 2023)</strong></span>
+                  </div>
+                </div>
+
+                <div className="p-6 max-h-[60vh] overflow-y-auto">
+                  <pre className="text-slate-300 font-legal-serif text-sm whitespace-pre-wrap leading-relaxed selection:bg-emerald-500/30">
+                    {draftData.formal_draft}
+                  </pre>
+                </div>
               </div>
             )}
 
-            {/* TAB 2: CITIZEN PLAIN VIEW */}
+            {/* TAB 2: CITIZEN PLAIN VIEW (WITH ELEVATED AUDIO HUD) */}
             {activeTab === 'citizen' && (
-              <div className="bg-slate-950 border border-slate-800 rounded-lg p-6 max-h-[60vh] overflow-y-auto space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-emerald-950/20 border border-emerald-900/40 rounded">
-                  <div className="text-xs font-mono text-emerald-300">
-                    💡 This section explains in everyday language what the formal statutory document asserts on your behalf.
+              <div className="rounded-xl border border-slate-800 overflow-hidden bg-slate-950 shadow-2xl space-y-0">
+                {/* AUDIO HUD HEADER BAR */}
+                <div className="p-4 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                  <div className="space-y-0.5">
+                    <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-400">
+                      <Eye className="w-4 h-4" />
+                      <span>Citizen Plain-Language Summary</span>
+                    </div>
+                    <p className="text-[11px] font-mono text-slate-400">
+                      Everyday breakdown of rights, statutory claims, and evidence demanded on your behalf.
+                    </p>
                   </div>
 
-                  {/* AUDIO PLAYBACK CONTROLS (STEP 4: INDIC & ENGLISH) */}
+                  {/* AUDIO PLAYBACK CONTROLS (INDIC & ENGLISH TTS) */}
                   {isSynthesisSupported && (
-                    <div className="flex items-center gap-2 shrink-0">
+                    <div className="shrink-0">
                       {!isAudioActive ? (
                         hasVoiceForDraft ? (
                           <button
                             type="button"
                             onClick={() => startAudioPlayback(draftData.citizen_view)}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-mono transition-colors cursor-pointer font-medium shadow-sm"
+                            className="flex items-center gap-2 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-mono transition-all cursor-pointer font-semibold shadow-sm hover:shadow-emerald-950/40"
                             title={`Listen to this explanation in ${draftLangLabel} (${draftLangNative})`}
                           >
-                            <Volume2 className="w-3.5 h-3.5" />
-                            <span>Listen ({draftLangNative})</span>
+                            <Volume2 className="w-4 h-4" />
+                            <span>Listen Aloud ({draftLangNative})</span>
                           </button>
                         ) : (
                           <div
-                            className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-[11px] font-mono text-slate-400"
-                            title={`Your device does not have an installed voice pack for ${draftLangLabel}. You can add Indic voices in your operating system settings.`}
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] font-mono text-slate-400"
+                            title={`Your device does not have an installed voice pack for ${draftLangLabel}.`}
                           >
-                            <MicOff className="w-3 h-3 text-slate-500" />
+                            <MicOff className="w-3.5 h-3.5 text-slate-500" />
                             <span>Audio unavailable for {draftLangNative} (no device voice)</span>
                           </div>
                         )
                       ) : (
-                        <div className="flex items-center gap-2 bg-slate-900 border border-slate-700 px-2.5 py-1 rounded-lg">
-                          <span className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 animate-pulse">
-                            <Volume2 className="w-3.5 h-3.5" />
-                            <span>{isAudioPaused ? 'Paused' : `Reading in ${draftLangNative}...`}</span>
-                          </span>
+                        <div className="flex items-center gap-2.5 bg-slate-950 border border-emerald-500/50 px-3 py-1.5 rounded-lg shadow-sm">
+                          <div className="flex items-center gap-1.5 text-xs font-mono text-emerald-400">
+                            <Volume2 className="w-4 h-4 animate-pulse" />
+                            <span>{isAudioPaused ? 'Paused' : `Reading (${draftLangNative})...`}</span>
+                          </div>
 
-                          {isAudioPaused ? (
+                          <div className="flex items-center gap-1 pl-2 border-l border-slate-800">
+                            {isAudioPaused ? (
+                              <button
+                                type="button"
+                                onClick={resumeAudio}
+                                className="p-1 text-slate-300 hover:text-white rounded hover:bg-slate-800 transition-colors cursor-pointer"
+                                title="Resume reading"
+                              >
+                                <Play className="w-3.5 h-3.5 fill-current" />
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={pauseAudio}
+                                className="p-1 text-slate-300 hover:text-white rounded hover:bg-slate-800 transition-colors cursor-pointer"
+                                title="Pause reading"
+                              >
+                                <Pause className="w-3.5 h-3.5 fill-current" />
+                              </button>
+                            )}
+
                             <button
                               type="button"
-                              onClick={resumeAudio}
-                              className="p-1 text-slate-300 hover:text-white rounded hover:bg-slate-800 transition-colors cursor-pointer"
-                              title="Resume reading"
+                              onClick={stopAudio}
+                              className="p-1 text-red-400 hover:text-red-300 rounded hover:bg-slate-800 transition-colors cursor-pointer"
+                              title="Stop reading"
                             >
-                              <Play className="w-3.5 h-3.5 fill-current" />
+                              <Square className="w-3 h-3 fill-current" />
                             </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={pauseAudio}
-                              className="p-1 text-slate-300 hover:text-white rounded hover:bg-slate-800 transition-colors cursor-pointer"
-                              title="Pause reading"
-                            >
-                              <Pause className="w-3.5 h-3.5 fill-current" />
-                            </button>
-                          )}
-
-                          <button
-                            type="button"
-                            onClick={stopAudio}
-                            className="p-1 text-red-400 hover:text-red-300 rounded hover:bg-slate-800 transition-colors cursor-pointer"
-                            title="Stop reading"
-                          >
-                            <Square className="w-3 h-3 fill-current" />
-                          </button>
+                          </div>
                         </div>
                       )}
                     </div>
                   )}
                 </div>
-                <div className="text-slate-300 text-sm whitespace-pre-wrap leading-relaxed">
-                  {draftData.citizen_view}
+
+                <div className="p-6 max-h-[60vh] overflow-y-auto">
+                  <div className="text-slate-300 text-sm whitespace-pre-wrap leading-relaxed">
+                    {draftData.citizen_view}
+                  </div>
                 </div>
               </div>
             )}
 
             {/* TAB 3: ESCALATION & SUBMISSION LADDER */}
             {activeTab === 'escalation' && (
-              <div className="bg-slate-950 border border-slate-800 rounded-lg p-6 max-h-[60vh] overflow-y-auto space-y-6">
+              <div className="bg-slate-950 border border-slate-800 rounded-xl p-6 max-h-[60vh] overflow-y-auto space-y-6 shadow-2xl">
                 <div>
-                  <h4 className="text-xs uppercase tracking-wider text-emerald-400 font-mono mb-3">
-                    {t.submissionChecklistTitle}
+                  <h4 className="text-xs uppercase tracking-wider text-emerald-400 font-mono mb-3 font-semibold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4" />
+                    <span>{t.submissionChecklistTitle}</span>
                   </h4>
-                  <ul className="space-y-2 text-xs text-slate-300">
+                  <ul className="space-y-2 text-xs text-slate-300 font-mono">
                     {draftData.submission_checklist && draftData.submission_checklist.map((item: string, idx: number) => (
-                      <li key={idx} className="flex items-start gap-2 bg-slate-900/60 p-2.5 rounded border border-slate-800">
-                        <span className="text-emerald-500 font-bold">□</span>
-                        <span>{item}</span>
+                      <li key={idx} className="flex items-start gap-2.5 bg-slate-900/60 p-3 rounded-lg border border-slate-800/70">
+                        <span className="text-emerald-400 font-bold mt-0.5">□</span>
+                        <span className="leading-relaxed">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
                 <div>
-                  <h4 className="text-xs uppercase tracking-wider text-blue-400 font-mono mb-3">
-                    {t.tabEscalation}
+                  <h4 className="text-xs uppercase tracking-wider text-blue-400 font-mono mb-3 font-semibold flex items-center gap-1.5">
+                    <ListTodo className="w-4 h-4" />
+                    <span>{t.tabEscalation}</span>
                   </h4>
                   <div className="space-y-3">
                     {draftData.escalation_steps && draftData.escalation_steps.map((stepDesc: string, idx: number) => (
-                      <div key={idx} className="flex items-start gap-3 bg-slate-900/60 p-3 rounded border border-slate-800">
-                        <div className="w-6 h-6 rounded-full bg-blue-950 border border-blue-800 text-blue-400 flex items-center justify-center text-xs font-mono shrink-0">
+                      <div key={idx} className="flex items-start gap-3 bg-slate-900/60 p-3.5 rounded-lg border border-slate-800/70">
+                        <div className="w-6 h-6 rounded-full bg-blue-950 border border-blue-800 text-blue-400 flex items-center justify-center text-xs font-mono font-bold shrink-0">
                           {idx + 1}
                         </div>
                         <p className="text-xs text-slate-300 leading-relaxed">
