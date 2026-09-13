@@ -86,6 +86,42 @@ const ttsLocaleMap: Record<string, string> = {
   bilingual: 'en-IN',
 };
 
+const EMPTY_VOICES: SpeechSynthesisVoice[] = [];
+let cachedVoices: SpeechSynthesisVoice[] = EMPTY_VOICES;
+
+function subscribeVoices(callback: () => void) {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+    return () => {};
+  }
+  window.speechSynthesis.addEventListener('voiceschanged', callback);
+  return () => {
+    window.speechSynthesis.removeEventListener('voiceschanged', callback);
+  };
+}
+
+function getVoicesSnapshot(): SpeechSynthesisVoice[] {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+    return EMPTY_VOICES;
+  }
+  const current = window.speechSynthesis.getVoices();
+  if (current.length === cachedVoices.length && current.length > 0) {
+    let matches = true;
+    for (let i = 0; i < current.length; i++) {
+      if (current[i] !== cachedVoices[i]) {
+        matches = false;
+        break;
+      }
+    }
+    if (matches) return cachedVoices;
+  }
+  cachedVoices = current;
+  return cachedVoices;
+}
+
+function getServerVoicesSnapshot(): SpeechSynthesisVoice[] {
+  return EMPTY_VOICES;
+}
+
 export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardProps) {
   const [lang, setLang] = useState<Language>(initialLang);
   const [draftLang, setDraftLang] = useState<string>('en');
@@ -129,17 +165,11 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
     () => false
   );
 
-  // Synchronize available device speech voices reactively
+  // Synchronize available device speech voices reactively with cached snapshots
   const voices = useSyncExternalStore(
-    (callback) => {
-      if (typeof window === 'undefined' || !('speechSynthesis' in window)) return () => {};
-      window.speechSynthesis.addEventListener('voiceschanged', callback);
-      return () => {
-        window.speechSynthesis.removeEventListener('voiceschanged', callback);
-      };
-    },
-    () => (typeof window !== 'undefined' && 'speechSynthesis' in window ? window.speechSynthesis.getVoices() : []),
-    () => []
+    subscribeVoices,
+    getVoicesSnapshot,
+    getServerVoicesSnapshot
   );
 
   const getVoiceForLocale = (locale: string, baseLang: string) => {
