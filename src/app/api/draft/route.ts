@@ -80,7 +80,7 @@ export async function POST(req: Request) {
     }
 
     const prompt = `
-USER'S ORIGINAL GRIEVANCE:
+USER'S ORIGINAL GRIEVANCE (May be in English, Hindi, or Hinglish):
 ${grievance}
 
 VERIFIED ANSWERS TO CLARIFYING QUESTIONS:
@@ -101,7 +101,7 @@ INSTRUCTIONS:
    - Specific Grievance & Statutory Breaches: [Cite specific Indian acts e.g. Prevention of Corruption Act 1988/2018, BNSS 2023 / CrPC, Civil Services Rules]
    - Relief / Action Requested: [Concrete, lawful prayers e.g. formal inquiry, trap operation, suspension, completion of service]
    - List of Enclosures: [Numbered evidence list including electronic certificate under Sec 63B BSA 2023 / 65B IEA]
-   - Verification statement with date, place, signature block.
+   - Verification: End the draft with TODAY'S DATE (${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}), Place, and a placeholder for Signature.
 
 2. CITIZEN VIEW:
    - Provide a clear, non-intimidating plain language summary:
@@ -118,7 +118,7 @@ INSTRUCTIONS:
       model: GEMINI_MODEL,
       contents: prompt,
       config: {
-        systemInstruction: "You are NyayaPath Legal Drafting & Citizen Empowerment Engine. Synthesize verified grievance facts into a legally unassailable administrative draft and an accessible citizen summary.",
+        systemInstruction: "You are NyayaPath Legal Drafting & Citizen Empowerment Engine. The user may write in English, Hindi, or Hinglish. Synthesize verified grievance facts into a legally unassailable administrative draft and an accessible citizen summary.",
         responseMimeType: "application/json",
         responseSchema: draftResponseSchema,
       }

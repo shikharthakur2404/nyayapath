@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useSyncExternalStore } from 'react';
 import { generatePDF, printDocument } from '@/lib/pdfGenerator';
 import { translations, languagesList, Language } from '@/lib/translations';
 import { LionCapitalEmblem } from '@/components/NationalEmblem';
+import { haptic } from '@/lib/haptics';
 import { 
   ChevronRight, 
   FileText, 
@@ -623,6 +624,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
   }, [lang]);
 
   const toggleVoiceInput = () => {
+    haptic.selection();
     if (isListening) {
       if (recognitionRef.current) {
         try {
@@ -733,6 +735,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
 
   const handleAnalyze = async () => {
     if (!grievance.trim()) return;
+    haptic.medium();
     setLoadingStage(0);
     setLoading(true);
     setErrorMessage(null);
@@ -746,7 +749,9 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
       if (!res.ok || data.error) throw new Error(data.error || 'Failed to analyze grievance');
       setClassification(data);
       setStep(2);
+      haptic.success();
     } catch (err: unknown) {
+      haptic.error();
       setErrorMessage((err as Error).message || 'Analysis failed. Please check connection and try again.');
     } finally {
       setLoading(false);
@@ -754,6 +759,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
   };
 
   const handleDraft = async () => {
+    haptic.medium();
     setLoadingStage(0);
     setLoading(true);
     setErrorMessage(null);
@@ -775,7 +781,9 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
       const randHash = Math.floor(100000 + Math.random() * 900000);
       setDocketId(`NP-2026-${stateCode}-${randHash}`);
       setStep(3);
+      haptic.success();
     } catch (err: unknown) {
+      haptic.error();
       setErrorMessage((err as Error).message || 'Drafting failed. Please retry.');
     } finally {
       setLoading(false);
@@ -784,6 +792,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
 
   const handleCopy = async () => {
     if (!draftData) return;
+    haptic.light();
     const content = activeTab === 'citizen' ? draftData.citizen_view : draftData.formal_draft;
     try {
       await navigator.clipboard.writeText(content);
@@ -795,6 +804,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
   };
 
   const handlePrint = () => {
+    haptic.light();
     if (draftData) {
       printDocument(draftData.formal_draft, 'NyayaPath_Formal_Complaint');
     } else {
@@ -803,6 +813,7 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
   };
 
   const handleRestart = () => {
+    haptic.medium();
     stopAudio();
     setStep(1);
     setGrievance('');
@@ -815,7 +826,9 @@ export default function GrievanceWizard({ initialLang = 'en' }: GrievanceWizardP
   };
 
   const handleDestroyCase = () => {
+    haptic.warning();
     if (confirm(t.destroyConfirm)) {
+      haptic.medium();
       stopAudio();
       setStep(1);
       setGrievance('');

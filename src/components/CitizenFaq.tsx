@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ChevronDown, ShieldCheck, Scale, Send, Clock, CheckCircle2 } from 'lucide-react';
 import { LionCapitalEmblem } from '@/components/NationalEmblem';
+import { haptic } from '@/lib/haptics';
 
 interface FaqItem {
   id: string;
@@ -92,6 +93,7 @@ export default function CitizenFaq({ lang = 'hi' }: { lang?: string }) {
   const [openId, setOpenId] = useState<string | null>('retaliation');
 
   const toggleFaq = (id: string) => {
+    haptic.selection();
     setOpenId(openId === id ? null : id);
   };
 

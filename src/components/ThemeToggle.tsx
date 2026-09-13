@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from 'react';
 import { Sun, Moon } from 'lucide-react';
+import { haptic } from '@/lib/haptics';
 
 function subscribe(callback: () => void) {
   window.addEventListener('storage', callback);
@@ -25,6 +26,7 @@ export default function ThemeToggle() {
   const isDark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const toggleTheme = () => {
+    haptic.selection();
     const nextDark = !isDark;
     if (nextDark) {
       document.documentElement.classList.add('dark');
