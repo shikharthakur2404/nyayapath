@@ -106,3 +106,9 @@ npm run dev
 ```
 
 Visit `http://localhost:3000` to access the application.
+
+---
+
+Copyright © 2026 Shikhar Thakur.
+
+Released under the MIT License — see [LICENSE](LICENSE).
